@@ -15,10 +15,14 @@ function CreatingWorkout () {
     return (match&&match[7].length==11)? match[7] : false;
   }
 
+  const urlForEmbeddedVideo = `https://www.youtube.com/embed/${getIdVideoYoutube(url)}`
+
   return (
     <div className = 'div-creating'>
       <h1>Create your day workout</h1>
-
+      <h3>Video name</h3>
+      <p>{day}</p>
+      <iframe width="560" height="315" src={urlForEmbeddedVideo} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
     </div>
   ) 
 }
