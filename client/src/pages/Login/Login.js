@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../Asset/Screenshot from 2020-05-01 18-39-32.png'
+import logo from '../../Asset/Screenshot from 2020-05-01 18-39-32.png'
 
 function Login () {
 
