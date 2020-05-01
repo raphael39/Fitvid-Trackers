@@ -1,11 +1,17 @@
-import React from 'react'
+import React from 'react';
+import logo from '../Asset/Screenshot from 2020-05-01 18-39-32.png'
 
 function Login () {
 
   return (
     <div>
+      <img src={logo}></img>
       <h1>Login</h1>
+      <p>WELCOME TO FITVID TRACKER, THE FIRST WEBSITE/APP TO CREATE YOUR PERSONAL WORKOUT USING YOUTUBE VIDEOS</p>
+      <button>Login with Google</button>
+      <button>Login with Youtube</button>
     </div>
   ) 
 }
+
 export default Login;
