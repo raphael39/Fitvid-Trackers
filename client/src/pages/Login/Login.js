@@ -10,7 +10,7 @@ function Login () {
       <h1>Login</h1>
       <p className='description'>WELCOME TO FITVID TRACKER, THE FIRST WEBSITE/APP TO CREATE YOUR PERSONAL WORKOUT USING YOUTUBE VIDEOS</p>
       <button>Login with Google</button>
-      <button>Login with Youtube</button>
+       <button>Login with Youtube</button>
     </div>
   ) 
 }

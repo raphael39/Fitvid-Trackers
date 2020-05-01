@@ -1,0 +1,14 @@
+.div-login{
+  margin: 0 20%;
+}
+
+.logo{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.description{
+ text-align: center;
+}
