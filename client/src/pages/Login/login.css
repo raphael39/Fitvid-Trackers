@@ -1,0 +1,13 @@
+.div-login{
+  margin: 0 20%;
+}
+
+.logo{
+  display: block;
+  margin: 0 auto;
+  max-height: 300px;
+}
+
+.description{
+ text-align: center;
+}
