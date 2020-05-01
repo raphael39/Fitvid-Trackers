@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div>
-        <Route path="/login"
+        <Route exact path="/login"
           component={Login} />
       </div>            
     </Router>
