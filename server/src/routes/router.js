@@ -1,19 +1,24 @@
 import Router from '@koa/router';
 
 const router = new Router();
-const routine = new Router({ prefix: '/routine' });
+const plan = new Router({ prefix: '/plan' });
 const profile = new Router({ prefix: '/profile' });
 const calendar = new Router({ prefix: '/calendar'});
 const user = new Router({ prefix: '/user' });
+const workout = new Router({ prefix: '/workout' });
 
 router.post('/login', (ctx, next) => {});
 router.post('/sign-up', (ctx, next) => {});
 
-routine
+plan
   .post('/', (ctx, next) => {})
-  .get('/:id', (ctx, next) => { })
+  .get('/:id', (ctx, next) => {})
   .post('/:id', (ctx, next) => {})
   .get('/all', (ctx, next) => {});
+
+workout
+  .get('/:id', (ctx, next) => {})
+  .post('/', (ctx, next) => {});
 
 profile
   .get('/', (ctx, next) => {})
@@ -28,7 +33,7 @@ user
   .get('/:id', (ctx, next) => {})
   .get('/all', (ctx, next) => {});
 
-const nestedRoutes = [routine, profile, calendar, user];
+const nestedRoutes = [plan, profile, calendar, user, workout];
 for (const r of nestedRoutes) {
   router.use(r.routes(), r.allowedMethods());
 }
