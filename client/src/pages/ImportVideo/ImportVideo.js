@@ -6,7 +6,7 @@ function ImportVideo () {
 
 
   return (
-    <div className = 'div-login'>
+    <div className = 'div-import'>
       <h1>Import Video</h1>
       <p>Copy here the youtube link you want to import:</p>
       <input type='text' placeholder='video url' onChange ={e=> setUrl(e.target.value)}></input>
