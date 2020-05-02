@@ -1,0 +1,16 @@
+ h1 {
+   margin: 5vw 20%;
+   
+   
+} 
+
+.header-search-view {
+    background-color: bisque;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.search-input {
+    margin: 5vw 5vw 0vw 20vw;
+}

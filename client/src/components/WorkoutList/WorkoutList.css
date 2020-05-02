@@ -1,0 +1,20 @@
+.workout-box {
+  height: 150px;
+  width: 70vw;
+  margin: 5vh auto;
+  border-color: red;
+  border: solid;
+  padding-left: 5vw;
+  border-width: 3px;
+  display: flex;
+  
+  justify-content: space-between;
+}
+
+.video-box {
+  width: 30vw;
+}
+
+iframe {
+    width: 100%;
+}
