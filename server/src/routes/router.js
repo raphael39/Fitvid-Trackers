@@ -1,5 +1,5 @@
-import Router from '@koa/router';
-import queryString from 'query-string';
+const queryString = require('query-string');
+const Router = require('@koa/router');
 
 const router = new Router();
 const plan = new Router({ prefix: '/plan' });
@@ -50,4 +50,4 @@ for (const r of nestedRoutes) {
   router.use(r.routes(), r.allowedMethods());
 }
 
-export default router;
+module.exports = router;
