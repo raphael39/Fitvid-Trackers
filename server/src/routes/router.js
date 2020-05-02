@@ -2,6 +2,10 @@ const Router = require('@koa/router');
 const queryString = require('query-string');
 const googleAuth = require('../services/google-auth');
 
+const planRouter = require('./plan');
+const profileRouter = require('./profile');
+const workoutRouter = require('./workout');
+
 const router = new Router();
 const plan = new Router({ prefix: '/plan' });
 const profile = new Router({ prefix: '/profile' });
@@ -49,7 +53,8 @@ user
   .get('/:id', (ctx, next) => { })
   .get('/all', (ctx, next) => { });
 
-const nestedRoutes = [plan, profile, calendar, user, workout, login];
+const nestedRoutes = [planRouter, profileRouter, workoutRouter, calendar, user, login];
+
 for (const r of nestedRoutes) {
   router.use(r.routes(), r.allowedMethods());
 }

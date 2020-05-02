@@ -15,7 +15,8 @@
     "dotenv": "^8.2.0",
     "googleapis": "^49.0.0",
     "koa": "^2.11.0",
-    "mongoose": "^5.9.11",
-    "query-string": "^6.12.1"
+    "query-string": "^6.12.1",
+    "koa-bodyparser": "^4.3.0",
+    "mongoose": "^5.9.11"
   }
 }
