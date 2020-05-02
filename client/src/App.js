@@ -15,9 +15,10 @@ import './App.css';
 
 
 function App() {
+
   return (
     <Router>
-      <div>
+      <Switch>
         <Route exact path="/login"
           component={Login} />
         <Route exact path="/importVideo"
@@ -26,7 +27,7 @@ function App() {
           component={CreatingWorkout} />
           <Route exact path="/workoutList"
           component={ListOfWorkouts} />
-      </div>            
+      </Switch>            
     </Router>
   );
 }

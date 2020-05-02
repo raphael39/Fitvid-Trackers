@@ -1,5 +1,5 @@
-import Koa from 'koa';
-import router from './routes/router.js';
+const Koa = require('koa');
+const router = require('./routes/router.js');
 
 const app = new Koa();
 
