@@ -1,5 +1,6 @@
-const queryString = require('query-string');
 const Router = require('@koa/router');
+const queryString = require('query-string');
+const googleLogin = require('../google-utils');
 
 const router = new Router();
 const plan = new Router({ prefix: '/plan' });
@@ -8,15 +9,27 @@ const calendar = new Router({ prefix: '/calendar'});
 const user = new Router({ prefix: '/user' });
 const workout = new Router({ prefix: '/workout' });
 
+
+
+
 router.get('/google_authcb', (ctx, next) => {
+
+  const googleAuthCode = queryString.parse(ctx.request.querystring).code;
+  const googleAccountInfo = googleLogin.getGoogleAccountFromCode(googleAuthCode);
+  console.log("googleAccountInfo", googleAccountInfo)
+
+
   ctx.type = 'html';
-  ctx.body = `<p>You have been authenticated with Google.</p><p>Your authentication code is: ${queryString.parse(ctx.request.querystring).code}</p>`;
+  ctx.body = `<p>You have been authenticated with Google.</p><p>Your authentication code is: ${googleAuthCode}</p>`;
+
+
 })
-router.get('/google_test', (ctx, next) => {
 
+router.get('/google_test', (ctx, next) => {
+  const url = googleLogin.urlGoogle();
 
   ctx.type = 'html';
-  ctx.body = '<a href="https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&prompt=consent&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.me%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&response_type=code&client_id=382468121294-bdf3bk9esrafq76l98g1tv2ahb5ukstc.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3001%2Fgoogle_authcb">Log in with Google</a>';
+  ctx.body = `<a href="${url}">Log in with Google</a>`;
 })
 
 router.post('/login', (ctx, next) => {});

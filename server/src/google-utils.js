@@ -1,4 +1,4 @@
-import { url } from '@koa/router';
+const url = require('@koa/router').url;
 
 const {google} = require('googleapis');
 require('dotenv').config()
@@ -24,8 +24,8 @@ function createConnection() {
  * This scope tells google what information we want to request.
  */
 const defaultScope = [
-  'https://www.googleapis.com/auth/plus.me',
-  'https://www.googleapis.com/auth/userinfo.email',
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/userinfo.email'
 ];
 
 /**
@@ -52,26 +52,32 @@ const urlGoogle = () => {
 /**
  * Helper function to get the library with access to the google plus api.
  */
-function getGooglePlusApi(auth) {
-  return google.plus({ version: 'v1', auth });
+function getGooglePeopleApi(auth) {
+  return google.people({ version: 'v1', auth });
 }
 
 /**
  * Extract the email and id of the google account from the "code" parameter.
  */
-function getGoogleAccountFromCode(code) {
+async function getGoogleAccountFromCode(code) {
 
   // get the auth "tokens" from the request
+  const auth = createConnection();
   const data = await auth.getToken(code);
+  console.log("getGoogleAccountFromCode -> data", data)
   const tokens = data.tokens;
+  console.log("getGoogleAccountFromCode -> tokens", tokens)
 
   // add the tokens to the google api so we have access to the account
-  const auth = createConnection();
   auth.setCredentials(tokens);
 
   // connect to google plus - need this to get the user's email
-  const plus = getGooglePlusApi(auth);
-  const me = await plus.people.get({ userId: 'me' });
+  const service = getGooglePeopleApi(auth);
+  const me = await service.people.get({ resourceName: 'people/me', personFields: 'emailAddresses,names' });
+  console.log("getGoogleAccountFromCode -> me", me)
+  console.log("getGoogleAccountFromCode -> me.data.names", me.data.names)
+  console.log("getGoogleAccountFromCode -> me.data.emailAddresses", me.data.emailAddresses)
+
 
   // get the google id and email
   const userGoogleId = me.data.id;
@@ -84,3 +90,5 @@ function getGoogleAccountFromCode(code) {
     tokens: tokens, // you can save these to the user if you ever want to get their details without making them log in again
   };
 }
+
+module.exports = {getGoogleAccountFromCode, urlGoogle};
