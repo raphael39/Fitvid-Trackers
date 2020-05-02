@@ -6,3 +6,7 @@ const mockPlan = {
   recurring_days: [2, 4, 6], // monday, wednesday, friday
   workout_id: 10
 };
+
+module.exports = {
+  mockPlan
+};
