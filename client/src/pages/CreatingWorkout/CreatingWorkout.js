@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from '../../components/Table/Table'
 
 //mock data 
 
@@ -23,6 +24,7 @@ function CreatingWorkout () {
       <h3>Video name</h3>
       <p>{day}</p>
       <iframe width="560" height="315" src={urlForEmbeddedVideo} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      <Table/>
     </div>
   ) 
 }
