@@ -13,17 +13,13 @@ const login = new Router({ prefix: '/login' });
 login
   .get('/google', (ctx, next) => {
     const url = googleAuth.getAuthUrl();
-
-    ctx.type = 'html';
-    ctx.body = `<a href="${url}">Log in with Google</a>`;
+    ctx.redirect(url);
   })
   .get('/google-cb', async (ctx, next) => {
-
     const googleAuthCode = queryString.parse(ctx.request.querystring).code;
     const user = await googleAuth.getGoogleAccountFromCode(googleAuthCode);
-
-    ctx.type = 'html';
-    ctx.body = `<p>You have been authenticated with Google.</p><p>Your authentication code is: ${googleAuthCode}</p><p>You are:${JSON.stringify(user)}</p>`;
+    console.log("user", user)
+    ctx.redirect(`http://localhost:3000/setCredentials?token=${user.tokens}&userid=${user.id}`);
   })
 
 

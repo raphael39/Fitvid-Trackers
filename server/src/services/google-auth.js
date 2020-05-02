@@ -44,7 +44,7 @@ async function getGoogleAccountFromCode(code) {
     email: email,
     firstName: firstName,
     lastName: lastName,
-    tokens: tokens
+    id_token: tokens.id_token
   };
 }
 
