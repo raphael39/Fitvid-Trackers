@@ -1,10 +1,9 @@
 const Router = require('@koa/router');
-const queryString = require('query-string');
-const googleAuth = require('../services/google-auth');
 
 const planRouter = require('./plan');
 const profileRouter = require('./profile');
 const workoutRouter = require('./workout');
+const loginRouter = require('./login');
 
 const router = new Router();
 const plan = new Router({ prefix: '/plan' });
@@ -12,23 +11,6 @@ const profile = new Router({ prefix: '/profile' });
 const calendar = new Router({ prefix: '/calendar' });
 const user = new Router({ prefix: '/user' });
 const workout = new Router({ prefix: '/workout' });
-const login = new Router({ prefix: '/login' });
-
-login
-  .get('/google', (ctx, next) => {
-    const url = googleAuth.getAuthUrl();
-    ctx.redirect(url);
-  })
-  .get('/google-cb', async (ctx, next) => {
-    const googleAuthCode = queryString.parse(ctx.request.querystring).code;
-    const user = await googleAuth.getGoogleAccountFromCode(googleAuthCode);
-    console.log("user", user)
-    ctx.redirect(`http://localhost:3000/setCredentials?token=${user.tokens}&userid=${user.id}`);
-  })
-
-
-router.post('/login', (ctx, next) => { });
-router.post('/sign-up', (ctx, next) => { });
 
 plan
   .post('/', (ctx, next) => { })
@@ -53,7 +35,7 @@ user
   .get('/:id', (ctx, next) => { })
   .get('/all', (ctx, next) => { });
 
-const nestedRoutes = [planRouter, profileRouter, workoutRouter, calendar, user, login];
+const nestedRoutes = [planRouter, profileRouter, workoutRouter, calendar, user, loginRouter];
 
 for (const r of nestedRoutes) {
   router.use(r.routes(), r.allowedMethods());
