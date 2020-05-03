@@ -27,8 +27,8 @@ function Table () {
   }
 
   const handleRemoveSpecificRow = (index) => {
-    rows.splice(index, 1);
-    const newRows = rows;
+    const newRows = rows
+    newRows.splice(index, 1);
     setRows([...newRows])
   }
 
@@ -89,6 +89,8 @@ function Table () {
                         type="text"
                         name="timestamp"
                         onChange={(event) => handleChange(event, idx, "timestamp")}
+                        onClick={() => console.log("bau")}
+
                         className="form-control"
                       />
                     </td>
