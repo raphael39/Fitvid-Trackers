@@ -48,17 +48,18 @@
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
-* [About the Project](#about-the-project)
-  * [Built With](#built-with)
-* [Getting Started](#getting-started)
-  * [Prerequisites](#prerequisites)
-  * [Installation](#installation)
-* [Usage](#usage)
-* [Roadmap](#roadmap)
-* [Contributing](#contributing)
-* [License](#license)
-* [Contact](#contact)
-* [Acknowledgements](#acknowledgements)
+- [Table of Contents](#table-of-contents)
+- [About The Project](#about-the-project)
+  - [Built With](#built-with)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage](#usage)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
 
 
 
@@ -102,21 +103,23 @@ npm install npm@latest -g
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Register your app and obtain OAuth 2.0 client keys at [Google APIs](https://console.developers.google.com/)
 2. Clone the repo
 ```sh
 git clone https://github.com/your_username_/Project-Name.git
 ```
-3. Install NPM packages
+3. Install NPM packages for both client and server, by running the following command separately in the *client* and the *server* directory
 ```sh
 npm install
 ```
-4. Enter your API in `config.js`
-```JS
-const API_KEY = 'ENTER YOUR API';
-```
+4. Specify the following environment variables either in the server's environment, or in a *.env* file
 
-
+  - GOOGLE_CLIENT_ID - client ID obtained from Google
+  - GOOGLE_CLIENT_SECRET - client secret key obtained from Google
+  - GOOGLE_REDIRECT_URI - callback URL specified in Google APIs (e.g. *http://localhost:3001/login/google-cb*)
+  - CLIENT_URL - URL of the client part of the application, including port number (e.g. *http://localhost:3000*)
+  - SERVER_HOST - host name on which the server is running (e.g. *localhost*)
+  - SERVER_PORT - port on which the server is running (e.g. *3001*)
 
 <!-- USAGE EXAMPLES -->
 ## Usage
