@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import Table from '../../components/Table/Table';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
+import TopBar from '../../components/TopBar/TopBar';
 
-//mock data 
+//mock data
 
 //youtube url, please note that the user copied an url with time too, to consider as case scenario
 const testUrl = 'https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s'
@@ -22,17 +23,18 @@ function getIdVideoYoutube (url) {
 function CreatingWorkout () {
 
   const [url, setUrl] = useState('');
-  
+
   useEffect(() => {
     const youtubeId =  getIdVideoYoutube(testUrl);
     setUrl(`https://www.youtube.com/watch?v=${youtubeId}`)
   },[])
-  
+
   console.log(url)
   // let urlForEmbeddedVideo = `https://www.youtube.com/embed/${youtubeId}${ time===0 ?  '' : '?start=32'}`
 
   return (
     <div className = 'div-creating'>
+    <TopBar></TopBar>
       <h1>Create your day workout</h1>
       <h3>Video name</h3>
       <p>{day}</p>
@@ -40,7 +42,7 @@ function CreatingWorkout () {
       <Table editable={true}/>
       <button onClick={()=> {}}>Create</button>
     </div>
-  ) 
+  )
 }
 
 export default CreatingWorkout;

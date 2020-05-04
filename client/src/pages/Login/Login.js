@@ -9,10 +9,10 @@ function Login () {
       <img src={logo} className='logo'></img>
       <h1>Login</h1>
       <p className='description'>WELCOME TO FITVID TRACKER, THE FIRST WEBSITE/APP TO CREATE YOUR PERSONAL WORKOUT USING YOUTUBE VIDEOS</p>
-      <button>Login with Google</button>
+      <button onClick={(e) => { e.preventDefault(); window.location.href = 'http://localhost:3001/login/google' }}>>Login with Google</button>
        <button>Login with Youtube</button>
     </div>
-  ) 
+  )
 }
 
 export default Login;

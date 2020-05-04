@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Login from './pages/Login/Login';
 import ImportVideo from './pages/ImportVideo/ImportVideo';
+<<<<<<< HEAD
 import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout';
 import Workout from './pages/Workout/Workout'
+=======
+import SetCredentials from './pages/SetCredentials/SetCredentials';
+import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout'
+import ListOfWorkouts from './pages/ListOfWorkouts/ListOfWorkouts';
+>>>>>>> a503b0e25482433bea71ce64c5857395a7d4514d
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,22 +16,27 @@ import {
   Link
 } from "react-router-dom";
 
-
 import './App.css';
 
+
 function App() {
+
   return (
     <Router>
-      <div>
+      <Switch>
         <Route exact path="/login"
           component={Login} />
+        <Route exact path="/setCredentials"
+          render={ () => <SetCredentials /> } />
         <Route exact path="/importVideo"
           component={ImportVideo} />
         <Route exact path="/createWorkout"
           component={CreatingWorkout} />
         <Route exact path="/workout"
           component={Workout} />
-      </div>            
+        <Route exact path="/workoutList"
+          component={ListOfWorkouts} />
+      </Switch>
     </Router>
   );
 }
