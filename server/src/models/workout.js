@@ -10,3 +10,7 @@ const mockWorkout = {
   thumbnail: 'https://i3.ytimg.com/vi/x6BqHFLUqD4/hqdefault.jpg',
   created_by: 1 // user id
 };
+
+module.exports = {
+  mockWorkout
+};
