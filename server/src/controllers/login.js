@@ -19,13 +19,17 @@ const processGoogleCb = async (ctx, next) => {
   const lastName = decodedToken.family_name;
   const email = decodedToken.email;
 
-  // check if user exists, create if not
   if (!profile.getProfile(googleId)) {
     profile.createProfile(googleId, email, firstName, lastName);
   }
-  // then set token for user
+
+  setUserToken(googleId, token);
 
   ctx.redirect(`${process.env.CLIENT_URL}/setCredentials?token=${tokens.id_token}`);
+}
+
+const setUserToken = async (id, token) => {
+  // add logic to save token in DB
 }
 
 module.exports = {

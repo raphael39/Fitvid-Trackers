@@ -1,4 +1,3 @@
-require('dotenv').config()
 const url = require('@koa/router').url;
 const {google} = require('googleapis');
 

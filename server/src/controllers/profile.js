@@ -10,10 +10,8 @@ const updateProfile = async (ctx, next) => {
   ctx.status = 200;
 }
 
-const createProfile = async (ctx, next) => {
-  const createdMockProfile = ctx.request.body;
-  ctx.body = createdMockProfile;
-  ctx.status = 200;
+const createProfile = async (googleId, email, firstName, lastName) => {
+  // add logic to create profile in DB
 }
 
 module.exports = {
