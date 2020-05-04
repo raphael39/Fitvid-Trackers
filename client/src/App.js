@@ -2,6 +2,7 @@ import React from 'react';
 import Login from './pages/Login/Login';
 import ImportVideo from './pages/ImportVideo/ImportVideo';
 import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout'
+import ListOfWorkouts from './pages/ListOfWorkouts/ListOfWorkouts';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,17 +13,21 @@ import {
 
 import './App.css';
 
+
 function App() {
+
   return (
     <Router>
-      <div>
+      <Switch>
         <Route exact path="/login"
           component={Login} />
         <Route exact path="/importVideo"
           component={ImportVideo} />
         <Route exact path="/createWorkout"
           component={CreatingWorkout} />
-      </div>            
+          <Route exact path="/workoutList"
+          component={ListOfWorkouts} />
+      </Switch>            
     </Router>
   );
 }
