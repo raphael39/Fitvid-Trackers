@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function Table () {
+function Table ({editable, rowsCompiled, setTimeVideo}) {
 
   const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
- 
+
+  useEffect(()=>{
+    rowsCompiled && setRows(rowsCompiled)
+  }, [])
+   
   //TO MODIFY
   const handleChange = (event, index, name) => {
     event.preventDefault();
@@ -66,7 +70,7 @@ function Table () {
                 </tr>
               </thead>
               <tbody>
-                {rows.map((item, idx) => (
+                {editable && rows.map((item, idx) => (
                   <tr id="addr0" key={idx}>
                     <td>
                       <input
@@ -120,8 +124,34 @@ function Table () {
                     </td> */}
                   </tr>
                 ))}
+                {!editable && rows.map((item, idx) => (
+                  <tr id="addr0" key={idx}>
+                    <td>
+                      {rows[idx].name}
+                    </td>
+                    <td>
+                      {rows[idx].sets}
+
+                    </td>
+                    <td>
+                      {rows[idx].reps}
+                    </td>
+                    <td onClick={()=>{setTimeVideo(rows[idx].timestamp)}}>
+                      {rows[idx].timestamp}
+                    </td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        name="done"
+                        onClick={() => handleCheckbox(idx)}
+                        className="form-control"
+                      />
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
+            {editable && <div>
             <button onClick={handleAddRow} className="btn btn-primary">
               Add Row
             </button>
@@ -131,6 +161,7 @@ function Table () {
             >
               Delete Last Row
             </button>
+            </div>}
             <button
               onClick={logRow}
               className="btn btn-danger float-right"

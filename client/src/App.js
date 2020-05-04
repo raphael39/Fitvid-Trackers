@@ -1,7 +1,8 @@
 import React from 'react';
 import Login from './pages/Login/Login';
 import ImportVideo from './pages/ImportVideo/ImportVideo';
-import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout'
+import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout';
+import Workout from './pages/Workout/Workout'
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,6 +23,8 @@ function App() {
           component={ImportVideo} />
         <Route exact path="/createWorkout"
           component={CreatingWorkout} />
+        <Route exact path="/workout"
+          component={Workout} />
       </div>            
     </Router>
   );

@@ -37,8 +37,8 @@ function CreatingWorkout () {
       <h3>Video name</h3>
       <p>{day}</p>
       <YoutubePlayer url={url}/>
-      <Table/>
-      <button onClick={()=> {setUrl(url+`?start=32`)}}>Change time</button>
+      <Table editable={true}/>
+      <button onClick={()=> {}}>Create</button>
     </div>
   ) 
 }
