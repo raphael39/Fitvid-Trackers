@@ -12,13 +12,14 @@ function Workout ({
 }) {
 
   const [timeVideo, setTimeVideo] = useState();
+  const [clickTimestamp, setClickTimestamp] = useState(false)
 
 
   return (
     <div className = 'div-Workout'>
      Workout
-     <YoutubePlayer url={url} timeVideo={timeVideo}/>
-     <Table rowsCompiled={rows} editable={false} setTimeVideo={setTimeVideo}/>
+     <YoutubePlayer url={url} timeVideo={timeVideo} clickTimestamp={clickTimestamp}/>
+     <Table rowsCompiled={rows} editable={false} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp}/>
     </div>
   ) 
 }

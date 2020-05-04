@@ -1,10 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import ReactPlayer from 'react-player'
 
-function YoutubePlayer ({url, timeVideo}) {
+function YoutubePlayer ({url, timeVideo, clickTimestamp}) {
 
   const player = useRef();
-  console.log(player.current)
 
   function convertToSeconds (time) {
     if(!time.includes(":")) return Number(time);
@@ -26,17 +25,16 @@ function YoutubePlayer ({url, timeVideo}) {
     if(timeVideo) {
       console.log(timeVideo)
       const timeToSec = convertToSeconds(timeVideo)
-      player.current.seekTo(timeToSec, "seconds")
+      player.current.seekTo(timeToSec, "seconds");
     }
-  },[timeVideo])
+  },[clickTimestamp])
 
-
+  
   return (
     <div className="Youtube">
       <ReactPlayer ref={player} url={url} controls={true} playing/>
       <button onClick={() => { player.current.seekTo(15, 'seconds')}}>test 15 seconds</button>
       <button onClick={() => { player.current.seekTo(180, "seconds")}}>test 180 seconds</button>
-      {player.current && console.log(player.current)}
     </div>
   ) 
 }

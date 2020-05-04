@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function Table ({editable, rowsCompiled, setTimeVideo}) {
+function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickTimestamp}) {
 
   const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
 
@@ -101,8 +101,6 @@ function Table ({editable, rowsCompiled, setTimeVideo}) {
                         type="text"
                         name="timestamp"
                         onChange={(event) => handleChange(event, idx, "timestamp")}
-                        onClick={() => console.log("bau")}
-
                         className="form-control"
                       />
                     </td>
@@ -136,7 +134,7 @@ function Table ({editable, rowsCompiled, setTimeVideo}) {
                     <td>
                       {rows[idx].reps}
                     </td>
-                    <td onClick={()=>{setTimeVideo(rows[idx].timestamp)}}>
+                    <td onClick={()=>{setTimeVideo(rows[idx].timestamp); setClickTimestamp(!clickTimestamp)}}>
                       {rows[idx].timestamp}
                     </td>
                     <td>
