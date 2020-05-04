@@ -8,7 +8,10 @@ function Table () {
   const handleChange = (event, index, name) => {
     event.preventDefault();
     console.log(event.target.value, index, name);
-    rows[index][name] = event.target.value;
+    // rows[index][name] = event.target.value;
+    const newRows = rows;
+    newRows[index][name] = event.target.value;
+    setRows(newRows);
   }
 
   const handleAddRow = () => {
@@ -26,11 +29,16 @@ function Table () {
     setRows(rows.slice(0, -1));
   }
 
-  const handleRemoveSpecificRow = (index) => {
-    const newRows = rows
-    newRows.splice(index, 1);
-    setRows([...newRows])
-  }
+  // const handleRemoveSpecificRow = (index) => {
+  //   // const newRows = rows
+  //   // console.log(newRows)
+  //   // const newRows = rows.splice(index, 1);
+  //   const newRows = rows.filter(row => row !== rows[index]);
+  
+  //   console.log("new Rows", newRows)
+  //   // console.log(newRows)
+  //   setRows(newRows);
+  // }
 
   const handleCheckbox = (index) => {
     rows[index].done = !(rows[index].done)
@@ -102,14 +110,14 @@ function Table () {
                         className="form-control"
                       />
                     </td>
-                    <td>
+                    {/* <td>
                       <button
                         className="btn btn-outline-danger btn-sm"
                         onClick={() => handleRemoveSpecificRow(idx)}
                       >
                         Remove
                       </button>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>

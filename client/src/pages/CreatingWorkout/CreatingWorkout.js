@@ -25,9 +25,9 @@ function CreatingWorkout () {
   
   useEffect(() => {
     const youtubeId =  getIdVideoYoutube(testUrl);
-    setUrl(`https://www.youtube.com/embed/${youtubeId}`)
+    setUrl(`https://www.youtube.com/watch?v=${youtubeId}`)
   },[])
-
+  
   console.log(url)
   // let urlForEmbeddedVideo = `https://www.youtube.com/embed/${youtubeId}${ time===0 ?  '' : '?start=32'}`
 
@@ -36,10 +36,9 @@ function CreatingWorkout () {
       <h1>Create your day workout</h1>
       <h3>Video name</h3>
       <p>{day}</p>
-      <iframe width="560" height="315" src={url} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      <YoutubePlayer url={url}/>
       <Table/>
-      <YoutubePlayer/>
-      <button onClick={()=> {    setUrl(url+`?start=32`)}}>Change time</button>
+      <button onClick={()=> {setUrl(url+`?start=32`)}}>Change time</button>
     </div>
   ) 
 }
