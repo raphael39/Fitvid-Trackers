@@ -1,23 +1,23 @@
-const db = monk(process.env.MONGODB_URL || 'localhost/movied');
-const User = db.get('users');
+const jwtDecode = require('jwt-decode');
 
-function authHeaderErr (ctx) {
-  ctx.set('WWW-Authenticate', 'Basic');
-  ctx.throw(401, 'Missing basic authentication header');
+function authHeaderErr (ctx, message) {
+  ctx.set('WWW-Authenticate', 'Bearer');
+  ctx.throw(401, );
 };
 
-const wrongCredentialsMsg = 'Incorrect user or password';
-
 const authorize = async (ctx, next) => {
-  if (!ctx.headers.authorization) authHeaderErr(ctx);
-  const basic = ctx.headers.authorization.split(' ');
-  if (basic.length < 2 && basic[0]!=='Basic') authHeaderErr(ctx);
-  const [username, password] = atob(basic[1]).split(':');
-  const user = await User.findOne({username});
-  ctx.assert(user, 401, wrongCredentialsMsg);
-  const match = await bcrypt.compare(password, user.password);
-  ctx.assert(match, 401, wrongCredentialsMsg);
-  ctx.user = user;
+  if (!ctx.headers.authorization) authHeaderErr(ctx, 'Missing authentication token');
+
+  const token = ctx.headers.authorization;
+  let decodedToken;
+
+  try {
+    decodedToken = jwtDecode(token);
+    ctx.user = decodedToken.googleId;
+  } catch (error) {
+    authHeaderErr(ctx, 'Invalid token provided');
+  }
+
   return await next();
 };
 

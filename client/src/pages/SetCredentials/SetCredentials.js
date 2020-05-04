@@ -1,20 +1,21 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
 
-function Credentials () {
+function SetCredentials (props) {
 
   const search = window.location.search;
   const params = new URLSearchParams(search);
 
   const token = params.get('token');
-  console.log("Credentials -> token", JSON.stringify(token))
-  const userName = params.get('userid');
-  console.log("Credentials -> userName", userName)
-
-
-
   localStorage.setItem('token', token);
-  localStorage.setItem('userName', userName);
+  const decodedToken = jwtDecode(token);
+  console.log("SetCredentials -> decodedToken", decodedToken)
+
+  localStorage.setItem('googleId', decodedToken.sub);
+  localStorage.setItem('firstName', decodedToken.given_name);
+  localStorage.setItem('lastName', decodedToken.family_name);
+  localStorage.setItem('email', decodedToken.email);
 
   return (
     <Redirect to="/createWorkout" />
@@ -22,4 +23,4 @@ function Credentials () {
 
 }
 
-export default Credentials;
+export default SetCredentials;

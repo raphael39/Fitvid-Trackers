@@ -1,6 +1,8 @@
 import React from 'react';
+import TopBar from '../../components/TopBar/TopBar';
 
-//mock data 
+
+//mock data
 
 //youtube url, please note that the user copied an url with time too, to consider as case scenario
 const url = 'https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s'
@@ -19,12 +21,13 @@ function CreatingWorkout () {
 
   return (
     <div className = 'div-creating'>
+    <TopBar></TopBar>
       <h1>Create your day workout</h1>
       <h3>Video name</h3>
       <p>{day}</p>
       <iframe width="560" height="315" src={urlForEmbeddedVideo} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
     </div>
-  ) 
+  )
 }
 
 export default CreatingWorkout;

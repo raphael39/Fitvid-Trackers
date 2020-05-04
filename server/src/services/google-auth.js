@@ -24,28 +24,11 @@ const getAuthUrl = () => {
   });
 };
 
-async function getGoogleAccountFromCode(code) {
+async function getGoogleTokens(code) {
   const auth = createConnection();
   const data = await auth.getToken(code);
-  const tokens = data.tokens;
 
-  auth.setCredentials(tokens);
-
-  const service = google.people({ version: 'v1', auth });
-  const me = await service.people.get({ resourceName: 'people/me', personFields: 'emailAddresses,names' });
-
-  const id = me.data.resourceName;
-  const firstName = me.data.names[0].givenName;
-  const lastName = me.data.names[0].familyName;
-  const email = me.data.emailAddresses[0].value;
-
-  return {
-    id: id,
-    email: email,
-    firstName: firstName,
-    lastName: lastName,
-    id_token: tokens.id_token
-  };
+  return data.tokens;
 }
 
-module.exports = { getGoogleAccountFromCode, getAuthUrl };
+module.exports = { getGoogleTokens, getAuthUrl };

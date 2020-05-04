@@ -5,12 +5,19 @@ const getProfile = async (ctx, next) => {
 };
 
 const updateProfile = async (ctx, next) => {
-  mockProfile = ctx.request.body;
-  ctx.body = mockProfile;
+  const updatedMockProfile = ctx.request.body;
+  ctx.body = updatedMockProfile;
+  ctx.status = 200;
+}
+
+const createProfile = async (ctx, next) => {
+  const createdMockProfile = ctx.request.body;
+  ctx.body = createdMockProfile;
   ctx.status = 200;
 }
 
 module.exports = {
   getProfile,
-  updateProfile
+  updateProfile,
+  createProfile
 };
