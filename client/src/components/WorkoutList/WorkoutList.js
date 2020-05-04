@@ -10,6 +10,7 @@ const WorkoutList = ({ workouts }) => {
           <div className="description-box">
             <h2>{workout.name}</h2>
             <p>{workout.description}</p>
+            <p>{workout.difficulty}</p>
           </div>
           <div className="video-box">
             <iframe
