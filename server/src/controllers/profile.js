@@ -8,12 +8,7 @@ const updateProfile = async (ctx, next) => {
   // update profile data in db
 }
 
-const createProfile = async (googleId, email, firstName, lastName) => {
-  // add logic to create profile in DB
-}
-
 module.exports = {
   getProfile,
-  updateProfile,
-  createProfile
+  updateProfile
 };
