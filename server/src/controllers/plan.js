@@ -1,22 +1,19 @@
-const { mockPlan } = require('../models/plan');
+const { Plan } = require('../models/plan');
 
 const getPlan = async (ctx, next) => {
-  ctx.body = mockPlan;
+  // get plan data from db and send in response
 };
 
 const getAllPlans = async (ctx, next) => {
-  ctx.body = [mockPlan];
+  // get plans data from db and send in response
 };
 
 const createPlan = async (ctx, next) => {
-  ctx.body = 'Success';
-  ctx.status = 201;
+  // add plan to db
 };
 
 const updatePlan = async (ctx, next) => {
-  mockPlan = ctx.request.body;
-  ctx.body = mockPlan;
-  ctx.status = 200;
+  // update plan data from db
 };
 
 module.exports = {

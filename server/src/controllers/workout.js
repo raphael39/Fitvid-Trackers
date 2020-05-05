@@ -1,12 +1,11 @@
-const { mockWorkout } = require('../models/workout');
+const { Workout } = require('../models/workout');
 
 const getWorkout = async (ctx, next) => {
-  ctx.body = mockWorkout;
+  // get workout data from db and send in response
 };
 
 const createWorkout = async (ctx, next) => {
-  ctx.body = 'Success';
-  ctx.status = 201;
+  // add workout data to db
 };
 
 module.exports = {

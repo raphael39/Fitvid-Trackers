@@ -1,21 +1,14 @@
-const { mockProfile } = require('../models/profile');
+const { Profile } = require('../models/profile');
 
 const getProfile = async (ctx, next) => {
-  ctx.body = mockProfile;
+  // get profile data from db and send in response
 };
 
 const updateProfile = async (ctx, next) => {
-  const updatedMockProfile = ctx.request.body;
-  ctx.body = updatedMockProfile;
-  ctx.status = 200;
-}
-
-const createProfile = async (googleId, email, firstName, lastName) => {
-  // add logic to create profile in DB
+  // update profile data in db
 }
 
 module.exports = {
   getProfile,
-  updateProfile,
-  createProfile
+  updateProfile
 };

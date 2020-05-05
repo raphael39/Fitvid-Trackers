@@ -1,7 +1,8 @@
 const queryString = require('query-string');
 const googleAuth = require('../services/google-auth');
-const profile = require('../controllers/profile');
 const jwtDecode = require('jwt-decode');
+const { Profile } = require('../models/profile');
+
 
 const sendToGoogle = async (ctx, next) => {
   const url = googleAuth.getAuthUrl();
@@ -19,8 +20,9 @@ const processGoogleCb = async (ctx, next) => {
   const lastName = decodedToken.family_name;
   const email = decodedToken.email;
 
-  if (!profile.getProfile(googleId)) {
-    profile.createProfile(googleId, email, firstName, lastName);
+  var foundProfile = await Profile.findOne({ googleId });
+  if (!foundProfile) {
+    await Profile.create({ googleId, email, firstName, lastName, token});
   }
 
   setUserToken(googleId, token);

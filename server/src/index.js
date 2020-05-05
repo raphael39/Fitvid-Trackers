@@ -1,9 +1,14 @@
 require('dotenv').config();
 const Koa = require('koa');
-const app = new Koa();
 const bodyParser = require('koa-bodyparser');
+const mongoose = require('mongoose');
 
 const router = require('./routes/router.js');
+
+const app = new Koa();
+
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+
 
 app
   .use(bodyParser())
