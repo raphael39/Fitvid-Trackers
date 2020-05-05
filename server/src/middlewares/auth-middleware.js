@@ -13,7 +13,7 @@ const authorize = async (ctx, next) => {
 
   try {
     decodedToken = jwtDecode(token);
-    ctx.user = decodedToken.googleId;
+    ctx.user = decodedToken.sub;
   } catch (error) {
     authHeaderErr(ctx, 'Invalid token provided');
   }
