@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickTimestamp}) {
-
+  
   const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
 
+  let valueName;
+  let valueSets;
+  let valueReps;
+  let valueTimestamp;
+
+  
   useEffect(()=>{
     rowsCompiled && setRows(rowsCompiled)
   }, [])
@@ -50,6 +56,9 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
 
   const logRow= () => console.log(rows)
 
+ 
+  
+
   return (
     <div>
       <div className="container">
@@ -76,7 +85,9 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                           type="text"
                           name="name"
+                          value={valueName}
                           onChange={(event) => handleChange(event, idx, "name")}
+                          onBlur={()=>valueName=rows[idx].name}
                           className="form-control"
                         />
                     </td>
@@ -84,7 +95,10 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="sets"
+                        value={valueSets}
                         onChange={(event) => handleChange(event, idx, "sets")}
+                        onBlur={()=>valueSets=rows[idx].sets}
+
                         className="form-control"
                       />
                     </td>
@@ -92,7 +106,10 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="reps"
+                        value={valueReps}
                         onChange={(event) => handleChange(event, idx, "reps")}
+                        onBlur={()=>valueReps=rows[idx].reps}
+
                         className="form-control"
                       />
                     </td>
@@ -100,7 +117,10 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="timestamp"
+                        value={valueTimestamp}
                         onChange={(event) => handleChange(event, idx, "timestamp")}
+                        onBlur={()=>valueTimestamp=rows[idx].timestamp}
+
                         className="form-control"
                       />
                     </td>
