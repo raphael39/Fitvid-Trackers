@@ -5,6 +5,7 @@ import Workout from './pages/Workout/Workout';
 import SetCredentials from './pages/SetCredentials/SetCredentials';
 import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout'
 import ListOfWorkouts from './pages/ListOfWorkouts/ListOfWorkouts';
+import HomePage from './pages/HomePage/HomePage';
 import {
   BrowserRouter as Router,
   Switch,
@@ -15,15 +16,16 @@ import {
 import './App.css';
 
 
-function App() {
-
+function App () {
   return (
     <Router>
       <Switch>
-        <Route exact path="/login"
+        <Route exact path="/"
           component={Login} />
         <Route exact path="/setCredentials"
-          render={ () => <SetCredentials /> } />
+          component={SetCredentials} />
+        <Route exact path="/HomePage"
+          component={HomePage} />
         <Route exact path="/importVideo"
           component={ImportVideo} />
         <Route exact path="/createWorkout"

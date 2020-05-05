@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
+import TopBar from '../../components/TopBar/TopBar';
 import './ListofWorkouts.css';
 
 function ListOfWorkouts() {
@@ -149,6 +150,7 @@ function ListOfWorkouts() {
 
   return (
     <div>
+    <TopBar/>
       <div className="header-search-view">
         <h1>Workouts</h1>
         <div className="search-workouts">

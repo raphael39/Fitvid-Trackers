@@ -18,7 +18,7 @@ function SetCredentials (props) {
   localStorage.setItem('email', decodedToken.email);
 
   return (
-    <Redirect to="/createWorkout" />
+    <Redirect to="/HomePage" />
   );
 
 }

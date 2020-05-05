@@ -1,11 +1,6 @@
 import React from 'react';
-import jwtDecode from 'jwt-decode';
-import { useHistory } from "react-router-dom";
-
 
 function TopBar (props) {
-
-  const history = useHistory();
 
   const logOut = () => {
     localStorage.removeItem('token');
@@ -13,7 +8,7 @@ function TopBar (props) {
     localStorage.removeItem('firstName');
     localStorage.removeItem('lastName');
     localStorage.removeItem('googleId');
-    history.push("/login");
+    window.location.href="/"
   }
 
   return (
