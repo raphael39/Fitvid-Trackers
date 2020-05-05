@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Table from '../../components/Table/Table';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
- 
+import TopBar from '../../components/TopBar/TopBar';
 
 
-const rows = [{name: "Pull-ups", sets: "3", reps: "20", timestamp: "15", done: false}, {name: "Abs ", sets: "2", reps: "1min", timestamp: "3:00", done: false}, {name: "Squats ", sets: "3", reps: "5", timestamp: "4:00", done: false}]
+
+const rows = [{ name: "Pull-ups", sets: "3", reps: "20", timestamp: "15", done: false }, { name: "Abs ", sets: "2", reps: "1min", timestamp: "3:00", done: false }, { name: "Squats ", sets: "3", reps: "5", timestamp: "4:00", done: false }]
 const url = 'https://www.youtube.com/watch?v=vc1E5CfRfos';
 
 function Workout ({
@@ -16,12 +17,15 @@ function Workout ({
 
 
   return (
-    <div className = 'div-Workout'>
-     Workout
-     <YoutubePlayer url={url} timeVideo={timeVideo} clickTimestamp={clickTimestamp}/>
-     <Table rowsCompiled={rows} editable={false} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp}/>
+    <div>
+      <TopBar />
+      <div className='div-Workout'>
+        Workout
+     <YoutubePlayer url={url} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
+        <Table rowsCompiled={rows} editable={false} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />
+      </div>
     </div>
-  ) 
+  )
 }
 
 export default Workout;

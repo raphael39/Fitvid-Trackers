@@ -1,10 +1,13 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import logo from '../../Asset/Screenshot from 2020-05-01 18-39-32.png'
 import './login.css'
 
 function Login () {
 
   return (
+    (window.localStorage.getItem('token')) ? <Redirect to="/HomePage" /> :
+
     <div className = 'div-login'>
       <img src={logo} className='logo'></img>
       <h1>Login</h1>
