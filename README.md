@@ -120,6 +120,7 @@ npm install
   - CLIENT_URL - URL of the client part of the application, including port number (e.g. *http://localhost:3000*)
   - SERVER_HOST - host name on which the server is running (e.g. *localhost*)
   - SERVER_PORT - port on which the server is running (e.g. *3001*)
+  - MONGODB_URI - connection URI for MongoDB (e.g. *mongodb://localhost:27017/devfitvid*)
 
 <!-- USAGE EXAMPLES -->
 ## Usage
