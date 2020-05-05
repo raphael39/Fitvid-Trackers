@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 
 function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickTimestamp}) {
-
+  
   const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
 
   useEffect(()=>{
-    rowsCompiled && setRows(rowsCompiled)
+    if(rowsCompiled) {
+      setRows(rowsCompiled);
+    }
   }, [])
    
   //TO MODIFY
   const handleChange = (event, index, name) => {
     event.preventDefault();
     console.log(event.target.value, index, name);
-    // rows[index][name] = event.target.value;
-    const newRows = rows;
-    newRows[index][name] = event.target.value;
-    setRows(newRows);
+    rows[index][name] = event.target.value;
   }
 
   const handleAddRow = () => {
@@ -50,6 +49,9 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
 
   const logRow= () => console.log(rows)
 
+ 
+  
+
   return (
     <div>
       <div className="container">
@@ -76,7 +78,8 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                           type="text"
                           name="name"
-                          onChange={(event) => handleChange(event, idx, "name")}
+                          defaultValue={rows[idx].name}
+                          onChange={(event) => {handleChange(event, idx, "name")}}
                           className="form-control"
                         />
                     </td>
@@ -84,6 +87,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="sets"
+                        defaultValue={rows[idx].sets}                        
                         onChange={(event) => handleChange(event, idx, "sets")}
                         className="form-control"
                       />
@@ -92,6 +96,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="reps"
+                        defaultValue={rows[idx].reps}
                         onChange={(event) => handleChange(event, idx, "reps")}
                         className="form-control"
                       />
@@ -100,6 +105,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="timestamp"
+                        defaultValue={rows[idx].timestamp}
                         onChange={(event) => handleChange(event, idx, "timestamp")}
                         className="form-control"
                       />
@@ -108,6 +114,8 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="checkbox"
                         name="done"
+                        defaultValue={rows[idx].done}
+
                         onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />

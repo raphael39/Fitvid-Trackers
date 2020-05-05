@@ -13,8 +13,8 @@ function Workout ({
 }) {
 
   const [timeVideo, setTimeVideo] = useState();
-  const [clickTimestamp, setClickTimestamp] = useState(false)
-
+  const [clickTimestamp, setClickTimestamp] = useState(false);
+  const [editable, setEditable] = useState(false)
 
   return (
     <div>
@@ -22,7 +22,8 @@ function Workout ({
       <div className='div-Workout'>
         Workout
      <YoutubePlayer url={url} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
-        <Table rowsCompiled={rows} editable={false} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />
+     <button onClick={()=>{setEditable(!editable)}}>{editable? "Done" : "Edit"}</button>
+        <Table rowsCompiled={rows} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />
       </div>
     </div>
   )
