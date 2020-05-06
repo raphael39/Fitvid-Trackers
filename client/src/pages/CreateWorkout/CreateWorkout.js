@@ -5,26 +5,22 @@ import TopBar from '../../components/TopBar/TopBar';
 
 //mock data
 
-//youtube url, please note that the user copied an url with time too, to consider as case scenario
-const testUrl = 'https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s'
 //day selected for the workout
 const day = 'Wednesday';
-//time of the video, to implement timestamps
-let time = 0;
-
 
 function getIdVideoYoutube (url) {
   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   var match = url.match(regExp);
-  console.log((match && match[7].length == 11) ? match[7] : false)
   return (match && match[7].length == 11) ? match[7] : false;
 }
 //-------------------------------------------
+
 function CreateWorkout () {
 
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [workoutName, setWorkoutName] = useState();
   const [idYoutube, setIdYoutube] = useState();
+  const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
@@ -53,12 +49,21 @@ function CreateWorkout () {
     difficulties[level] = !difficulties[level]
   }
 
-  // const difficultyCheckedOrNot = (difficulty) => {
-  //   if(difficulties[difficulty]) return "checked";
-  // }
-
   const handleDays = (level) => {
     days[level] = !days[level]
+  }
+
+  const createMockWorkout = () => {
+    let workout = {
+      id: "random Number",
+      workoutName,
+      idYoutube,
+      rows,
+      description,
+      difficulties,
+      days
+    }
+    console.log( workout);
   }
 
   return (
@@ -82,7 +87,7 @@ function CreateWorkout () {
             <button onClick={() => setIdYoutube()}>Change Video</button>
           </div>
         }
-        <Table editable={true} />
+        <Table rows={rows} setRows={setRows} editable={true} />
         <div>
           <p>Description:</p>
           <textarea rows="4" cols="50" onChange={(event)=>setDescription(event.target.value)}/>
@@ -106,7 +111,7 @@ function CreateWorkout () {
           <label><input type="checkbox" name="sunday" onClick={()=>handleDays("sunday")}/>Sunday</label>
           <br/>
         </div>
-        <button onClick={() => { }}>Create</button>
+        <button onClick={createMockWorkout}>Create</button>
       </div>
     </div>
   )

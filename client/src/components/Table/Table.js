@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickTimestamp}) {
+function Table ({rows, setRows, editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickTimestamp}) {
   
-  const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+  // const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+console.log("inside table",rows)
 
   useEffect(()=>{
     if(rowsCompiled) {
