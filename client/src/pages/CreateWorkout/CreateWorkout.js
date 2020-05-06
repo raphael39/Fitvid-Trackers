@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Table from '../../components/Table/Table';
+import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionWorkout';
+import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
+import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import TopBar from '../../components/TopBar/TopBar';
 
 //mock data
-
-//day selected for the workout
 const day = 'Wednesday';
 
 function getIdVideoYoutube (url) {
@@ -24,11 +25,6 @@ function CreateWorkout () {
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
-
-  // useEffect(() => {
-  //   const youtubeId = getIdVideoYoutube(testUrl);
-  //   setUrl(`https://www.youtube.com/watch?v=${youtubeId}`)
-  // }, [])
 
   const handlingWorkoutName = (event) => {
     event.preventDefault();
@@ -88,29 +84,11 @@ function CreateWorkout () {
           </div>
         }
         <Table exercises={exercises} setExercises={setExercises} editable={true} />
-        <div>
-          <p>Description:</p>
-          <textarea exercises="4" cols="50" onChange={(event)=>setDescription(event.target.value)}/>
-          {/* <button onClick={()=>{console.log(description)}}>c.log description</button> */}
-        </div>
-        <div>
-          <p>Difficulty: </p>
-          <label><input type="checkbox" name="easy" onClick={()=>handleDifficulties("easy")}/>Easy</label>
-          <label><input type="checkbox" name="medium" onClick={()=>handleDifficulties("medium")}/>Medium</label>
-          <label><input type="checkbox" name="hard" onClick={()=>handleDifficulties("hard")}/>Hard</label>
-          <br/>
-        </div>
-        <div>
-          <p>Repeat every: </p>
-          <label><input type="checkbox" name="monday" onClick={()=>handleDays("monday")} />Monday</label>
-          <label><input type="checkbox" name="tuesday" onClick={()=>handleDays("tuesday")}/>Tuesday</label>
-          <label><input type="checkbox" name="wednesday" onClick={()=>handleDays("wednesday")}/>Wednesday</label>
-          <label><input type="checkbox" name="thursday" onClick={()=>handleDays("thursday")}/>Thursday</label>
-          <label><input type="checkbox" name="friday" onClick={()=>handleDays("friday")}/>Friday</label>
-          <label><input type="checkbox" name="saturday" onClick={()=>handleDays("saturday")}/>Saturday</label>
-          <label><input type="checkbox" name="sunday" onClick={()=>handleDays("sunday")}/>Sunday</label>
-          <br/>
-        </div>
+        <DescriptionWorkout description={description} setDescription={setDescription} editable={true}/>
+        <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} handleDifficulties={handleDifficulties}/>
+        <br/>
+        <DaysWorkout days={days} setDays={setDays} editable={true} handleDays={handleDays}/>
+        <br/>
         <button onClick={createMockWorkout}>Create</button>
       </div>
     </div>
