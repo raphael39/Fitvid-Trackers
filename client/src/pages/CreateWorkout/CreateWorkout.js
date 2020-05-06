@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NameWorkout from '../../components/NameWorkout/NameWorkout';
 import Table from '../../components/Table/Table';
 import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionWorkout';
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
@@ -26,11 +27,6 @@ function CreateWorkout () {
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
 
-  const handlingWorkoutName = (event) => {
-    event.preventDefault();
-    setWorkoutName(event.target.value);
-  }
-
   const handlingYoutubeUrl = (event) => {
     event.preventDefault();
     setYoutubeUrl(event.target.value);
@@ -39,14 +35,6 @@ function CreateWorkout () {
   const generateYoutubeId = () => {
     const youtubeId = getIdVideoYoutube(youtubeUrl);
     setIdYoutube(youtubeId);
-  }
-
-  const handleDifficulties = (level) => {
-    difficulties[level] = !difficulties[level]
-  }
-
-  const handleDays = (level) => {
-    days[level] = !days[level]
   }
 
   const createMockWorkout = () => {
@@ -67,8 +55,7 @@ function CreateWorkout () {
       <TopBar />
       <div className='div-creating'>
         <h1>Create your day workout</h1>
-        <label for='workout-name'>Name of the workout: </label>
-        <input id='workout-name' type='text' onChange={(event)=> handlingWorkoutName(event)}/>
+        <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true}/>
         <p>{day}</p>
         <p style={{fontStyle: "italic"}}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
         {!idYoutube && 
@@ -85,9 +72,9 @@ function CreateWorkout () {
         }
         <Table exercises={exercises} setExercises={setExercises} editable={true} />
         <DescriptionWorkout description={description} setDescription={setDescription} editable={true}/>
-        <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} handleDifficulties={handleDifficulties}/>
+        <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true}/>
         <br/>
-        <DaysWorkout days={days} setDays={setDays} editable={true} handleDays={handleDays}/>
+        <DaysWorkout days={days} setDays={setDays} editable={true}/>
         <br/>
         <button onClick={createMockWorkout}>Create</button>
       </div>
