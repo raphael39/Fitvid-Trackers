@@ -110,7 +110,7 @@ console.log("inside table",exercises)
                         type="checkbox"
                         name="done"
                         defaultValue={exercises[idx].done}
-
+                        defaultChecked={exercises[idx].done}
                         onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />
@@ -144,6 +144,7 @@ console.log("inside table",exercises)
                       <input
                         type="checkbox"
                         name="done"
+                        defaultChecked={exercises[idx].done}
                         onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />
