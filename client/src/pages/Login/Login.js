@@ -9,7 +9,7 @@ function Login () {
     (window.localStorage.getItem('token')) ? <Redirect to="/HomePage" /> :
 
     <div className = 'div-login'>
-      <img src={logo} className='logo'></img>
+      <img src={logo} alt="logo" className='logo'></img>
       <h1>Login</h1>
       <p className='description'>WELCOME TO FITVID TRACKER, THE FIRST WEBSITE/APP TO CREATE YOUR PERSONAL WORKOUT USING YOUTUBE VIDEOS</p>
       <button onClick={(e) => { e.preventDefault(); window.location.href = 'http://localhost:3001/login/google' }}>>Login with Google</button>
