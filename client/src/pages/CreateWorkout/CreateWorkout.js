@@ -20,7 +20,7 @@ function CreateWorkout () {
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [workoutName, setWorkoutName] = useState();
   const [idYoutube, setIdYoutube] = useState();
-  const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+  const [exercises, setExercises] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
@@ -58,7 +58,7 @@ function CreateWorkout () {
       id: "random Number",
       workoutName,
       idYoutube,
-      rows,
+      exercises,
       description,
       difficulties,
       days
@@ -87,10 +87,10 @@ function CreateWorkout () {
             <button onClick={() => setIdYoutube()}>Change Video</button>
           </div>
         }
-        <Table rows={rows} setRows={setRows} editable={true} />
+        <Table exercises={exercises} setExercises={setExercises} editable={true} />
         <div>
           <p>Description:</p>
-          <textarea rows="4" cols="50" onChange={(event)=>setDescription(event.target.value)}/>
+          <textarea exercises="4" cols="50" onChange={(event)=>setDescription(event.target.value)}/>
           {/* <button onClick={()=>{console.log(description)}}>c.log description</button> */}
         </div>
         <div>

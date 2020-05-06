@@ -5,20 +5,23 @@ import TopBar from '../../components/TopBar/TopBar';
 
 
 //mock data
-const workout = {id:"randomNumber", idYoutube:"vc1E5CfRfos", rows: [{ name: "Pull-ups", sets: "3", reps: "20", timestamp: "15", done: false }, { name: "Abs ", sets: "2", reps: "1min", timestamp: "3:00", done: false }, { name: "Squats ", sets: "3", reps: "5", timestamp: "4:00", done: false }]}
+const workout = {id:"randomNumber", idYoutube:"vc1E5CfRfos", exercises: [{ name: "Pull-ups", sets: "3", reps: "20", timestamp: "15", done: false }, { name: "Abs ", sets: "2", reps: "1min", timestamp: "3:00", done: false }, { name: "Squats ", sets: "3", reps: "5", timestamp: "4:00", done: false }]}
 
 function Workout ({
-  //url/id, rows
+  //url/id, exercises
 }) {
   
-  const [rows, setRows] = useState()
+  const [exercises, setExercise] = useState(null)
   const [timeVideo, setTimeVideo] = useState();
   const [clickTimestamp, setClickTimestamp] = useState(false);
   const [editable, setEditable] = useState(false)
 
   useEffect(()=>{
-    setRows(workout.rows);
+    console.log("ex", exercises)
+    setExercise(workout.exercises);
   }, [])
+
+  console.log("ex", exercises)
 
   return (
     <div>
@@ -27,7 +30,7 @@ function Workout ({
         Workout
      <YoutubePlayer url={`https://www.youtube.com/watch?v=${workout.idYoutube}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
      <button onClick={()=>{setEditable(!editable)}}>{editable? "Done" : "Edit"}</button>
-        {rows && <Table rows={rows} setRows={setRows} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
+        {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
       </div>
     </div>
   )
