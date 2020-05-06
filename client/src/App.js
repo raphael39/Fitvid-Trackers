@@ -3,7 +3,7 @@ import Login from './pages/Login/Login';
 import ImportVideo from './pages/ImportVideo/ImportVideo';
 import Workout from './pages/Workout/Workout';
 import SetCredentials from './pages/SetCredentials/SetCredentials';
-import CreatingWorkout from './pages/CreatingWorkout/CreatingWorkout'
+import CreateWorkout from './pages/CreateWorkout/CreateWorkout'
 import ListOfWorkouts from './pages/ListOfWorkouts/ListOfWorkouts';
 import HomePage from './pages/HomePage/HomePage';
 import {
@@ -29,7 +29,7 @@ function App () {
         <Route exact path="/importVideo"
           component={ImportVideo} />
         <Route exact path="/createWorkout"
-          component={CreatingWorkout} />
+          component={CreateWorkout} />
         <Route exact path="/workout"
           component={Workout} />
         <Route exact path="/workoutList"
