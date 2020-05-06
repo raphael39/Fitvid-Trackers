@@ -42,7 +42,7 @@ console.log("inside table",exercises)
     exercises[index].done = !(exercises[index].done)
   }
 
-  const logExercises= () => console.log(exercises)
+  // const logExercises= () => console.log(exercises)
 
  
   
@@ -163,12 +163,12 @@ console.log("inside table",exercises)
               Delete Last Row
             </button>
             </div>}
-            <button
+            {/* <button
               onClick={logExercises}
               className="btn btn-danger float-right"
             >
               Log Row
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
