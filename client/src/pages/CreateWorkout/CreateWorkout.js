@@ -6,9 +6,20 @@ import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWork
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import TopBar from '../../components/TopBar/TopBar';
+import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
+
+
+// redux
+import { useSelector } from "react-redux";
+
+//route
+import { Link } from 'react-router-dom';
+
+
+
 
 //mock data
-const day = 'Wednesday';
+const day = 'Friday';
 
 function getIdVideoYoutube (url) {
   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -19,6 +30,9 @@ function getIdVideoYoutube (url) {
 
 function CreateWorkout () {
 
+  //redux
+  const user = useSelector(state => state.currentUser);
+
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [workoutName, setWorkoutName] = useState();
   const [idYoutube, setIdYoutube] = useState();
@@ -26,6 +40,7 @@ function CreateWorkout () {
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
+  const [publicWorkout, setPublicWorkout] = useState(false);
 
   const handlingYoutubeUrl = (event) => {
     event.preventDefault();
@@ -76,7 +91,13 @@ function CreateWorkout () {
         <br/>
         <DaysWorkout days={days} setDays={setDays} editable={true}/>
         <br/>
-        <button onClick={createMockWorkout}>Create</button>
+        <PublicWorkout publicWorkout={publicWorkout} setPublicWorkout={setPublicWorkout} editable={true}/>
+        <br/>
+
+        <button onClick={()=>console.log(user)}>User?</button>
+        
+        <button onClick={createMockWorkout}><Link to={`/HomePage`} >Create</Link></button>
+
       </div>
     </div>
   )
