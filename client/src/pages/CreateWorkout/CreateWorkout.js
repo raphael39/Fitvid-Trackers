@@ -85,19 +85,14 @@ function CreateWorkout () {
     };
     const response = await fetch(url, {
       method: 'POST',
-      withCredentials: true,
-      credentials: 'include',
-      mode:'no-cors',
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
-        'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
       },
       // Accept: 'application/json',
       body: JSON.stringify(bodyOption)
     });
+    console.log(JSON.stringify(bodyOption));
     return response.json()
   }
 
@@ -129,11 +124,8 @@ function CreateWorkout () {
         <br/>
         <PublicWorkout publicWorkout={publicWorkout} setPublicWorkout={setPublicWorkout} editable={true}/>
         <br/>
-
         <button onClick={()=>console.log(user)}>User?</button>
-        
         <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button>
-
       </div>
     </div>
   )
