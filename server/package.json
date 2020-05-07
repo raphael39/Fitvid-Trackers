@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "@koa/router": "^8.0.8",
     "dotenv": "^8.2.0",
     "googleapis": "^49.0.0",

@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 //route
 import { Link } from 'react-router-dom';
 
+//post request 
 
 
 
@@ -35,8 +36,8 @@ function CreateWorkout () {
 
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [workoutName, setWorkoutName] = useState();
-  const [idYoutube, setIdYoutube] = useState();
-  const [exercises, setExercises] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+  const [youtubeId, setYoutubeId] = useState();
+  const [exercises, setExercises] = useState([{name: "", sets: 0, reps: 0, timestamp: "",done: false}]);
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
@@ -49,20 +50,55 @@ function CreateWorkout () {
 
   const generateYoutubeId = () => {
     const youtubeId = getIdVideoYoutube(youtubeUrl);
-    setIdYoutube(youtubeId);
+    setYoutubeId(youtubeId);
   }
 
   const createMockWorkout = () => {
     let workout = {
       id: "random Number",
       workoutName,
-      idYoutube,
+      youtubeId,
       exercises,
       description,
       difficulties,
       days
     }
     console.log( workout);
+  }
+
+  //
+  async function createWorkout () {
+    const url = `http://localhost:3001/workout`;
+    const token = user.token;
+    console.log("token post", token)
+    const bodyOption = {
+      name : workoutName,
+      description : description,
+      difficulty : "easy", //we go for the string or for the obj?
+      type : "strenght",
+      youtubeId : youtubeId,
+      tags: ["biceps"],
+      length: 234,
+      createdBy: user._id,
+      exercises: exercises,
+      public: publicWorkout
+    };
+    const response = await fetch(url, {
+      method: 'POST',
+      withCredentials: true,
+      credentials: 'include',
+      mode:'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        'Access-Control-Request-Method': 'GET, POST, DELETE, PUT, OPTIONS',
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      // Accept: 'application/json',
+      body: JSON.stringify(bodyOption)
+    });
+    return response.json()
   }
 
   return (
@@ -73,16 +109,16 @@ function CreateWorkout () {
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true}/>
         <p>{day}</p>
         <p style={{fontStyle: "italic"}}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
-        {!idYoutube && 
+        {!youtubeId && 
           <div>
             <label for='youtubeUrl'>Import your Youtube video here: </label>
             <input id='youtubeUrl' type='text' onChange={(event)=> handlingYoutubeUrl(event)}/>
             <button onClick={generateYoutubeId}>Import</button>
           </div>}
-        {idYoutube && 
+        {youtubeId && 
           <div>
-            <YoutubePlayer url={`https://www.youtube.com/watch?v=${idYoutube}`} />
-            <button onClick={() => setIdYoutube()}>Change Video</button>
+            <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
+            <button onClick={() => setYoutubeId()}>Change Video</button>
           </div>
         }
         <Table exercises={exercises} setExercises={setExercises} editable={true} />
@@ -96,7 +132,7 @@ function CreateWorkout () {
 
         <button onClick={()=>console.log(user)}>User?</button>
         
-        <button onClick={createMockWorkout}><Link to={`/HomePage`} >Create</Link></button>
+        <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button>
 
       </div>
     </div>

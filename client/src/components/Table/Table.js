@@ -15,8 +15,8 @@ console.log("inside table",exercises)
   const handleAddExercise = () => {
     const item = {
       name: "",
-      sets: "",
-      reps: "",
+      sets: 0,
+      reps: 0,
       timestamp: "",
       done: false
     }
@@ -80,7 +80,7 @@ console.log("inside table",exercises)
                     </td>
                     <td>
                       <input
-                        type="text"
+                        type="number"
                         name="sets"
                         defaultValue={exercises[idx].sets}                        
                         onChange={(event) => handleChange(event, idx, "sets")}
@@ -89,7 +89,7 @@ console.log("inside table",exercises)
                     </td>
                     <td>
                       <input
-                        type="text"
+                        type="number"
                         name="reps"
                         defaultValue={exercises[idx].reps}
                         onChange={(event) => handleChange(event, idx, "reps")}
