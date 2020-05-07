@@ -1,19 +1,21 @@
 const { Plan } = require('../models/plan');
 
 const getPlan = async (ctx, next) => {
-  // get plan data from db and send in response
+  const id = ctx.params.id;
+  ctx.body = await Plan.findOne({ _id: id }).populate('workoutList.Workout');
 };
 
 const getAllPlans = async (ctx, next) => {
-  // get plans data from db and send in response
+  ctx.body = await Plan.find();
 };
 
 const createPlan = async (ctx, next) => {
-  // add plan to db
+  await Plan.create(ctx.request.body);
 };
 
 const updatePlan = async (ctx, next) => {
-  // update plan data from db
+  const id = ctx.params.id;
+  await Plan.findOneAndUpdate({ _id: id }, ctx.request.body);
 };
 
 module.exports = {
