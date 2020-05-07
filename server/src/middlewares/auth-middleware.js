@@ -7,6 +7,7 @@ function authHeaderErr (ctx, message) {
 };
 
 const authorize = async (ctx, next) => {
+
   if (!ctx.headers.authorization) authHeaderErr(ctx, 'Missing authentication token');
 
   const token = ctx.headers.authorization;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { setUser } from '../../actions/userActions';
+import { setSchedule } from '../../actions/scheduleActions';
 import jwtDecode from 'jwt-decode';
 
 function SetCredentials () {
@@ -22,6 +23,18 @@ function SetCredentials () {
     email: decodedToken.email,
     token: token
   }
+
+  const fetchSecheduleUrl = process.env.REACT_APP_SERVER_URL + '/schedule/';
+
+  fetch(fetchSecheduleUrl, {
+    method: 'get',
+    headers: new Headers({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    })
+  })
+  .then(response => response.json()
+  .then(data => { dispatch(setSchedule(data)); }));
 
   dispatch(setUser(userObj));
 

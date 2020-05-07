@@ -21,7 +21,6 @@ const processGoogleCb = async (ctx, next) => {
   const email = decodedToken.email;
 
   let foundProfile = await Profile.findOne({ googleId });
-  console.log("processGoogleCb -> foundProfile", foundProfile);
   if (!foundProfile) {
     foundProfile = await Profile.create({ googleId, email, firstName, lastName, token});
   }
