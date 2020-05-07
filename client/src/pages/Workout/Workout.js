@@ -6,10 +6,12 @@ import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionW
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import TopBar from '../../components/TopBar/TopBar';
+import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
+
 
 
 //mock data
-const workout = {id:"randomNumber", workoutName:"AthleanX, fullbody", idYoutube:"vc1E5CfRfos", days: {monday: true, tuesday: false, wednesday: true, thursday: false, friday: false, saturday: false, sunday: false}, description: "Full body, bodyweight exercises with two different plans",difficulties: {easy: false, medium: true, hard: false}, exercises: [{ name: "Pull-ups", sets: "3", reps: "20", timestamp: "15", done: false }, { name: "Abs ", sets: "2", reps: "1min", timestamp: "3:00", done: false }, { name: "Squats ", sets: "3", reps: "5", timestamp: "4:00", done: false }]}
+const workout = {id:"randomNumber", publicWorkout:true, workoutName:"AthleanX, fullbody", youtubeId:"vc1E5CfRfos", days: {monday: true, tuesday: false, wednesday: true, thursday: false, friday: false, saturday: false, sunday: false}, description: "Full body, bodyweight exercises with two different plans",difficulties: {easy: false, medium: true, hard: false}, exercises: [{ name: "Pull-ups", sets: 3, reps: 20, timestamp: "15"}, { name: "Abs ", sets: 2, reps: 1, timestamp: "3:00"}]}
 
 function Workout ({
   //url/id, exercises
@@ -21,6 +23,7 @@ function Workout ({
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
+  const [publicWorkout, setPublicWorkout] = useState(false);
 
   //videoplayer states, work on table if status editable=false
   const [timeVideo, setTimeVideo] = useState();
@@ -32,7 +35,8 @@ function Workout ({
     setDescription(workout.description);
     setDifficulties(workout.difficulties);
     setDays(workout.days);
-    setWorkoutName(workout.workoutName)
+    setWorkoutName(workout.workoutName);
+    setPublicWorkout(workout.publicWorkout)
   }, [])
 
   console.log("ex", exercises)
@@ -44,11 +48,12 @@ function Workout ({
       <button onClick={()=>{setEditable(!editable)}}>{editable? "Done" : "Edit"}</button>
       <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
-        <YoutubePlayer url={`https://www.youtube.com/watch?v=${workout.idYoutube}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
+        <YoutubePlayer url={`https://www.youtube.com/watch?v=${workout.youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
         {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
         <DaysWorkout days={days} setDays={setDays} editable={editable}/>
+        <PublicWorkout publicWorkout={publicWorkout} setPublicWorkout={setPublicWorkout} editable={editable}/>
       </div>
     </div>
   )

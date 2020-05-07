@@ -15,10 +15,9 @@ console.log("inside table",exercises)
   const handleAddExercise = () => {
     const item = {
       name: "",
-      sets: "",
-      reps: "",
+      sets: 0,
+      reps: 0,
       timestamp: "",
-      done: false
     }
     setExercises([...exercises, item])
   }
@@ -38,9 +37,9 @@ console.log("inside table",exercises)
   //   setExercises(newRows);
   // }
 
-  const handleCheckbox = (index) => {
-    exercises[index].done = !(exercises[index].done)
-  }
+  // const handleCheckbox = (index) => {
+  //   exercises[index].done = !(exercises[index].done)
+  // }
 
   // const logExercises= () => console.log(exercises)
 
@@ -62,7 +61,7 @@ console.log("inside table",exercises)
                   <th className="text-center"> Sets </th>
                   <th className="text-center"> Reps </th>
                   <th className="text-center"> Timestamp </th>
-                  <th className="text-center"> Check </th>
+                  {!editable && <th className="text-center"> Check </th>}
                   <th />
                 </tr>
               </thead>
@@ -80,7 +79,7 @@ console.log("inside table",exercises)
                     </td>
                     <td>
                       <input
-                        type="text"
+                        type="number"
                         name="sets"
                         defaultValue={exercises[idx].sets}                        
                         onChange={(event) => handleChange(event, idx, "sets")}
@@ -89,7 +88,7 @@ console.log("inside table",exercises)
                     </td>
                     <td>
                       <input
-                        type="text"
+                        type="number"
                         name="reps"
                         defaultValue={exercises[idx].reps}
                         onChange={(event) => handleChange(event, idx, "reps")}
@@ -105,7 +104,7 @@ console.log("inside table",exercises)
                         className="form-control"
                       />
                     </td>
-                    <td>
+                    {/* <td>
                       <input
                         type="checkbox"
                         name="done"
@@ -114,7 +113,7 @@ console.log("inside table",exercises)
                         onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />
-                    </td>
+                    </td> */}
                     {/* <td>
                       <button
                         className="btn btn-outline-danger btn-sm"
@@ -144,8 +143,8 @@ console.log("inside table",exercises)
                       <input
                         type="checkbox"
                         name="done"
-                        defaultChecked={exercises[idx].done}
-                        onClick={() => handleCheckbox(idx)}
+                        // defaultChecked={exercises[idx].done}
+                        // onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />
                     </td>

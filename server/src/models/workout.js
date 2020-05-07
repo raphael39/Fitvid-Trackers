@@ -15,7 +15,7 @@ const WorkoutSchema = mongoose.Schema({
     name: String,
     sets: Number,
     reps: Number,
-    timestamp: Number
+    timestamp: String, //converted by String by Pier
   }],
   public: Boolean
 });
