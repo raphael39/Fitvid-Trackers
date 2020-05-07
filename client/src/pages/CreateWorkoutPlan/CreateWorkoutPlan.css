@@ -1,0 +1,9 @@
+.current-rest-day {
+    display: flex;
+    justify-content: space-around;
+}
+
+.current-training-day {
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import './myListOfWorkouts.css';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
 import TopBar from '../../components/TopBar/TopBar';
-import './ListofWorkouts.css';
-import {Link} from 'react-router-dom';
 
-function ListOfWorkouts() {
+function MyListOfWorkouts() {
+
   const fakeWorkouts = [
-    {
-      id: '001',
-      name: 'Chest Workout',
-      description: '10 minutes intense bodyweight chest workout',
-      difficulty: 'medium',
-      type: 'strength',
-      youtubeID: 'BkS1-El_WlE',
-      tags: ['chest', 'HIT'],
-      length: 10,
-      created_by: 654684,
-      weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    },
     {
       id: '002',
       name: 'Full Body Workout',
@@ -32,36 +21,12 @@ function ListOfWorkouts() {
       weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
     },
     {
-      id: '003',
-      name: 'Leg Workout',
-      description: '10 minutes intense bodyweight chest workout',
-      difficulty: 'medium',
-      type: 'strength',
-      youtubeID: 'aCa8R9II8F0',
-      tags: ['chest', 'HIT'],
-      length: 20,
-      created_by: 654684,
-      weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    },
-    {
       id: '004',
       name: 'Abs Workout',
       description: '10 minutes intense bodyweight chest workout',
       difficulty: 'easy',
       type: 'strength',
       youtubeID: '8AAmaSOSyIA',
-      tags: ['chest', 'HIT'],
-      length: 10,
-      created_by: 654684,
-      weekdays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    },
-    {
-      id: '005',
-      name: 'core Workout',
-      description: '10 minutes intense bodyweight chest workout',
-      difficulty: 'hard',
-      type: 'strength',
-      youtubeID: 'dJlFmxiL11s?start=60',
       tags: ['chest', 'HIT'],
       length: 10,
       created_by: 654684,
@@ -161,31 +126,38 @@ function ListOfWorkouts() {
 
   return (
     <div>
-    <TopBar/>
-      <div className="header-search-view">
-      
-        <div>
-        <Link to='/ListOfWorkouts'><button><h1>Browse Workouts</h1></button></Link>
-        <Link to='/myListOfWorkouts'><button><h1>My Saved Workouts</h1></button></Link>
-        </div>
-        <div className="search-workouts">
-          <input
-            type="text"
-            className="search-input"
-            onChange={(e) => handleInputChange(e.target.value)}
-            placeholder="    Search .."
-            title="Type in a name"
-          ></input>
-        </div>
+      <TopBar/>
+    <div className="header-search-view">
+      <div>
+        <Link to="/ListOfWorkouts">
+          <button>
+            <h1>Browse Workouts</h1>
+          </button>
+        </Link>
+        <Link to="/myListOfWorkouts">
+          <button>
+            <h1>My Saved Workouts</h1>
+          </button>
+        </Link>
       </div>
-      <div className="list-filter-container">
-        <WorkoutList workouts={filteredWorkouts}></WorkoutList>
-        <FilterWorkouts
-          handleCheckBoxChange={handleCheckBoxChange}
-        ></FilterWorkouts>
+      <div className="search-workouts">
+        <input
+          type="text"
+          className="search-input"
+          onChange={(e) => handleInputChange(e.target.value)}
+          placeholder="    Search .."
+          title="Type in a name"
+        ></input>
       </div>
     </div>
+    <div className="list-filter-container">
+    <WorkoutList workouts={filteredWorkouts}></WorkoutList>
+    <FilterWorkouts
+      handleCheckBoxChange={handleCheckBoxChange}
+    ></FilterWorkouts>
+  </div>
+  </div>
   );
 }
 
-export default ListOfWorkouts;
+export default MyListOfWorkouts;
