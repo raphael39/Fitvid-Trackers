@@ -19,12 +19,7 @@ import ListOfWorkoutPlans from './pages/ListOfWorkoutPlans/ListOfWorkoutPlans';
 import myListOfWorkoutPlans from './pages/ListOfWorkoutPlans/MyListOfWorkoutPlans'
 import WorkoutPlan from './pages/WorkoutPlan/WorkoutPlan';
 import CreateWorkoutPlan from './pages/CreateWorkoutPlan/CreateWorkoutPlan'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+
 
 import rootReducer from './reducers';
 import './App.css';
