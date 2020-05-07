@@ -37,7 +37,7 @@ function CreateWorkout () {
   const [youtubeUrl, setYoutubeUrl] = useState('');
   const [workoutName, setWorkoutName] = useState();
   const [youtubeId, setYoutubeId] = useState();
-  const [exercises, setExercises] = useState([{name: "", sets: 0, reps: 0, timestamp: "",done: false}]);
+  const [exercises, setExercises] = useState([{name: "", sets: 0, reps: 0, timestamp: ""}]);
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});

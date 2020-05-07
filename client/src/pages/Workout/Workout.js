@@ -11,7 +11,7 @@ import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
 
 
 //mock data
-const workout = {id:"randomNumber", publicWorkout:true, workoutName:"AthleanX, fullbody", youtubeId:"vc1E5CfRfos", days: {monday: true, tuesday: false, wednesday: true, thursday: false, friday: false, saturday: false, sunday: false}, description: "Full body, bodyweight exercises with two different plans",difficulties: {easy: false, medium: true, hard: false}, exercises: [{ name: "Pull-ups", sets: 3, reps: 20, timestamp: "15", done: false }, { name: "Abs ", sets: 2, reps: 1, timestamp: "3:00", done: false }, { name: "Squats ", sets: 3, reps: 5, timestamp: "4:00", done: false }]}
+const workout = {id:"randomNumber", publicWorkout:true, workoutName:"AthleanX, fullbody", youtubeId:"vc1E5CfRfos", days: {monday: true, tuesday: false, wednesday: true, thursday: false, friday: false, saturday: false, sunday: false}, description: "Full body, bodyweight exercises with two different plans",difficulties: {easy: false, medium: true, hard: false}, exercises: [{ name: "Pull-ups", sets: 3, reps: 20, timestamp: "15"}, { name: "Abs ", sets: 2, reps: 1, timestamp: "3:00"}]}
 
 function Workout ({
   //url/id, exercises
