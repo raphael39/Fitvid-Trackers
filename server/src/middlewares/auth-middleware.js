@@ -1,8 +1,9 @@
 const jwtDecode = require('jwt-decode');
+const { Profile } = require('../models/profile');
 
 function authHeaderErr (ctx, message) {
   ctx.set('WWW-Authenticate', 'Bearer');
-  ctx.throw(401, );
+  ctx.throw(401, message);
 };
 
 const authorize = async (ctx, next) => {
@@ -13,9 +14,17 @@ const authorize = async (ctx, next) => {
 
   try {
     decodedToken = jwtDecode(token);
-    ctx.user = decodedToken.sub;
   } catch (error) {
     authHeaderErr(ctx, 'Invalid token provided');
+  }
+
+  const profileObj = await Profile
+    .findOne({googleId: decodedToken.sub})
+    .select('-token -__v -googleId'); // removes unneeded model details from response
+  if (profileObj) {
+    ctx.user = profileObj;
+  } else {
+    authHeaderErr(ctx, 'Profile does not exist');
   }
 
   return await next();

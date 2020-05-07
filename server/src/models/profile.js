@@ -5,11 +5,13 @@ const ProfileSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: String,
-  token: String
+  token: String,
+  schedule: {type: mongoose.Schema.Types.ObjectId, ref: 'Schedule'}
 });
 
 const Profile = mongoose.model('Profile', ProfileSchema);
 
 module.exports = {
+  ProfileSchema,
   Profile,
 };
