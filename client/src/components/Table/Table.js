@@ -1,23 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickTimestamp}) {
+function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimestamp, clickTimestamp}) {
   
-  const [rows, setRows] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+  // const [exercises, setExercises] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+console.log("inside table",exercises)
 
-  useEffect(()=>{
-    if(rowsCompiled) {
-      setRows(rowsCompiled);
-    }
-  }, [])
-   
   //TO MODIFY
   const handleChange = (event, index, name) => {
     event.preventDefault();
     console.log(event.target.value, index, name);
-    rows[index][name] = event.target.value;
+    exercises[index][name] = event.target.value;
   }
 
-  const handleAddRow = () => {
+  const handleAddExercise = () => {
     const item = {
       name: "",
       sets: "",
@@ -25,29 +20,29 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
       timestamp: "",
       done: false
     }
-    setRows([...rows, item])
+    setExercises([...exercises, item])
   }
   
-  const handleRemoveRow = () => {
-    setRows(rows.slice(0, -1));
+  const handleRemoveExercise = () => {
+    setExercises(exercises.slice(0, -1));
   }
 
   // const handleRemoveSpecificRow = (index) => {
-  //   // const newRows = rows
+  //   // const newRows = exercises
   //   // console.log(newRows)
-  //   // const newRows = rows.splice(index, 1);
-  //   const newRows = rows.filter(row => row !== rows[index]);
+  //   // const newRows = exercises.splice(index, 1);
+  //   const newRows = exercises.filter(row => row !== exercises[index]);
   
   //   console.log("new Rows", newRows)
   //   // console.log(newRows)
-  //   setRows(newRows);
+  //   setExercises(newRows);
   // }
 
   const handleCheckbox = (index) => {
-    rows[index].done = !(rows[index].done)
+    exercises[index].done = !(exercises[index].done)
   }
 
-  const logRow= () => console.log(rows)
+  // const logExercises= () => console.log(exercises)
 
  
   
@@ -63,7 +58,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
             >
               <thead>
                 <tr>
-                  <th className="text-center"> Name of the exercise </th>
+                  <th className="text-center"> Name of the exercises </th>
                   <th className="text-center"> Sets </th>
                   <th className="text-center"> Reps </th>
                   <th className="text-center"> Timestamp </th>
@@ -72,13 +67,13 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                 </tr>
               </thead>
               <tbody>
-                {editable && rows.map((item, idx) => (
+                {editable && exercises.map((item, idx) => (
                   <tr id="addr0" key={idx}>
                     <td>
                       <input
                           type="text"
                           name="name"
-                          defaultValue={rows[idx].name}
+                          defaultValue={exercises[idx].name}
                           onChange={(event) => {handleChange(event, idx, "name")}}
                           className="form-control"
                         />
@@ -87,7 +82,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="sets"
-                        defaultValue={rows[idx].sets}                        
+                        defaultValue={exercises[idx].sets}                        
                         onChange={(event) => handleChange(event, idx, "sets")}
                         className="form-control"
                       />
@@ -96,7 +91,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="reps"
-                        defaultValue={rows[idx].reps}
+                        defaultValue={exercises[idx].reps}
                         onChange={(event) => handleChange(event, idx, "reps")}
                         className="form-control"
                       />
@@ -105,7 +100,7 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="text"
                         name="timestamp"
-                        defaultValue={rows[idx].timestamp}
+                        defaultValue={exercises[idx].timestamp}
                         onChange={(event) => handleChange(event, idx, "timestamp")}
                         className="form-control"
                       />
@@ -114,8 +109,8 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                       <input
                         type="checkbox"
                         name="done"
-                        defaultValue={rows[idx].done}
-
+                        defaultValue={exercises[idx].done}
+                        defaultChecked={exercises[idx].done}
                         onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />
@@ -130,25 +125,26 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
                     </td> */}
                   </tr>
                 ))}
-                {!editable && rows.map((item, idx) => (
+                {!editable && exercises.map((item, idx) => (
                   <tr id="addr0" key={idx}>
                     <td>
-                      {rows[idx].name}
+                      {exercises[idx].name}
                     </td>
                     <td>
-                      {rows[idx].sets}
+                      {exercises[idx].sets}
 
                     </td>
                     <td>
-                      {rows[idx].reps}
+                      {exercises[idx].reps}
                     </td>
-                    <td onClick={()=>{setTimeVideo(rows[idx].timestamp); setClickTimestamp(!clickTimestamp)}}>
-                      {rows[idx].timestamp}
+                    <td onClick={()=>{setTimeVideo(exercises[idx].timestamp); setClickTimestamp(!clickTimestamp)}}>
+                      {exercises[idx].timestamp}
                     </td>
                     <td>
                       <input
                         type="checkbox"
                         name="done"
+                        defaultChecked={exercises[idx].done}
                         onClick={() => handleCheckbox(idx)}
                         className="form-control"
                       />
@@ -158,22 +154,22 @@ function Table ({editable, rowsCompiled, setTimeVideo, setClickTimestamp, clickT
               </tbody>
             </table>
             {editable && <div>
-            <button onClick={handleAddRow} className="btn btn-primary">
+            <button onClick={handleAddExercise} className="btn btn-primary">
               Add Row
             </button>
             <button
-              onClick={handleRemoveRow}
+              onClick={handleRemoveExercise}
               className="btn btn-danger float-right"
             >
               Delete Last Row
             </button>
             </div>}
-            <button
-              onClick={logRow}
+            {/* <button
+              onClick={logExercises}
               className="btn btn-danger float-right"
             >
               Log Row
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
