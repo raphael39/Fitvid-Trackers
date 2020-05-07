@@ -1,12 +1,16 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import logo from '../../Asset/Screenshot from 2020-05-01 18-39-32.png'
-import './login.css'
+import { useSelector, useDispatch } from "react-redux";
+
+import logo from '../../Asset/Screenshot from 2020-05-01 18-39-32.png';
+import './login.css';
 
 function Login () {
 
+  const user = useSelector(state => state.currentUser);
+
   return (
-    (window.localStorage.getItem('token')) ? <Redirect to="/HomePage" /> :
+    (user) ? <Redirect to="/HomePage" /> :
 
     <div className = 'div-login'>
       <img src={logo} alt="logo" className='logo'></img>

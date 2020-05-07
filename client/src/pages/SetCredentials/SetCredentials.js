@@ -1,26 +1,30 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { setUser } from '../../actions/userActions';
 import jwtDecode from 'jwt-decode';
 
-function SetCredentials (props) {
+function SetCredentials ({ user }) {
+
+  const dispatch = useDispatch();
 
   const search = window.location.search;
   const params = new URLSearchParams(search);
-
   const token = params.get('token');
-  localStorage.setItem('token', token);
   const decodedToken = jwtDecode(token);
-  console.log("SetCredentials -> decodedToken", decodedToken)
 
-  localStorage.setItem('googleId', decodedToken.sub);
-  localStorage.setItem('firstName', decodedToken.given_name);
-  localStorage.setItem('lastName', decodedToken.family_name);
-  localStorage.setItem('email', decodedToken.email);
+  const userObj = {
+    googleId: decodedToken.sub,
+    firstName: decodedToken.given_name,
+    lastName: decodedToken.family_name,
+    email: decodedToken.email,
+    token: token
+  }
 
-  return (
-    <Redirect to="/HomePage" />
-  );
+  dispatch(setUser(userObj));
 
-}
+  return ( <Redirect to="/HomePage" /> );
+
+  }
 
 export default SetCredentials;

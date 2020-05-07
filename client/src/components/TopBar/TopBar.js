@@ -1,19 +1,19 @@
 import React from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { setUser } from '../../actions/userActions';
 
-function TopBar (props) {
+function TopBar () {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.currentUser);
 
   const logOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('googleId');
+    dispatch(setUser(null));
     window.location.href="/"
   }
 
   return (
     <div className="TopBar">
-      <span>{localStorage.getItem('firstName')} {localStorage.getItem('lastName')} ({localStorage.getItem('email')}) </span>
+      {(user) ? <span>{user.firstName} {user.lastName} ({user.email}) </span> : null}
       <button onClick={logOut}>Log out</button>
     </div>
   )
