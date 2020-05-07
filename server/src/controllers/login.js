@@ -20,14 +20,15 @@ const processGoogleCb = async (ctx, next) => {
   const lastName = decodedToken.family_name;
   const email = decodedToken.email;
 
-  var foundProfile = await Profile.findOne({ googleId });
+  let foundProfile = await Profile.findOne({ googleId });
+  console.log("processGoogleCb -> foundProfile", foundProfile);
   if (!foundProfile) {
-    await Profile.create({ googleId, email, firstName, lastName, token});
+    foundProfile = await Profile.create({ googleId, email, firstName, lastName, token});
   }
 
   setUserToken(googleId, token);
 
-  ctx.redirect(`${process.env.CLIENT_URL}/setCredentials?token=${tokens.id_token}`);
+  ctx.redirect(`${process.env.CLIENT_URL}/setCredentials?_id=${foundProfile._id}&token=${tokens.id_token}`);
 }
 
 const setUserToken = async (id, token) => {
