@@ -6,7 +6,6 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
-
 import Login from './pages/Login/Login';
 import ImportVideo from './pages/ImportVideo/ImportVideo';
 import Workout from './pages/Workout/Workout';
@@ -46,24 +45,25 @@ function App () {
               component={CreateWorkout} />
             <Route exact path="/workout"
               component={Workout} />
-            <Route exact path="/workoutList"
+            <Route exact path="/ListOfWorkouts"
               component={ListOfWorkouts} />
-            <Route exact path="/myListOfWorkouts"
-              component={MyListOfWorkouts} />
-            <Route exact path="/ListOfWorkoutPlans"
-              component={ListOfWorkoutPlans} />
-            <Route exact path="/myListOfWorkoutPlans"
-              component={myListOfWorkoutPlans} />
-            <Route exact path="/WorkoutPlan"
-              component={WorkoutPlan} />
-            <Route exact path="/CreateWorkoutPlan"
-              component={CreateWorkoutPlan} />
+              <Route exact path="/myListOfWorkouts"
+          component={MyListOfWorkouts} />
+          <Route exact path="/ListOfWorkoutPlans"
+          component={ListOfWorkoutPlans} />
+          <Route exact path="/myListOfWorkoutPlans"
+          component={myListOfWorkoutPlans} />
+          <Route exact path="/WorkoutPlan"
+          component={WorkoutPlan} />
+          <Route exact path="/CreateWorkoutPlan"
+          component={CreateWorkoutPlan} />
+          <Route path="/CreateWorkoutPlan/:id"
+          component={CreateWorkoutPlan} />
           </Router>
         </PersistGate>
       </Provider>
     </div>
   );
 }
-
 export default App;
 
