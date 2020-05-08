@@ -18,3 +18,10 @@
 .Link {
     color: white;
 }
+
+.Logout {
+    
+    position: absolute;
+    left: 0;
+    top: 0;
+}
