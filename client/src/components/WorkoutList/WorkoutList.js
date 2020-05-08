@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './WorkoutList.css';
 import Workout from '../../pages/Workout/Workout';
 
@@ -18,13 +18,20 @@ const WorkoutList = ({ workouts }) => {
                 <u>difficulty:</u> {workout.difficulty}
               </p>
             </div>
-            
+
             <div className="option-buttons">
               <button>Add to schedule</button>
-              {(workout.trainingDays ? (<Link to= {{pathname: '/WorkoutPlan', state: {workout: workout}}}><button>View Workout Plan</button></Link>) : (<button>Add to Workoutplan</button>))}
-              
-              
-              
+              {workout.trainingDays ? (
+                <Link
+                  to={{ pathname: '/WorkoutPlan', state: { workout: workout } }}
+                >
+                  <button>View Workout Plan</button>
+                </Link>
+              ) : (
+                <Link to={{ pathname: '/CreateWorkoutPlan/' + workout.id, state: { workout: workout } }}>
+                <button>Add to Workoutplan</button>
+                </Link>
+              )}
             </div>
           </div>
 

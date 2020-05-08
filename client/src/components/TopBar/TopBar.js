@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from '../../actions/userActions';
+import { setSchedule } from '../../actions/scheduleActions';
 
 function TopBar () {
   const dispatch = useDispatch();
@@ -8,6 +9,7 @@ function TopBar () {
 
   const logOut = () => {
     dispatch(setUser(null));
+    dispatch(setSchedule(null));
     window.location.href="/"
   }
 
