@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import TopBar from '../../components/TopBar/TopBar';
 import { useSelector } from "react-redux";
 import ScheduledForToday from '../../components/ScheduledForToday/ScheduledForToday';
+import Navigation from './../../components/Navigation/nav'
 
 
 function HomePage () {
@@ -12,6 +13,7 @@ function HomePage () {
   return (
     <div>
       <TopBar />
+      <Navigation/>
       <div>Welcome {user.firstName}, ready for a workout?</div>
       <ScheduledForToday />
       <div>

@@ -7,6 +7,7 @@ import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import TopBar from '../../components/TopBar/TopBar';
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
+import Navigation from './../../components/Navigation/nav'
 
 
 // redux
@@ -99,6 +100,7 @@ function CreateWorkout () {
   return (
     <div>
       <TopBar />
+      <Navigation/>
       <div className='div-creating'>
         <h1>Create your day workout</h1>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true}/>
