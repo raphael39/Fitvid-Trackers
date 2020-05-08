@@ -7,7 +7,10 @@ import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWork
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import TopBar from '../../components/TopBar/TopBar';
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
-import Navigation from './../../components/Navigation/nav'
+import Navigation from './../../components/Navigation/nav';
+import Countdown from '../../components/Countdown/Countdown';
+import Stopwatch from '../../components/Stopwatch/Stopwatch';
+
 
 
 
@@ -49,6 +52,8 @@ function Workout ({
       <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
         <YoutubePlayer url={`https://www.youtube.com/watch?v=${workout.youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
+        <Countdown/>
+        <Stopwatch/>
         {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
