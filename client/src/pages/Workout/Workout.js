@@ -14,7 +14,7 @@ import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
 const workout = {id:"randomNumber", publicWorkout:true, workoutName:"AthleanX, fullbody", youtubeId:"vc1E5CfRfos", days: {monday: true, tuesday: false, wednesday: true, thursday: false, friday: false, saturday: false, sunday: false}, description: "Full body, bodyweight exercises with two different plans",difficulties: {easy: false, medium: true, hard: false}, exercises: [{ name: "Pull-ups", sets: 3, reps: 20, timestamp: "15"}, { name: "Abs ", sets: 2, reps: 1, timestamp: "3:00"}]}
 
 function Workout ({
-  //url/id, exercises
+  //receive the workout:id obj
 }) {
   
   const [exercises, setExercise] = useState(null);
@@ -38,8 +38,6 @@ function Workout ({
     setWorkoutName(workout.workoutName);
     setPublicWorkout(workout.publicWorkout)
   }, [])
-
-  console.log("ex", exercises)
 
   return (
     <div>

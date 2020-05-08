@@ -68,7 +68,7 @@ function CreateWorkout () {
 
   //
   async function createWorkout () {
-    const url = `http://localhost:3001/workout`;
+    const url = `${process.env.REACT_APP_SERVER_URL}/workout`;
     const token = user.token;
     console.log("token post", token)
     const bodyOption = {
