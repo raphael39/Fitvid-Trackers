@@ -5,7 +5,7 @@ const { ProfileSchema } = require('./profile');
 const WorkoutSchema = mongoose.Schema({
   name: String,
   description: String,
-  difficulty: String,
+  difficulties: { easy: Boolean, medium: Boolean, hard: Boolean },
   type: String,
   youtubeId: String,
   tags: [String],
@@ -15,9 +15,9 @@ const WorkoutSchema = mongoose.Schema({
     name: String,
     sets: Number,
     reps: Number,
-    timestamp: String, //converted by String by Pier
+    timestamp: String,
   }],
-  public: Boolean
+  isPublic: Boolean
 });
 
 const Workout = mongoose.model('Workout', WorkoutSchema);
