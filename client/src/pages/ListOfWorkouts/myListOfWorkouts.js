@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './myListOfWorkouts.css';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
-import TopBar from '../../components/TopBar/TopBar';
 import Navigation from './../../components/Navigation/nav'
 
 function MyListOfWorkouts() {
@@ -127,7 +126,6 @@ function MyListOfWorkouts() {
 
   return (
     <div>
-      <TopBar/>
       <Navigation/>
     <div className="header-search-view">
       <div>

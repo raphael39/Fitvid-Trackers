@@ -5,7 +5,6 @@ import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionW
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
-import TopBar from '../../components/TopBar/TopBar';
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
 import Navigation from './../../components/Navigation/nav'
 
@@ -99,7 +98,7 @@ function CreateWorkout () {
 
   return (
     <div>
-      <TopBar />
+      
       <Navigation/>
       <div className='div-creating'>
         <h1>Create your day workout</h1>
