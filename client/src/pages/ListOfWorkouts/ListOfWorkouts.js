@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
-import TopBar from '../../components/TopBar/TopBar';
 import './ListofWorkouts.css';
 import {Link} from 'react-router-dom';
 import Navigation from './../../components/Navigation/nav'
@@ -169,7 +168,6 @@ function ListOfWorkouts(props) {
 
   return (
     <div>
-    <TopBar/>
     <Navigation/>
       <div className="header-search-view">
       
