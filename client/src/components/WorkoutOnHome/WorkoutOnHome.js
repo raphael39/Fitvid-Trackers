@@ -1,12 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './WorkoutList.css';
+import {Link} from 'react-router-dom';
+import './WorkoutOnHome.css';
 import Workout from '../../pages/Workout/Workout';
 
-const WorkoutList = ({ workouts }) => {
+const WorkoutOnHome = ({ workouts }) => {
+function redirectToWorkout () {
+  window.location.href = '/workout';
+}
+
   console.log(workouts);
   return (
-    <div className="workout-list-box">
+    <div className="workout-list-box" onClick={redirectToWorkout}>
       {workouts.map((workout) => (
         <div className="single-workout-box">
           <div className="description-and-middle-box">
@@ -19,20 +23,7 @@ const WorkoutList = ({ workouts }) => {
               </p>
             </div>
 
-            <div className="option-buttons">
-              <button>Add to schedule</button>
-              {workout.trainingDays ? (
-                <Link
-                  to={{ pathname: '/WorkoutPlan', state: { workout: workout } }}
-                >
-                  <button>View Workout Plan</button>
-                </Link>
-              ) : (
-                <Link to={{ pathname: '/CreateWorkoutPlan/' + workout.id, state: { workout: workout } }}>
-                <button>Add to Workoutplan</button>
-                </Link>
-              )}
-            </div>
+
           </div>
 
           <div className="video-box">
@@ -49,4 +40,4 @@ const WorkoutList = ({ workouts }) => {
   );
 };
 
-export default WorkoutList;
+export default WorkoutOnHome;

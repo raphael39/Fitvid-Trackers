@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
-import TopBar from '../../components/TopBar/TopBar';
 import './ListofWorkouts.css';
 import {Link} from 'react-router-dom';
+import Navigation from './../../components/Navigation/nav'
 
-function ListOfWorkouts() {
+function ListOfWorkouts(props) {
+
+  const { handle } = props.match.params;
+  if (props.location.state) {
+    const { index } = props.location.state;
+  }
+  
+
   const fakeWorkouts = [
     {
       id: '001',
@@ -161,11 +168,11 @@ function ListOfWorkouts() {
 
   return (
     <div>
-    <TopBar/>
+    <Navigation/>
       <div className="header-search-view">
       
         <div>
-        <Link to='/ListOfWorkouts'><button><h1>Browse Workouts</h1></button></Link>
+  <Link to='/ListOfWorkouts'><button><h1>Browse Workouts</h1></button></Link>
         <Link to='/myListOfWorkouts'><button><h1>My Saved Workouts</h1></button></Link>
         </div>
         <div className="search-workouts">

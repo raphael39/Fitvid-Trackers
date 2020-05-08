@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import WorkoutOnHome from '../../components/WorkoutOnHome/WorkoutOnHome';
+
 
 function ScheduledForToday () {
   const schedule = useSelector(state => state.schedule);
@@ -59,9 +61,7 @@ function ScheduledForToday () {
       <div>Scheduled for {getScheduledFor()}:</div>
       <div>{workoutsOfSelectedDay.length < 1 ? 'nothing scheduled' :
         workoutsOfSelectedDay.map(workout => (
-          <div>
-            <Link to='/workout/'>workout.title</Link>
-          </div>
+          <WorkoutOnHome workouts={workout}/>
         ))
       }
         <div>Select another day:</div>
