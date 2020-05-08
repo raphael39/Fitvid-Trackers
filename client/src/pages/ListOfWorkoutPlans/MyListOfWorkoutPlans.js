@@ -3,6 +3,7 @@ import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from '../../components/WorkoutList/FilterWorkouts';
 import TopBar from '../../components/TopBar/TopBar';
 import { Link } from 'react-router-dom';
+import Navigation from './../../components/Navigation/nav'
 
 const MyWorkoutPlans = ({}) => {
   const fakeWorkouts = [
@@ -111,6 +112,7 @@ const MyWorkoutPlans = ({}) => {
   return (
     <div>
       <TopBar/>
+      <Navigation/>
       <div className="header-search-view">
         <div>
           <Link to="/ListOfWorkoutPlans">
