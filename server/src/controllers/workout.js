@@ -21,7 +21,19 @@ const createWorkout = async (ctx, next) => {
   ctx.status = 201;
 };
 
+const updateWorkout = async (ctx, next) => {
+  const id = ctx.params.id;
+  let wo;
+  if (isValidObjectId(id)) {
+    wo = await Workout.findOneAndUpdate({ _id: id }, ctx.request.body);
+    ctx.status = 200;
+  } else {
+    ctx.status = 404;
+  }
+};
+
 module.exports = {
   getWorkout,
-  createWorkout
+  createWorkout,
+  updateWorkout
 };
