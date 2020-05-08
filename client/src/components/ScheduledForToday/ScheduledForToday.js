@@ -34,6 +34,7 @@ function ScheduledForToday () {
   }
 
   function getWorkoutsOfSelectedDay () {
+    if (schedule) {
     const workoutIds = schedule.map.filter(day => day.day === selectedDay).workouts;
     console.log("getWorkoutsOfSelectedDay -> workoutIds", workoutIds)
     if (workoutIds) {
@@ -48,6 +49,9 @@ function ScheduledForToday () {
       .then(response => response.json()
       .then(data => { setWorkoutsOfSelectedDay([data]); }));
     }
+  } else {
+    setWorkoutsOfSelectedDay([]);
+  }
   }
 
   return (
