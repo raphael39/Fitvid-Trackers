@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CreateWorkoutPlan.css';
 import Workout from '../Workout/Workout';
-import Navigation from './../../components/Navigation/nav'
+import NavBar from './../../components/Navigation/navBar'
 
 function CreateWorkoutPlan(props) {
   const [newWorkoutPlan, setNewWorkoutPlan] = useState({
@@ -25,7 +25,7 @@ function CreateWorkoutPlan(props) {
 
   return (
     <div>
-      <Navigation/>
+      <NavBar/>
       <h1>Create your WorkoutPlan</h1>
 
       {state && state.workout ? <div>{state.workout.name}</div> : ''}

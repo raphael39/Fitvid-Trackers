@@ -6,8 +6,8 @@ import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWork
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
-import Navigation from './../../components/Navigation/nav';
 import ApiClient from '../../Services/ApiClient';
+import NavBar from './../../components/Navigation/navBar'
 
 
 // redux
@@ -74,8 +74,8 @@ function CreateWorkout () {
 
   return (
     <div>
-
-      <Navigation/>
+      
+      <NavBar/>
       <div className='div-creating'>
         <h1>Create your day workout</h1>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true}/>
