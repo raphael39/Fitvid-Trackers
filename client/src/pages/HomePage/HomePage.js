@@ -11,12 +11,12 @@ function HomePage () {
 
   return (
     <div>
-      
+
       <Navigation/>
       <div>Welcome {user.firstName}, ready for a workout?</div>
       <ScheduledForToday />
       <div>
-        <Link to="/workoutList">Browse Workouts</Link>
+        <Link to="/ListOfWorkouts">Browse Workouts</Link>
         <Link to="/createWorkout">Create New Workout</Link>
       </div>
       <div>

@@ -15,6 +15,16 @@ const getWorkout = async (ctx, next) => {
   }
 };
 
+const getAllWorkouts = async (ctx, next) =>  {
+  console.log("getAllWorkouts -> workouts")
+  let workouts = await Workout.find();
+  if (workouts) {
+    ctx.body = workouts;
+  } else {
+    ctx.status = 404;
+  }
+}
+
 const createWorkout = async (ctx, next) => {
   console.log('I am here');
 
@@ -38,5 +48,6 @@ const updateWorkout = async (ctx, next) => {
 module.exports = {
   getWorkout,
   createWorkout,
-  updateWorkout
+  updateWorkout,
+  getAllWorkouts
 };

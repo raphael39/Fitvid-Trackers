@@ -3,7 +3,8 @@ import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
 import './ListofWorkouts.css';
 import {Link} from 'react-router-dom';
-import Navigation from './../../components/Navigation/nav'
+import Navigation from './../../components/Navigation/nav';
+import ApiClient from '../../Services/ApiClient';
 
 function ListOfWorkouts(props) {
 
@@ -11,7 +12,7 @@ function ListOfWorkouts(props) {
   if (props.location.state) {
     const { index } = props.location.state;
   }
-  
+
 
   const fakeWorkouts = [
     {
@@ -76,6 +77,7 @@ function ListOfWorkouts(props) {
     },
   ];
 
+
   const [searchValue, setSearchValue] = useState('');
   const [filteredWorkouts, setfilteredWorkouts] = useState(fakeWorkouts);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
@@ -83,6 +85,12 @@ function ListOfWorkouts(props) {
     medium: false,
     hard: false,
   });
+
+  useEffect (() => {
+    console.log('test 123');
+
+    ApiClient.getAllWorkouts().then(workouts => setfilteredWorkouts(workouts))
+  }, []);
 
   const handleInputChange = (enteredInput) => {
     setSearchValue(enteredInput);
@@ -170,7 +178,7 @@ function ListOfWorkouts(props) {
     <div>
     <Navigation/>
       <div className="header-search-view">
-      
+
         <div>
   <Link to='/ListOfWorkouts'><button><h1>Browse Workouts</h1></button></Link>
         <Link to='/myListOfWorkouts'><button><h1>My Saved Workouts</h1></button></Link>
