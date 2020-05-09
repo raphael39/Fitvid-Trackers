@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import { setUser } from '../../actions/userActions';
-import { setSchedule } from '../../actions/scheduleActions';
+import { setUser } from '../../redux/actions/userActions';
+import { setSchedule } from '../../redux/actions/scheduleActions';
 import jwtDecode from 'jwt-decode';
 
 function SetCredentials () {

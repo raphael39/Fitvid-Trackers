@@ -6,7 +6,8 @@ import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWork
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
-import Navigation from './../../components/Navigation/nav'
+import Navigation from './../../components/Navigation/nav';
+import ApiClient from '../../Services/ApiClient';
 
 
 // redux
@@ -15,7 +16,7 @@ import { useSelector } from "react-redux";
 //route
 import { Link } from 'react-router-dom';
 
-//post request 
+//post request
 
 
 
@@ -55,9 +56,6 @@ function CreateWorkout () {
 
   //
   async function createWorkout () {
-    const url = `${process.env.REACT_APP_SERVER_URL}/workout`;
-    const token = user.token;
-    console.log("token post", token)
     const bodyOption = {
       name : workoutName,
       description : description,
@@ -65,40 +63,31 @@ function CreateWorkout () {
       type : "strenght",
       youtubeId : youtubeId,
       tags: ["workInProgress"],
-      length: 0, 
+      length: 0,
       createdBy: user._id,
       exercises: exercises,
       isPublic: isPublic
     };
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      // Accept: 'application/json',
-      body: JSON.stringify(bodyOption)
-    });
-    console.log(JSON.stringify(bodyOption));
-    return response.json()
+    const response = await ApiClient.createWorkout(bodyOption);
+    return response;
   }
 
   return (
     <div>
-      
+
       <Navigation/>
       <div className='div-creating'>
         <h1>Create your day workout</h1>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true}/>
         <p>{day}</p>
         <p style={{fontStyle: "italic"}}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
-        {!youtubeId && 
+        {!youtubeId &&
           <div>
             <label for='youtubeUrl'>Import your Youtube video here: </label>
             <input id='youtubeUrl' type='text' onChange={(event)=> handlingYoutubeUrl(event)}/>
             <button onClick={generateYoutubeId}>Import</button>
           </div>}
-        {youtubeId && 
+        {youtubeId &&
           <div>
             <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
             <button onClick={() => setYoutubeId()}>Change Video</button>
