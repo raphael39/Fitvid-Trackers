@@ -11,7 +11,8 @@ const getSchedule = async (ctx, next) => {
 };
 
 const updateSchedule = async (ctx, next) => {
-  const update = { ...ctx.request.body, userId: ctx.user };
+  const update = ctx.request.body;
+  console.log("updateSchedule -> update", update)
   await Schedule.findOneAndUpdate({ userId: ctx.user }, update, {
     new: true,
     upsert: true
