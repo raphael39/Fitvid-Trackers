@@ -41,7 +41,7 @@ function CreateWorkout () {
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
-  const [publicWorkout, setPublicWorkout] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
 
   const handlingYoutubeUrl = (event) => {
     event.preventDefault();
@@ -53,35 +53,22 @@ function CreateWorkout () {
     setYoutubeId(youtubeId);
   }
 
-  const createMockWorkout = () => {
-    let workout = {
-      id: "random Number",
-      workoutName,
-      youtubeId,
-      exercises,
-      description,
-      difficulties,
-      days
-    }
-    console.log( workout);
-  }
-
   //
   async function createWorkout () {
-    const url = `http://localhost:3001/workout`;
+    const url = `${process.env.REACT_APP_SERVER_URL}/workout`;
     const token = user.token;
     console.log("token post", token)
     const bodyOption = {
       name : workoutName,
       description : description,
-      difficulty : "easy", //we go for the string or for the obj?
+      difficulties : difficulties,
       type : "strenght",
       youtubeId : youtubeId,
-      tags: ["biceps"],
-      length: 234,
+      tags: ["workInProgress"],
+      length: 0, 
       createdBy: user._id,
       exercises: exercises,
-      public: publicWorkout
+      isPublic: isPublic
     };
     const response = await fetch(url, {
       method: 'POST',
@@ -123,7 +110,7 @@ function CreateWorkout () {
         <br/>
         <DaysWorkout days={days} setDays={setDays} editable={true}/>
         <br/>
-        <PublicWorkout publicWorkout={publicWorkout} setPublicWorkout={setPublicWorkout} editable={true}/>
+        <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true}/>
         <br/>
         <button onClick={()=>console.log(user)}>User?</button>
         <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button>
