@@ -87,9 +87,8 @@ function ListOfWorkouts(props) {
   });
 
   useEffect (() => {
-    console.log('test 123');
-
-    ApiClient.getAllWorkouts().then(workouts => setfilteredWorkouts(workouts))
+    ApiClient.getAllWorkouts()
+      .then(workouts => setfilteredWorkouts(workouts));
   }, []);
 
   const handleInputChange = (enteredInput) => {

@@ -3,6 +3,7 @@ import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from '../../components/WorkoutList/FilterWorkouts';
 import { Link } from 'react-router-dom';
 import Navigation from './../../components/Navigation/nav';
+import ApiClient from '../../Services/ApiClient';
 
 const WorkoutPlans = ({}) => {
   const fakeWorkouts = [
@@ -33,13 +34,18 @@ const WorkoutPlans = ({}) => {
       created_by: 654684,
     },
   ];
-  const [filteredWorkouts, setfilteredWorkouts] = useState(fakeWorkouts);
+  const [filteredWorkoutPlans, setFilteredWorkoutPlans] = useState([]);
   const [searchValue, setSearchValue] = useState('');
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
     medium: false,
     hard: false,
   });
+
+  useEffect (() => {
+    ApiClient.getAllWorkoutPlans()
+      .then(plans => setFilteredWorkoutPlans(plans));
+  }, []);
 
   const handleInputChange = (enteredInput) => {
     setSearchValue(enteredInput);
@@ -74,13 +80,13 @@ const WorkoutPlans = ({}) => {
       filteredArray = filteredArray.filter((Workout) =>
         Workout.name.toLowerCase().includes(enteredInput.toLowerCase())
       );
-      setfilteredWorkouts(filteredArray);
+      setFilteredWorkoutPlans(filteredArray);
     } else {
       let searchFilteredArray = fakeWorkouts.filter((Workout) =>
         Workout.name.toLowerCase().includes(enteredInput.toLowerCase())
       );
       console.log(searchFilteredArray);
-      setfilteredWorkouts(searchFilteredArray);
+      setFilteredWorkoutPlans(searchFilteredArray);
     }
   };
 
@@ -149,7 +155,7 @@ const WorkoutPlans = ({}) => {
         </div>
       </div>
       <div className="list-filter-container">
-        <WorkoutList workouts={filteredWorkouts}></WorkoutList>
+        <WorkoutList workouts={filteredWorkoutPlans}></WorkoutList>
         <FilterWorkouts
           handleCheckBoxChange={handleCheckBoxChange}
         ></FilterWorkouts>

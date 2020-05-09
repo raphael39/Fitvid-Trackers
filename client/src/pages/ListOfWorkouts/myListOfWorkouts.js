@@ -44,9 +44,8 @@ function MyListOfWorkouts() {
   });
 
   useEffect (() => {
-    console.log('test 123');
-
-    ApiClient.getAllWorkouts().then(workouts => setfilteredWorkouts(workouts))
+    ApiClient.getMyWorkouts()
+      .then(workouts => setfilteredWorkouts(workouts));
   }, []);
 
   const handleInputChange = (enteredInput) => {

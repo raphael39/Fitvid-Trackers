@@ -9,6 +9,10 @@ const getAllPlans = async (ctx, next) => {
   ctx.body = await Plan.find();
 };
 
+const getMyPlans = async (ctx, next) => {
+  ctx.body = await Plan.find({ createdBy: ctx.user._id });
+};
+
 const createPlan = async (ctx, next) => {
   await Plan.create(ctx.request.body);
 };
@@ -22,5 +26,6 @@ module.exports = {
   getPlan,
   getAllPlans,
   createPlan,
-  updatePlan
+  updatePlan,
+  getMyPlans
 };

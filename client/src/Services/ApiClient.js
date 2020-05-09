@@ -63,6 +63,9 @@ export default {
   getAllWorkoutPlans: () => {
     return getRequest(`/plan/all`);
   },
+  getMyWorkoutPlans: () => {
+    return getRequest(`/plan/my`);
+  },
   updateSchedule: (schedule) => {
     return postRequest(`/schedule`, schedule);
   },
