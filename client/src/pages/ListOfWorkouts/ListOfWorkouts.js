@@ -79,7 +79,7 @@ function ListOfWorkouts(props) {
 
 
   const [searchValue, setSearchValue] = useState('');
-  const [filteredWorkouts, setfilteredWorkouts] = useState(fakeWorkouts);
+  const [filteredWorkouts, setfilteredWorkouts] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
     medium: false,

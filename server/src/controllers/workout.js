@@ -6,7 +6,7 @@ const getWorkout = async (ctx, next) => {
   const id = ctx.params.id;
   let wo;
   if (isValidObjectId(id)) {
-    wo = await Workout.findOne({ _id: id, createdBy: ctx.user });
+    wo = await Workout.findOne({ _id: id, createdBy: ctx.user._id });
   }
   if (wo) {
     ctx.body = wo;
@@ -16,8 +16,16 @@ const getWorkout = async (ctx, next) => {
 };
 
 const getAllWorkouts = async (ctx, next) =>  {
-  console.log("getAllWorkouts -> workouts")
   let workouts = await Workout.find();
+  if (workouts) {
+    ctx.body = workouts;
+  } else {
+    ctx.status = 404;
+  }
+}
+
+const getMyWorkouts = async (ctx, next) =>  {
+  let workouts = await Workout.find({ createdBy: ctx.user._id });
   if (workouts) {
     ctx.body = workouts;
   } else {
@@ -49,5 +57,6 @@ module.exports = {
   getWorkout,
   createWorkout,
   updateWorkout,
-  getAllWorkouts
+  getAllWorkouts,
+  getMyWorkouts
 };

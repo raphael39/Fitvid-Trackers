@@ -51,6 +51,9 @@ export default {
   getAllWorkouts: () => {
     return getRequest(`/workout/all`);
   },
+  getMyWorkouts: () => {
+    return getRequest(`/workout/my`);
+  },
   getProfile: () => {
     return getRequest(`/profile`);
   },
