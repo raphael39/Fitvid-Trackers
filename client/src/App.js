@@ -16,6 +16,8 @@ import ListOfWorkoutPlans from './pages/ListOfWorkoutPlans/ListOfWorkoutPlans';
 import myListOfWorkoutPlans from './pages/ListOfWorkoutPlans/MyListOfWorkoutPlans'
 import WorkoutPlan from './pages/WorkoutPlan/WorkoutPlan';
 import CreateWorkoutPlan from './pages/CreateWorkoutPlan/CreateWorkoutPlan'
+import NavBar from './components/Navigation/navBar';
+
 
 import './App.css';
 import MyListOfWorkouts from './pages/ListOfWorkouts/myListOfWorkouts';
@@ -55,6 +57,8 @@ function App () {
           component={CreateWorkoutPlan} />
           <Route path="/CreateWorkoutPlan/:id"
           component={CreateWorkoutPlan} />
+          <Route path="/navbar"
+          component={NavBar} />
           </Router>
         </PersistGate>
       </Provider>

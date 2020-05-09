@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import './myListOfWorkouts.css';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
-import Navigation from './../../components/Navigation/nav';
 import ApiClient from '../../Services/ApiClient';
+import Navigation from './../../components/Navigation/navBar'
 
 function MyListOfWorkouts() {
 
