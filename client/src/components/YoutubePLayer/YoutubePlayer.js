@@ -6,16 +6,17 @@ function YoutubePlayer ({url, timeVideo, clickTimestamp}) {
   const player = useRef();
 
   function convertToSeconds (time) {
-    if(!time.includes(":")) return Number(time);
-    if(time.split(":").length===2) {
-      const seconds = Number(time.split(":")[1]);
-      const minutes = Number(time.split(":")[0]);
+    const regex = /[,:;.]/;
+    if(time.match(regex)===null) return Number(time);
+    if(time.split(regex).length===2) {
+      const seconds = Number(time.split(regex)[1]);
+      const minutes = Number(time.split(regex)[0]);
       return (minutes*60+seconds)
     }
-    if(time.split(":").length===3) {     
-      const seconds = Number(time.split(":")[2]);
-      const minutes = Number(time.split(":")[1]);
-      const hours = Number(time.split(":")[0]);
+    if(time.split(regex).length===3) {     
+      const seconds = Number(time.split(regex)[2]);
+      const minutes = Number(time.split(regex)[1]);
+      const hours = Number(time.split(regex)[0]);
       return (hours*3600+minutes*60+seconds)
     }
     return undefined;    
