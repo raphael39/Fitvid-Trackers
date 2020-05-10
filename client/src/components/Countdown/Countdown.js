@@ -62,16 +62,17 @@ class Countdown extends Component {
   };
   
   convertToMilliseconds = (time) => {
-    if(!time.includes(":")) return Number(time)*1000;
-    if(time.split(":").length===2) {
-      const seconds = Number(time.split(":")[1])*1000;
-      const minutes = Number(time.split(":")[0])*60000;
+    const regex = /[,:;.]/;
+    if(time.match(regex)===null) return Number(time)*1000;
+    if(time.split(regex).length===2) {
+      const seconds = Number(time.split(regex)[1])*1000;
+      const minutes = Number(time.split(regex)[0])*60000;
       return Number(minutes+seconds)
     }
-    if(time.split(":").length===3) {     
-      const seconds = Number(time.split(":")[2])*1000;
-      const minutes = Number(time.split(":")[1])*60000;
-      const hours = Number(time.split(":")[0])*3600000;
+    if(time.split(regex).length===3) {     
+      const seconds = Number(time.split(regex)[2])*1000;
+      const minutes = Number(time.split(regex)[1])*60000;
+      const hours = Number(time.split(regex)[0])*3600000;
       return Number(hours+minutes+seconds)
     }
     return undefined;    
