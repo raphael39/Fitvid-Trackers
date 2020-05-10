@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ScheduledForToday from '../../components/ScheduledForToday/ScheduledForToday';
-import Navigation from './../../components/Navigation/nav'
+import NavBar from './../../components/Navigation/navBar'
 
 
 function HomePage () {
@@ -12,11 +12,11 @@ function HomePage () {
   return (
     <div>
       
-      <Navigation/>
+      <NavBar/>
       <div>Welcome {user.firstName}, ready for a workout?</div>
       <ScheduledForToday />
       <div>
-        <Link to="/workoutList">Browse Workouts</Link>
+        <Link to="/ListOfWorkouts">Browse Workouts</Link>
         <Link to="/createWorkout">Create New Workout</Link>
       </div>
       <div>

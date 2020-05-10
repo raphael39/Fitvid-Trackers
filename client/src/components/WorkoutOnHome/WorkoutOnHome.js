@@ -3,15 +3,14 @@ import {Link} from 'react-router-dom';
 import './WorkoutOnHome.css';
 import Workout from '../../pages/Workout/Workout';
 
-const WorkoutOnHome = ({ workouts }) => {
+const WorkoutOnHome = ( workout ) => {
 function redirectToWorkout () {
   window.location.href = '/workout';
 }
 
-  console.log(workouts);
   return (
     <div className="workout-list-box" onClick={redirectToWorkout}>
-      {workouts.map((workout) => (
+      {
         <div className="single-workout-box">
           <div className="description-and-middle-box">
             <div className="description-box">
@@ -35,7 +34,7 @@ function redirectToWorkout () {
             ></iframe>
           </div>
         </div>
-      ))}
+      }
     </div>
   );
 };

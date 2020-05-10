@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from '../../redux/actions/userActions';
 import { setSchedule } from '../../redux/actions/scheduleActions';
 import jwtDecode from 'jwt-decode';
+import ApiClient from '../../Services/ApiClient';
 
 function SetCredentials () {
 
@@ -26,15 +27,9 @@ function SetCredentials () {
 
   const fetchSecheduleUrl = process.env.REACT_APP_SERVER_URL + '/schedule/';
 
-  fetch(fetchSecheduleUrl, {
-    method: 'get',
-    headers: new Headers({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/x-www-form-urlencoded'
-    })
-  })
-  .then(response => response.json()
-  .then(data => { dispatch(setSchedule(data)); }));
+  ApiClient.getSchedule()
+  .then(response => response.json())
+  .then(data => { dispatch(setSchedule(data)); });
 
   dispatch(setUser(userObj));
 

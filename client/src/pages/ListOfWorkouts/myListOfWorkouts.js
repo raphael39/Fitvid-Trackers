@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import './myListOfWorkouts.css';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
-import Navigation from './../../components/Navigation/nav'
+import ApiClient from '../../Services/ApiClient';
+import Navigation from './../../components/Navigation/navBar'
 
 function MyListOfWorkouts() {
 
@@ -35,12 +36,17 @@ function MyListOfWorkouts() {
   ];
 
   const [searchValue, setSearchValue] = useState('');
-  const [filteredWorkouts, setfilteredWorkouts] = useState(fakeWorkouts);
+  const [filteredWorkouts, setfilteredWorkouts] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
     medium: false,
     hard: false,
   });
+
+  useEffect (() => {
+    ApiClient.getMyWorkouts()
+      .then(workouts => setfilteredWorkouts(workouts));
+  }, []);
 
   const handleInputChange = (enteredInput) => {
     setSearchValue(enteredInput);

@@ -7,10 +7,9 @@ import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWork
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import TopBar from '../../components/TopBar/TopBar';
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
-import Navigation from './../../components/Navigation/nav';
 import Countdown from '../../components/Countdown/Countdown';
 import Stopwatch from '../../components/Stopwatch/Stopwatch';
-
+import Navigation from './../../components/Navigation/navBar'
 
 
 

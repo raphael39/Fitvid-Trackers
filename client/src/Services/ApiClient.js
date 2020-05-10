@@ -51,6 +51,9 @@ export default {
   getAllWorkouts: () => {
     return getRequest(`/workout/all`);
   },
+  getMyWorkouts: () => {
+    return getRequest(`/workout/my`);
+  },
   getProfile: () => {
     return getRequest(`/profile`);
   },
@@ -59,6 +62,9 @@ export default {
   },
   getAllWorkoutPlans: () => {
     return getRequest(`/plan/all`);
+  },
+  getMyWorkoutPlans: () => {
+    return getRequest(`/plan/my`);
   },
   updateSchedule: (schedule) => {
     return postRequest(`/schedule`, schedule);
