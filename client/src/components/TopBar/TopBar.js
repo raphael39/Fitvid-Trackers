@@ -10,7 +10,7 @@ function TopBar () {
   const logOut = () => {
     dispatch(setUser(null));
     dispatch(setSchedule(null));
-    window.location.href="/"
+    window.location.href="/";
   }
 
   return (

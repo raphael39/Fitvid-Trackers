@@ -25,13 +25,12 @@ function SetCredentials () {
     token: token
   }
 
+  dispatch(setUser(userObj));
+
   const fetchSecheduleUrl = process.env.REACT_APP_SERVER_URL + '/schedule/';
 
   ApiClient.getSchedule()
-  .then(response => response.json())
-  .then(data => { dispatch(setSchedule(data)); });
-
-  dispatch(setUser(userObj));
+  .then(data => { dispatch(setSchedule(data)) });
 
   return ( <Redirect to="/HomePage" /> );
 
