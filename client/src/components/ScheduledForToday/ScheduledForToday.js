@@ -66,7 +66,7 @@ function ScheduledForToday () {
   function getWorkoutsOfSelectedDay () {
     if (schedule) {
 
-      const todaysWorkouts = schedule.map.filter(day => (moment(day.day).format('YYYY-MM-DD') == selectedDay));
+      const todaysWorkouts = schedule.map.filter(day => (moment(day.day).format('YYYY-MM-DD') == selectedDate));
 
       if (todaysWorkouts.length > 0) {
         const fetchWorkoutUrl = process.env.REACT_APP_SERVER_URL + `/workout/${todaysWorkouts[0].workout}`;
