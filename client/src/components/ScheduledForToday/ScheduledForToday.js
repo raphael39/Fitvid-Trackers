@@ -72,8 +72,11 @@ function ScheduledForToday () {
       setTodaysWorkoutIds(todaysIds);
 
       if (todaysIds.length > 0) {
-        ApiClient.getWorkout(todaysIds[0].workout)
-          .then(data => { setWorkoutsOfSelectedDay([data]) });
+        const promiseArr = [];
+        for (let i = 0; i < todaysIds.length; i++) {
+          promiseArr[i] = ApiClient.getWorkout(todaysIds[i].workout)
+        }
+        Promise.all(promiseArr).then(resolved => { setWorkoutsOfSelectedDay(resolved) });
       }
     } else { setWorkoutsOfSelectedDay([]); }
   }
