@@ -9,9 +9,9 @@ import Navigation from './../../components/Navigation/navBar'
 function ListOfWorkouts(props) {
 
   const { handle } = props.match.params;
-  if (props.location.state) {
-    const { index } = props.location.state;
-  }
+  const { state } = props.location;
+
+  
 
 
   const fakeWorkouts = [
@@ -193,7 +193,7 @@ function ListOfWorkouts(props) {
         </div>
       </div>
       <div className="list-filter-container">
-        <WorkoutList workouts={filteredWorkouts}></WorkoutList>
+        <WorkoutList workouts={filteredWorkouts} passedIndex={((state && state.passedIndex >= 0)? state.passedIndex : 'nothing')}></WorkoutList>
         <FilterWorkouts
           handleCheckBoxChange={handleCheckBoxChange}
         ></FilterWorkouts>

@@ -4,10 +4,12 @@ import storage from 'redux-persist/lib/storage'
 
 import userReducer from './userReducer';
 import scheduleReducer from './scheduleReducer';
+import newWorkoutPlan from './workoutPlanReducer'
 
 const rootReducer = combineReducers({
   currentUser: userReducer,
-  schedule: scheduleReducer
+  schedule: scheduleReducer, 
+  workoutPlanCreation: newWorkoutPlan,
 });
 
 const persistConfig = {

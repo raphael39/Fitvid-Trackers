@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import './WorkoutList.css';
 import Workout from '../../pages/Workout/Workout';
 
-const WorkoutList = ({ workouts }) => {
-  console.log(workouts);
+const WorkoutList = ({ workouts, passedIndex }) => {
+  console.log('this is the passedIndex inside List -->', passedIndex);
   return (
     <div className="workout-list-box">
       {workouts.map((workout) => (
@@ -28,7 +28,7 @@ const WorkoutList = ({ workouts }) => {
                   <button>View Workout Plan</button>
                 </Link>
               ) : (
-                <Link to={{ pathname: '/CreateWorkoutPlan/' + workout.id, state: { workout: workout } }}>
+                <Link to={{ pathname: '/CreateWorkoutPlan' , state: { workout: workout, passedIndex: passedIndex} }}>
                 <button>Add to Workoutplan</button>
                 </Link>
               )}
@@ -37,7 +37,7 @@ const WorkoutList = ({ workouts }) => {
 
           <div className="video-box">
             <iframe
-              src={`https://www.youtube.com/embed/${workout.youtubeID}`}
+              src={`https://www.youtube.com/embed/${workout.youtubeId}`}
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
