@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import reduxStore from './redux/stores/reduxStore';
 import Login from './pages/Login/Login';
-import ImportVideo from './pages/ImportVideo/ImportVideo';
 import Workout from './pages/Workout/Workout';
 import SetCredentials from './pages/SetCredentials/SetCredentials';
 import CreateWorkout from './pages/CreateWorkout/CreateWorkout';
