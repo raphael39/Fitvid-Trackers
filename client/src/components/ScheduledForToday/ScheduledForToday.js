@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "7px",
     marginLeft: "10px",
     backgroundColor: "black",
-    color: "white", 
+    color: "white",
     '&:hover': {
         backgroundColor: 'rgb(80,80,80)',
     }
@@ -40,7 +40,8 @@ function ScheduledForToday () {
   const classes = useStyles();
   const today = moment().format('YYYY-MM-DD');
 
-  const [selectedDate, handleDateChange] = useState(today);
+  const [selectedDate, setSelectedDate] = useState(today);
+  const [todaysWorkoutIds, setTodaysWorkoutIds] = useState([]);
   const [workoutsOfSelectedDay, setWorkoutsOfSelectedDay] = useState([]);
   const token = useSelector(state => state.currentUser).token;
 
@@ -48,9 +49,10 @@ function ScheduledForToday () {
     getWorkoutsOfSelectedDay();
   }, []);
 
-  // function changeDate () {
-  //   handleDateChange(document.getElementById("datePicker").value);
-  // }
+  function changeDate (date) {
+    setSelectedDate(moment(date).format('YYYY-MM-DD'));
+    getWorkoutsOfSelectedDay();
+  }
 
   function getScheduledFor () {
     return moment(selectedDate).calendar(null, {
@@ -65,11 +67,14 @@ function ScheduledForToday () {
 
   function getWorkoutsOfSelectedDay () {
     if (schedule) {
+      console.log(schedule);
+      console.log('selected date', selectedDate)
 
-      const todaysWorkouts = schedule.map.filter(day => (moment(day.day).format('YYYY-MM-DD') == selectedDate));
+      setTodaysWorkoutIds(schedule.map.filter(day => (moment(day.day).format('YYYY-MM-DD') == selectedDate)));
+      console.log("getWorkoutsOfSelectedDay -> todaysWorkoutIds", todaysWorkoutIds)
 
-      if (todaysWorkouts.length > 0) {
-        const fetchWorkoutUrl = process.env.REACT_APP_SERVER_URL + `/workout/${todaysWorkouts[0].workout}`;
+      if (todaysWorkoutIds.length > 0) {
+        const fetchWorkoutUrl = process.env.REACT_APP_SERVER_URL + `/workout/${todaysWorkoutIds[0].workout}`;
         const workoutObj = fetch(fetchWorkoutUrl, {
           method: 'get',
           headers: new Headers({
@@ -90,14 +95,14 @@ function ScheduledForToday () {
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <div>
           <div>Scheduled for {getScheduledFor()}:</div>
-          <div>{workoutsOfSelectedDay.length < 1 ? 'nothing scheduled' :
+          <div>{todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
             workoutsOfSelectedDay.map(workout => (
               <WorkoutOnHome workouts={workout} />
             ))
             }
             <div>Select another day:</div>
-              <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={handleDateChange} />
-              <Button size="small" className={classes.submit} onClick={getWorkoutsOfSelectedDay}>Select day</Button>
+              <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} />
+
           </div>
       </div>
     </MuiPickersUtilsProvider>
