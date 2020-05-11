@@ -6,10 +6,14 @@ const getWorkout = async (ctx, next) => {
   const id = ctx.params.id;
   let wo;
   if (isValidObjectId(id)) {
-    wo = await Workout.findOne({ _id: id, createdBy: ctx.user._id });
+    wo = await Workout.findOne({ _id: id });
   }
   if (wo) {
-    ctx.body = wo;
+    if (wo.createdBy == ctx.user._id || wo.isPublic == true) {
+      ctx.body = wo;
+    } else {
+      ctx.status = 403;
+    }
   } else {
     ctx.status = 404;
   }
