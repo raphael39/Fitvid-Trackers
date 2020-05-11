@@ -16,13 +16,9 @@ const getWorkout = async (ctx, next) => {
 };
 
 const getAllWorkouts = async (ctx, next) =>  {
-  let workouts = await Workout.find();
-  if (workouts) {
-    ctx.body = workouts;
-  } else {
-    ctx.status = 404;
-  }
-}
+  let workouts = await Workout.find().or([{ createdBy: ctx.user._id }, { isPublic: true }]);
+  ctx.body = workouts;
+};
 
 const getMyWorkouts = async (ctx, next) =>  {
   let workouts = await Workout.find( { createdBy: ctx.user._id } );
@@ -31,7 +27,7 @@ const getMyWorkouts = async (ctx, next) =>  {
   } else {
     ctx.status = 404;
   }
-}
+};
 
 const createWorkout = async (ctx, next) => {
   const newWorkout = await Workout.create({...ctx.request.body, createdBy: ctx.user});
