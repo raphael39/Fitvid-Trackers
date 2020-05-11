@@ -11,7 +11,7 @@ import Stopwatch from '../../components/Stopwatch/Stopwatch';
 import Navigation from './../../components/Navigation/navBar';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
-
+import Tags from '../../components/Tags/Tags';
 
 
 
@@ -22,7 +22,7 @@ const workout = {id:"randomNumber", isPublic:true, name:"AthleanX, fullbody", yo
 function Workout ({
   //receive the workout:id obj
 }) {
-  
+
   const [exercises, setExercise] = useState(null);
 
   const [workoutName, setWorkoutName] = useState();
@@ -30,6 +30,7 @@ function Workout ({
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
   const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
   const [isPublic, setIsPublic] = useState(false);
+  const [tags, setTags] = useState([]);
 
   //videoplayer states, work on table if status editable=false
   const [timeVideo, setTimeVideo] = useState();
@@ -45,7 +46,8 @@ function Workout ({
     setDifficulties(workout.difficulties);
     setDays(workout.days);
     setWorkoutName(workout.workoutName);
-    setIsPublic(workout.isPublic)
+    setIsPublic(workout.isPublic);
+    setTags(workout.tags);
   }, [])
 
   return (
@@ -59,7 +61,7 @@ function Workout ({
       <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
         <YoutubePlayer url={`https://www.youtube.com/watch?v=${workout.youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
-        {!editable && 
+        {!editable &&
           <div>
             <Countdown/>
             <Stopwatch/>
@@ -68,6 +70,7 @@ function Workout ({
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
         <DaysWorkout days={days} setDays={setDays} editable={editable}/>
+        <Tags tags={tags} setTags={setTags} editable={editable} />
         <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable}/>
       </div>
     </div>
