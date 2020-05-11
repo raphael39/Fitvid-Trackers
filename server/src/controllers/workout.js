@@ -9,7 +9,7 @@ const getWorkout = async (ctx, next) => {
     wo = await Workout.findOne({ _id: id });
   }
   if (wo) {
-    if (wo.createdBy == ctx.user._id || wo.isPublic == true) {
+    if (wo.createdBy.equals(ctx.user._id) || wo.isPublic == true) {
       ctx.body = wo;
     } else {
       ctx.status = 403;
@@ -46,7 +46,7 @@ const updateWorkout = async (ctx, next) => {
   }
 
   if (wo) {
-    if (wo.createdBy == ctx.user._id) {
+    if (wo.createdBy.equals(ctx.user._id)) {
       await wo.update(ctx.request.body);
     }
     else {
