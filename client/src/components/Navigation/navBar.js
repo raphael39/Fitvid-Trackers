@@ -42,7 +42,7 @@ export default function NavBar() {
     };
   
     return (
-      <div className={classes.root}>
+
         
         <AppBar className={classes.root} position="static">
           <Toolbar>
@@ -98,7 +98,7 @@ export default function NavBar() {
             )}
           </Toolbar>
         </AppBar>
-      </div>
+
     );
   }
 
@@ -106,7 +106,9 @@ export default function NavBar() {
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      backgroundColor: 'black'
+      backgroundColor: 'black',
+      paddingLeft: "5%",
+      paddingRight: "5%"
     },
     menuButton: {
       marginRight: theme.spacing(2),

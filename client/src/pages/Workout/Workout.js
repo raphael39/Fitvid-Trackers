@@ -5,7 +5,6 @@ import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionWorkout';
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
-import TopBar from '../../components/TopBar/TopBar';
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
 import Countdown from '../../components/Countdown/Countdown';
 import Stopwatch from '../../components/Stopwatch/Stopwatch';
@@ -44,7 +43,6 @@ function Workout ({
 
   return (
     <div>
-      <TopBar />
       <Navigation/>
       <br/>
       <button onClick={()=>{setEditable(!editable)}}>{editable? "Done" : "Edit"}</button>

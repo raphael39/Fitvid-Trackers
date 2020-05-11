@@ -22,9 +22,6 @@ const defaultMaterialTheme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
   submit: {
     margin: theme.spacing(3, 0, 2),
     padding: "7px",
@@ -97,7 +94,7 @@ function ScheduledForToday () {
             ))
             }
             <div>Select another day:</div>
-            <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={handleDateChange} />
+              <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={handleDateChange} />
               <Button size="small" className={classes.submit} onClick={getWorkoutsOfSelectedDay}>Select day</Button>
           </div>
       </div>
