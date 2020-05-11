@@ -8,20 +8,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import AddIcon from '@material-ui/icons/Add';
-import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    ...theme.typography.button,
-    backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(1),
     flexGrow: 1,
 
   },
 }));
 
-function HomePage () {
+function HomePage() {
 
   const user = useSelector(state => state.currentUser);
   const classes = useStyles();
@@ -31,34 +30,37 @@ function HomePage () {
 
     (!user) ? <Redirect to="/" /> :
 
-    <div>
-      <NavBar/>
       <div>
-
-        <Typography variant="h6">Welcome {user.firstName}, ready for a workout?</Typography>
-        <ScheduledForToday />
-        <div>
-          <Link to="/ListOfWorkouts">
-            <FitnessCenterIcon />
+        <NavBar />
+        <div className={classes.root} style={{padding: "2% 8%"}}>
+          <Typography align="center" variant="h6">Welcome {user.firstName}, ready for a workout?</Typography>
+          <div>
+            <ScheduledForToday />
+          </div>
+          <Box style={{paddingTop: "3%"}}>
+          <div>
+            <Link to="/ListOfWorkouts">
+              <FitnessCenterIcon />
             Browse Workouts
-          </Link>
-          <Link to="/createWorkout">
-            <AddIcon/>
-            Create New Workout
-          </Link>
-        </div>
-        <div>
-          <Link to="/ListOfWorkoutPlans">
-            <FitnessCenterIcon/>
+            </Link>
+            <Link to="/ListOfWorkoutPlans">
+              <FitnessCenterIcon />
             Browse Workout Plans
-          </Link>
-          <Link to="/CreateWorkoutPlan">
-            <AddIcon/>
+            </Link>
+          </div>
+          <div>
+            <Link to="/createWorkout">
+                <AddIcon />
+              Create New Workout
+            </Link>
+            <Link to="/CreateWorkoutPlan">
+              <AddIcon />
             Create New Workout Plan
           </Link>
+          </div>
+          </Box>
         </div>
       </div>
-    </div>
   )
 }
 

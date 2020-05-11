@@ -24,16 +24,15 @@ const defaultMaterialTheme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-    padding: "7px",
-    marginLeft: "10px",
-    backgroundColor: "black",
-    color: "white",
-    '&:hover': {
-        backgroundColor: 'rgb(80,80,80)',
-    }
+  divSelected: {
+    padding: "3% 0"
   },
+  workoutHome: {
+    paddingTop: "3%"
+  },
+  divSelectDate: {
+    padding: "3% 0"
+  }
 }));
 
 function ScheduledForToday () {
@@ -96,16 +95,20 @@ function ScheduledForToday () {
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <div>
-          <Typography variant="body1">Scheduled for {getScheduledFor()}:</Typography>
-          <div>{todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
-            workoutsOfSelectedDay.map(workout => (
-              <WorkoutOnHome workouts={workout} />
-            ))
-            }
-            <Typography variant="body1">Select another day:</Typography>
-              <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} />
-
+          <div className={classes.divSelected}>
+            <Typography variant="body1" style={{fontWeight: 'bold'}}>Scheduled for {getScheduledFor()}:</Typography>
+            <div className={classes.workoutHome}>
+              {todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
+                workoutsOfSelectedDay.map(workout => (
+                  <WorkoutOnHome workouts={workout} />
+                ))
+              }
+            </div>
           </div>
+            <div className={classes.divSelectDate}>
+              <Typography variant="body1" style={{fontWeight: 'bold'}}>Select another day:</Typography>
+              <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} style={{paddingTop: '2%'}}/>
+            </div>
       </div>
     </MuiPickersUtilsProvider>
   </ThemeProvider>
