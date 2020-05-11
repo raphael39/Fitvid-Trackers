@@ -11,7 +11,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-import logo from '../../Asset/Screenshot from 2020-05-01 18-39-32.png';
+import logo1 from '../../Asset/meghan-holmes-buWcS7G1_28-unsplash.jpg';
+import logo2 from '../../Asset/risen-wang-20jX9b35r_M-unsplash.jpg';
+
 import './login.css';
 
 function Login () {
@@ -60,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: `url(https://www.hna.de/bilder/2019/04/30/12240189/362289748-tim-budesheim-1NhfzQtPa7.jpg)`,
+    backgroundImage: `url(${logo1})`,
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],

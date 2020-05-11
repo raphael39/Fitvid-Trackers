@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ScheduledForToday from '../../components/ScheduledForToday/ScheduledForToday';
-import NavBar from './../../components/Navigation/navBar'
+import NavBar from './../../components/Navigation/navBar';
+
 
 
 function HomePage () {
