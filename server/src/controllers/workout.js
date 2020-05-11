@@ -40,19 +40,19 @@ const updateWorkout = async (ctx, next) => {
   let wo;
   if (isValidObjectId(id)) {
     wo = await Workout.findOne({ _id: id });
-    wo = await Workout.findOneAndUpdate({ _id: id }, ctx.request.body);
     ctx.status = 200;
   } else {
     ctx.status = 404;
-    return;
   }
 
   if (wo) {
     if (wo.createdBy == ctx.user._id) {
       await wo.update(ctx.request.body);
     }
+    else {
+      ctx.status = 403;
+    }
   }
-
 };
 
 module.exports = {
