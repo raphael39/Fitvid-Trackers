@@ -3,10 +3,32 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import WorkoutOnHome from '../../components/WorkoutOnHome/WorkoutOnHome';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '100vh',
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+    padding: "7px",
+    marginLeft: "10px",
+    backgroundColor: "black",
+    color: "white", 
+    '&:hover': {
+        backgroundColor: 'rgb(80,80,80)',
+    }
+  },
+
+}));
 
 function ScheduledForToday () {
   const schedule = useSelector(state => state.schedule);
+
+  const classes = useStyles();
+
 
   const today = moment().format('YYYY-MM-DD');
 
@@ -64,7 +86,7 @@ function ScheduledForToday () {
       }
         <div>Select another day:</div>
         <input id="datePicker" type="date" defaultValue={today} onChange={changeDate}></input>
-        <button onClick={getWorkoutsOfSelectedDay}>Select day</button>
+        <Button size="small" className={classes.submit} onClick={getWorkoutsOfSelectedDay}>Select day</Button>
       </div>
     </div>
   )
