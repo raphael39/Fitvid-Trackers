@@ -26,11 +26,7 @@ const getAllWorkouts = async (ctx, next) =>  {
 
 const getMyWorkouts = async (ctx, next) =>  {
   let workouts = await Workout.find( { createdBy: ctx.user._id } );
-  if (workouts) {
-    ctx.body = workouts;
-  } else {
-    ctx.status = 404;
-  }
+  ctx.body = workouts;
 };
 
 const createWorkout = async (ctx, next) => {
