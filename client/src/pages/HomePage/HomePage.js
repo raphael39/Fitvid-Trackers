@@ -15,8 +15,6 @@ import Box from '@material-ui/core/Box';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(1),
-    flexGrow: 1,
-
   },
 }));
 

@@ -12,8 +12,9 @@ import moment from 'moment';
 import nextDay from 'next-day';
 import { Redirect } from 'react-router-dom';
 import Tags from '../../components/Tags/Tags';
-
-
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
@@ -98,7 +99,11 @@ function CreateWorkout () {
     });
 
     return null;
-  }
+  };
+
+
+
+  const classes = useStyles();
 
   return (
 
@@ -106,8 +111,8 @@ function CreateWorkout () {
 
     <div>
       <NavBar />
-      <div className='div-creating'>
-        <h1>Create your day workout</h1>
+      <div className={classes.root}>
+        <Typography variant="h6" align="center">Create your daily workout</Typography>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true} />
         <p style={{ fontStyle: "italic" }}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
         {!youtubeId &&
@@ -140,3 +145,11 @@ function CreateWorkout () {
 }
 
 export default CreateWorkout;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(1),
+    padding: "2% 8%"
+
+  },
+}));
