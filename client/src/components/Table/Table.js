@@ -42,8 +42,6 @@ console.log("inside table",exercises)
   // }
 
   // const logExercises= () => console.log(exercises)
-
- 
   
 
   return (
