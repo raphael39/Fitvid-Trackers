@@ -12,6 +12,7 @@ import Navigation from './../../components/Navigation/navBar';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import Tags from '../../components/Tags/Tags';
+import WorkoutLength from '../../components/WorkoutLength/WorkoutLength';
 
 
 
@@ -35,7 +36,9 @@ function Workout ({
   //videoplayer states, work on table if status editable=false
   const [timeVideo, setTimeVideo] = useState();
   const [clickTimestamp, setClickTimestamp] = useState(false);
-  const [editable, setEditable] = useState(false)
+  const [editable, setEditable] = useState(false);
+  const [workoutLength, setworkoutLength] = useState(0);
+
 
   const user = useSelector(state => state.currentUser);
 
@@ -68,6 +71,7 @@ function Workout ({
           </div>}
         {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
+        <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
         <DaysWorkout days={days} setDays={setDays} editable={editable}/>
         <Tags tags={tags} setTags={setTags} editable={editable} />
