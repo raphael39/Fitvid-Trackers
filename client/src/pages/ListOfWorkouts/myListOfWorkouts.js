@@ -4,9 +4,14 @@ import './myListOfWorkouts.css';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
 import ApiClient from '../../Services/ApiClient';
-import Navigation from './../../components/Navigation/navBar'
+import Navigation from './../../components/Navigation/navBar';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
 
 function MyListOfWorkouts() {
+
+  const user = useSelector(state => state.currentUser);
 
   const fakeWorkouts = [
     {
@@ -131,6 +136,9 @@ function MyListOfWorkouts() {
   };
 
   return (
+    
+    (!user) ? <Redirect to="/" /> :
+
     <div>
       <Navigation/>
     <div className="header-search-view">

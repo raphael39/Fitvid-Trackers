@@ -10,6 +10,9 @@ import ApiClient from '../../Services/ApiClient';
 import NavBar from './../../components/Navigation/navBar'
 import moment from 'moment';
 import nextDay from 'next-day';
+import { Redirect } from 'react-router-dom';
+import Tags from '../../components/Tags/Tags';
+
 
 
 // redux
@@ -42,6 +45,7 @@ function CreateWorkout () {
   const [days, setDays] = useState([false, false, false, false, false, false, false]);
   const [repeatWeeks, setRepeatWeeks] = useState(1);
   const [isPublic, setIsPublic] = useState(false);
+  const [tags, setTags] = useState([]);
 
   const handlingYoutubeUrl = (event) => {
     event.preventDefault();
@@ -75,7 +79,7 @@ function CreateWorkout () {
       difficulties: difficulties,
       type: "strenght",
       youtubeId: youtubeId,
-      tags: ["workInProgress"],
+      tags: tags,
       length: 0,
       createdBy: user._id,
       exercises: exercises,
@@ -97,6 +101,9 @@ function CreateWorkout () {
   }
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
       <NavBar />
       <div className='div-creating'>
@@ -120,6 +127,8 @@ function CreateWorkout () {
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
         <br />
         <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
+        <br />
+        <Tags tags={tags} setTags={setTags} editable={true} />
         <br />
         <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true} />
         <br />

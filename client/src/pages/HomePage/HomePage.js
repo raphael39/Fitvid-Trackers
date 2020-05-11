@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ScheduledForToday from '../../components/ScheduledForToday/ScheduledForToday';
 import NavBar from './../../components/Navigation/navBar';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -11,8 +12,10 @@ function HomePage () {
   const user = useSelector(state => state.currentUser);
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
-      
       <NavBar/>
       <div>Welcome {user.firstName}, ready for a workout?</div>
       <ScheduledForToday />
