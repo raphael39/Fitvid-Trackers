@@ -12,6 +12,8 @@ import {
 import MomentUtils from '@date-io/moment';
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import Typography from '@material-ui/core/Typography';
+
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -94,13 +96,13 @@ function ScheduledForToday () {
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <div>
-          <div>Scheduled for {getScheduledFor()}:</div>
+          <Typography variant="body1">Scheduled for {getScheduledFor()}:</Typography>
           <div>{todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
             workoutsOfSelectedDay.map(workout => (
               <WorkoutOnHome workouts={workout} />
             ))
             }
-            <div>Select another day:</div>
+            <Typography variant="body1">Select another day:</Typography>
               <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} />
 
           </div>
