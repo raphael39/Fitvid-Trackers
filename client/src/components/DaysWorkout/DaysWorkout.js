@@ -3,7 +3,9 @@ import React from 'react';
 function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
 
   const handleDays = (day) => {
-    days[day] = !days[day]
+    const newDays = [...days];
+    newDays[day] = !newDays[day];
+    setDays(newDays);
   }
 
   return (
@@ -11,13 +13,13 @@ function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) 
       {editable &&
         <div>
           <h4>Repeat every: </h4>
-          <label><input type="checkbox" name="monday" defaultChecked={days.monday} onClick={() => handleDays("monday")} />Monday</label>
-          <label><input type="checkbox" name="tuesday" defaultChecked={days.tuesday} onClick={() => handleDays("tuesday")} />Tuesday</label>
-          <label><input type="checkbox" name="wednesday" defaultChecked={days.wednesday} onClick={() => handleDays("wednesday")} />Wednesday</label>
-          <label><input type="checkbox" name="thursday" defaultChecked={days.thursday} onClick={() => handleDays("thursday")} />Thursday</label>
-          <label><input type="checkbox" name="friday" defaultChecked={days.friday} onClick={() => handleDays("friday")} />Friday</label>
-          <label><input type="checkbox" name="saturday" defaultChecked={days.saturday} onClick={() => handleDays("saturday")} />Saturday</label>
-          <label><input type="checkbox" name="sunday" defaultChecked={days.sunday} onClick={() => handleDays("sunday")} />Sunday</label>
+          <label><input type="checkbox" name="monday" defaultChecked={days.monday} onClick={() => handleDays(0)} />Monday</label>
+          <label><input type="checkbox" name="tuesday" defaultChecked={days.tuesday} onClick={() => handleDays(1)} />Tuesday</label>
+          <label><input type="checkbox" name="wednesday" defaultChecked={days.wednesday} onClick={() => handleDays(2)} />Wednesday</label>
+          <label><input type="checkbox" name="thursday" defaultChecked={days.thursday} onClick={() => handleDays(3)} />Thursday</label>
+          <label><input type="checkbox" name="friday" defaultChecked={days.friday} onClick={() => handleDays(4)} />Friday</label>
+          <label><input type="checkbox" name="saturday" defaultChecked={days.saturday} onClick={() => handleDays(5)} />Saturday</label>
+          <label><input type="checkbox" name="sunday" defaultChecked={days.sunday} onClick={() => handleDays(6)} />Sunday</label>
           <br />
           <p>
             <span>for the next</span>

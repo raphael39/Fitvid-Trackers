@@ -8,6 +8,8 @@ import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
 import ApiClient from '../../Services/ApiClient';
 import NavBar from './../../components/Navigation/navBar'
+import moment from 'moment';
+import nextDay from 'next-day';
 
 // redux
 import { useSelector, useDispatch } from "react-redux";
@@ -36,7 +38,7 @@ function CreateWorkout () {
   const [exercises, setExercises] = useState([{ name: "", sets: 0, reps: 0, timestamp: "" }]);
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({ easy: false, medium: false, hard: false });
-  const [days, setDays] = useState({ monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, sunday: false });
+  const [days, setDays] = useState([false, false, false, false, false, false, false]);
   const [repeatWeeks, setRepeatWeeks] = useState(1);
   const [isPublic, setIsPublic] = useState(false);
 
@@ -48,6 +50,21 @@ function CreateWorkout () {
   const generateYoutubeId = () => {
     const youtubeId = getIdVideoYoutube(youtubeUrl);
     setYoutubeId(youtubeId);
+  }
+
+  const getSchedule = (workoutId) => {
+    const arr = [];
+
+    for (let i = 0; i < repeatWeeks; i++) {
+      for (let j = 0; j < 7; j++) {
+        if (days[j]) {
+          const day = nextDay(new Date(), j+1).date;
+          arr.push({day: moment(day).add(7*i, 'days').format('YYYY-MM-DD'), workout: workoutId});
+        }
+      }
+    }
+
+    return arr;
   }
 
   async function createWorkout () {
@@ -64,15 +81,18 @@ function CreateWorkout () {
       isPublic: isPublic
     };
 
-    dispatch(setSchedule({
-      userId: user._id,
-      map: [{day: "2020-05-10", workout: '5eb66db5451ee2086304da9d'}]
-    }))
+    ApiClient.createWorkout(workout)
+    .then((response) => {
+      const workoutId = response;
+      const scheduleArr = getSchedule(workoutId);
+      const newMap = [...schedule.map, ...scheduleArr]
+      const newSchedule = { userId: schedule.userId, map: newMap };
+      ApiClient.updateSchedule(newSchedule).then((response) => {
+        dispatch(setSchedule(response));
+      });
+    });
 
-    const scheduleResp = await ApiClient.updateSchedule(schedule);
-    const response = await ApiClient.createWorkout(workout);
-
-    return response;
+    return null;
   }
 
   return (
