@@ -55,10 +55,30 @@ const updateWorkout = async (ctx, next) => {
   }
 };
 
+const deleteWorkout = async (ctx, next) => {
+  const id = ctx.params.id;
+  let wo;
+  if (isValidObjectId(id)) {
+    wo = await Workout.findOne({ _id: id });
+  } else {
+    ctx.status = 404;
+  }
+
+  if (wo) {
+    if (wo.createdBy.equals(ctx.user._id)) {
+      await wo.remove(ctx.request.body);
+      ctx.status = 204;
+    } else {
+      ctx.status = 403;
+    }
+  }
+};
+
 module.exports = {
   getWorkout,
   createWorkout,
   updateWorkout,
   getAllWorkouts,
-  getMyWorkouts
+  getMyWorkouts,
+  deleteWorkout
 };
