@@ -12,10 +12,15 @@ import moment from 'moment';
 import nextDay from 'next-day';
 import { Redirect } from 'react-router-dom';
 import Tags from '../../components/Tags/Tags';
-
+//Mui
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Icon from '@material-ui/core/Icon';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
+
+
 
 import WorkoutLength from '../../components/WorkoutLength/WorkoutLength';
 
@@ -135,14 +140,28 @@ function CreateWorkout () {
         <p style={{ fontStyle: "italic" }}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
         {!youtubeId &&
           <div>
-            <label for='youtubeUrl'>Import your Youtube video here: </label>
-            <input id='youtubeUrl' type='text' onChange={(event) => handlingYoutubeUrl(event)} />
-            <button onClick={generateYoutubeId}>Import</button>
+            <Typography variant='body1' style={{fontWeight: 'bold'}}>Import your Youtube video here: </Typography>
+            <TextField id='youtubeUrl' helperText="Paste it!" style={{width: '75%', marginRight: "5%"}} onChange={(event) => handlingYoutubeUrl(event)} />
+            <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            // endIcon={<Icon>send</Icon>}
+            size="small"
+            onClick={generateYoutubeId}
+            >Import</Button>
           </div>}
-        {youtubeId &&
+          {youtubeId &&
           <div>
             <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
-            <button onClick={() => setYoutubeId()}>Change Video</button>
+            <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            startIcon={<DeleteIcon />}
+            size="small"
+            onClick={() => setYoutubeId()}
+            >Change Video</Button>
           </div>
         }
         <Table exercises={exercises} setExercises={setExercises} editable={true} />
@@ -156,8 +175,17 @@ function CreateWorkout () {
         <br />
         <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true} />
         <br />
-        <button onClick={() => console.log(user)}>User?</button>
-        <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button>
+        <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            endIcon={<Icon>send</Icon>}
+            size="small"
+            onClick={createWorkout}
+            > 
+            <Link to={`/HomePage`} style={{ textDecoration: 'none', color: "white" }} >Create</Link>
+          </Button>
+        {/* <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button> */}
       </div>
     </div>
   )
@@ -171,4 +199,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "2% 8%"
 
   },
+  button: {
+    backgroundColor: "black",
+    color: "white", 
+    '&:hover': {
+        backgroundColor: 'rgb(80,80,80)',
+    }
+  }
 }));

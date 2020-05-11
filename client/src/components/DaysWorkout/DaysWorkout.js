@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from "@material-ui/core/TextField";
 
 function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
 
@@ -23,11 +24,12 @@ function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) 
           <br />
           <p>
             <span>for the next</span>
-            <input id="numberOfDays" defaultValue={repeatWeeks} onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></input>
+            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{style: { textAlign: 'right' }}} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
             <span>weeks</span>
           </p>
         </div>
       }
+      
       {!editable &&
         <div>
           <h4>Days: </h4>

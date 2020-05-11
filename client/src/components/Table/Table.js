@@ -1,9 +1,24 @@
 import React from "react";
+import { makeStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import TextField from "@material-ui/core/TextField";
+
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: "black",
+    color: "white", 
+    '&:hover': {
+        backgroundColor: 'rgb(80,80,80)',
+    }
+  },
+}));
 
 function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimestamp, clickTimestamp}) {
   
   // const [exercises, setExercises] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
-console.log("inside table",exercises)
 
   //TO MODIFY
   const handleChange = (event, index, name) => {
@@ -43,6 +58,7 @@ console.log("inside table",exercises)
 
   // const logExercises= () => console.log(exercises)
   
+  const classes = useStyles();
 
   return (
     <div>
@@ -67,39 +83,45 @@ console.log("inside table",exercises)
                 {editable && exercises.map((item, idx) => (
                   <tr id="addr0" key={idx}>
                     <td>
-                      <input
-                          type="text"
-                          name="name"
-                          defaultValue={exercises[idx].name}
-                          onChange={(event) => {handleChange(event, idx, "name")}}
-                          className="form-control"
+                      <TextField
+                        name="name"
+                        size="small"
+                        defaultValue={exercises[idx].name}
+                        onChange={(event) => {handleChange(event, idx, "name")}}
+                        variant="outlined"
                         />
                     </td>
                     <td>
-                      <input
+                      <TextField
+                        inputProps={{style: { textAlign: 'right' }}}
                         type="number"
                         name="sets"
+                        size="small"
                         defaultValue={exercises[idx].sets}                        
                         onChange={(event) => handleChange(event, idx, "sets")}
-                        className="form-control"
+                        variant="outlined"
                       />
                     </td>
                     <td>
-                      <input
+                      <TextField
+                        inputProps={{style: { textAlign: 'right' }}}
                         type="number"
                         name="reps"
+                        size="small"
                         defaultValue={exercises[idx].reps}
                         onChange={(event) => handleChange(event, idx, "reps")}
-                        className="form-control"
+                        variant="outlined"
                       />
                     </td>
                     <td>
-                      <input
+                      <TextField
+                        inputProps={{style: { textAlign: 'right' }}}
                         type="text"
                         name="timestamp"
+                        size="small"
                         defaultValue={exercises[idx].timestamp}
                         onChange={(event) => handleChange(event, idx, "timestamp")}
-                        className="form-control"
+                        variant="outlined"
                       />
                     </td>
                     {/* <td>
@@ -151,15 +173,23 @@ console.log("inside table",exercises)
               </tbody>
             </table>
             {editable && <div>
-            <button onClick={handleAddExercise} className="btn btn-primary">
-              Add Row
-            </button>
-            <button
+              <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<AddIcon/>} 
+              size="small"
+              onClick={handleAddExercise}
+              >Add Row</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<HighlightOffIcon/>} 
+              size="small"
               onClick={handleRemoveExercise}
-              className="btn btn-danger float-right"
-            >
-              Delete Last Row
-            </button>
+              >Delete 
+              Last Row</Button>
             </div>}
             {/* <button
               onClick={logExercises}

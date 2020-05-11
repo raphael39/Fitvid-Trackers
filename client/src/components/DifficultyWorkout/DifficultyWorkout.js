@@ -1,4 +1,7 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+
+
 
 function DifficultyWorkout ({difficulties, setDifficulties, editable}) {
   
@@ -10,7 +13,7 @@ function DifficultyWorkout ({difficulties, setDifficulties, editable}) {
     <div>
       {editable && 
         <div>
-          <h4>Difficulty: </h4>
+        <Typography variant='body1' style={{fontWeight: 'bold'}}>Difficulty: </Typography>
           <label><input type="checkbox" name="easy" defaultChecked={difficulties.easy} onClick={()=>handleDifficulties("easy")}/>Easy</label>
           <label><input type="checkbox" name="medium" defaultChecked={difficulties.medium} onClick={()=>handleDifficulties("medium")}/>Medium</label>
           <label><input type="checkbox" name="hard" defaultChecked={difficulties.hard} onClick={()=>handleDifficulties("hard")}/>Hard</label>
