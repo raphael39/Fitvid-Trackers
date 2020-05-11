@@ -10,6 +10,8 @@ import ApiClient from '../../Services/ApiClient';
 import NavBar from './../../components/Navigation/navBar'
 import moment from 'moment';
 import nextDay from 'next-day';
+import { Redirect } from 'react-router-dom';
+
 
 
 // redux
@@ -97,6 +99,9 @@ function CreateWorkout () {
   }
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
       <NavBar />
       <div className='div-creating'>

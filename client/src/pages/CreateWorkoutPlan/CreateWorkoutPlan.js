@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './CreateWorkoutPlan.css';
 import Workout from '../Workout/Workout';
-import NavBar from './../../components/Navigation/navBar'
+import NavBar from './../../components/Navigation/navBar';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
 
 function CreateWorkoutPlan(props) {
   const [newWorkoutPlan, setNewWorkoutPlan] = useState({
     trainingDays: [null, null, null, null, null, null, null],
   });
-
+  const user = useSelector(state => state.currentUser);
   const { handle } = props.match.params;
   const { state } = props.location;
   const handleAddingSelected = (index) => {
@@ -24,6 +27,9 @@ function CreateWorkoutPlan(props) {
   }
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
       <NavBar/>
       <h1>Create your WorkoutPlan</h1>

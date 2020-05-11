@@ -8,7 +8,11 @@ import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
 import PublicWorkout from '../../components/PublicWorkout/PublicWorkout';
 import Countdown from '../../components/Countdown/Countdown';
 import Stopwatch from '../../components/Stopwatch/Stopwatch';
-import Navigation from './../../components/Navigation/navBar'
+import Navigation from './../../components/Navigation/navBar';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
+
 
 
 
@@ -32,6 +36,9 @@ function Workout ({
   const [clickTimestamp, setClickTimestamp] = useState(false);
   const [editable, setEditable] = useState(false)
 
+  const user = useSelector(state => state.currentUser);
+
+
   useEffect(()=>{
     setExercise(workout.exercises);
     setDescription(workout.description);
@@ -42,6 +49,9 @@ function Workout ({
   }, [])
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
       <Navigation/>
       <br/>

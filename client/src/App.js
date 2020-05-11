@@ -37,8 +37,6 @@ function App () {
               component={SetCredentials} />
             <Route exact path="/HomePage"
               component={HomePage} />
-            <Route exact path="/importVideo"
-              component={ImportVideo} />
             <Route exact path="/createWorkout"
               component={CreateWorkout} />
             <Route exact path="/workout"
