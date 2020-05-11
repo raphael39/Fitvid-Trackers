@@ -12,6 +12,7 @@ import moment from 'moment';
 import nextDay from 'next-day';
 import { Redirect } from 'react-router-dom';
 import Tags from '../../components/Tags/Tags';
+import WorkoutLength from '../../components/WorkoutLength/WorkoutLength';
 
 
 
@@ -46,6 +47,7 @@ function CreateWorkout () {
   const [repeatWeeks, setRepeatWeeks] = useState(1);
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState([]);
+  const [workoutLength, setworkoutLength] = useState(0);
 
   const handlingYoutubeUrl = (event) => {
     event.preventDefault();
@@ -54,7 +56,18 @@ function CreateWorkout () {
 
   const generateYoutubeId = () => {
     const youtubeId = getIdVideoYoutube(youtubeUrl);
+    console.log("generateYoutubeId -> youtubeId", youtubeId)
+    getworkoutLength(youtubeId);
     setYoutubeId(youtubeId);
+  }
+
+
+  const getworkoutLength = (youtubeId) => {
+    fetch (`https://www.googleapis.com/youtube/v3/videos?id=${youtubeId}&part=contentDetails&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+    .then((response) => response.json() )
+    .then((data) => {
+      setworkoutLength(Math.floor(moment.duration(data.items[0].contentDetails.duration).asMinutes()))
+    })
   }
 
   const getSchedule = (workoutId) => {
@@ -80,7 +93,7 @@ function CreateWorkout () {
       type: "strenght",
       youtubeId: youtubeId,
       tags: tags,
-      length: 0,
+      length: workoutLength,
       createdBy: user._id,
       exercises: exercises,
       isPublic: isPublic
@@ -124,6 +137,7 @@ function CreateWorkout () {
         }
         <Table exercises={exercises} setExercises={setExercises} editable={true} />
         <DescriptionWorkout description={description} setDescription={setDescription} editable={true} />
+        <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={true} />
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
         <br />
         <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
