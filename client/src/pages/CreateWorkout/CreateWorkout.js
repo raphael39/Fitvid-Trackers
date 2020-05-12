@@ -199,7 +199,7 @@ export default CreateWorkout;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(1),
+    
     padding: "2% 8%"
 
   },

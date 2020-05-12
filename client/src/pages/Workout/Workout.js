@@ -14,6 +14,10 @@ import { useSelector } from "react-redux";
 import Tags from '../../components/Tags/Tags';
 import WorkoutLength from '../../components/WorkoutLength/WorkoutLength';
 import ApiClient from '../../Services/ApiClient';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 
 function Workout (props) {
@@ -75,6 +79,8 @@ function Workout (props) {
     }
   }
 
+  const classes = useStyles();
+
   return (
 
     (!user) ? <Redirect to="/" /> :
@@ -82,8 +88,9 @@ function Workout (props) {
     <div>
       <Navigation/>
       <br/>
-      <button onClick={switchEditable}>{editable? "Done" : "Edit"}</button>
-      <div className='div-Workout'>
+      <div className={classes.root}>
+      <Button align="right" className={classes.button}  onClick={switchEditable}>{editable? "Done" : "Edit"}</Button>
+
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
         <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
         {!editable &&
@@ -104,3 +111,17 @@ function Workout (props) {
 }
 
 export default Workout;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "2% 8%"
+
+  },
+  button: {
+
+    '&:hover': {
+      backgroundColor: 'black',
+      color: "white"
+    }
+  }
+}));
