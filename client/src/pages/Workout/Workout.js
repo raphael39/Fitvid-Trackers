@@ -101,7 +101,7 @@ function Workout (props) {
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
-        <DaysWorkout days={days} setDays={setDays} editable={editable}/>
+        <DaysWorkout days={days} setDays={setDays} editable={editable} workoutId={_id} />
         <Tags tags={tags} setTags={setTags} editable={editable} />
         <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable}/>
       </div>
