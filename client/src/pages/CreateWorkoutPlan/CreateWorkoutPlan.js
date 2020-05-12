@@ -8,7 +8,6 @@ import Workout from '../Workout/Workout';
 import NavBar from './../../components/Navigation/navBar';
 import ApiClient from '../../Services/ApiClient';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from "react-redux";
 
 
 function CreateWorkoutPlan(props) {
