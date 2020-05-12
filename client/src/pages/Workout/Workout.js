@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NameWorkout from '../../components/NameWorkout/NameWorkout';
-import Table from '../../components/Table/Table';
+import TableW from '../../components/TableW/TableW';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionWorkout';
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
@@ -14,11 +14,19 @@ import { useSelector } from "react-redux";
 import Tags from '../../components/Tags/Tags';
 import WorkoutLength from '../../components/WorkoutLength/WorkoutLength';
 import ApiClient from '../../Services/ApiClient';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
+
 
 
 function Workout (props) {
 
-  const [exercises, setExercise] = useState(null);
+  const [exercises, setExercises] = useState(null);
   const [_id, setId] = useState(null);
   const [workoutName, setWorkoutName] = useState();
   const [description, setDescription] = useState('');
@@ -36,13 +44,14 @@ function Workout (props) {
   const [createdBy, setCreatedBy] = useState();
 
 
+
   const user = useSelector(state => state.currentUser);
 
   useEffect(()=>{
     ApiClient.getWorkout(props.match.params.id)
       .then((workout) => {
         setId(workout._id);
-        setExercise(workout.exercises);
+        setExercises(workout.exercises);
         setDescription(workout.description);
         setDifficulties(workout.difficulties);
         setWorkoutName(workout.name);
@@ -51,6 +60,7 @@ function Workout (props) {
         setYoutubeId(workout.youtubeId);
         setworkoutLength(workout.length);
         setCreatedBy(workout.createdBy);
+
       })
   }, [])
 
@@ -77,27 +87,39 @@ function Workout (props) {
     }
   }
 
+  const classes = useStyles();
+
   return (
 
     (!user) ? <Redirect to="/" /> :
-
+    
     <div>
       <Navigation/>
-      <br/>
-      {
+      <div className={classes.root}>
+
+        {
         (user._id === createdBy ) ?
-        <button onClick={switchEditable}>{editable? "Done" : "Edit"}</button>
+        <Button className={classes.button}  onClick={switchEditable}>{editable? "Done" : "Edit"}</Button>
         : null
       }
       <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
         <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
         {!editable &&
-          <div>
-            <Countdown/>
-            <Stopwatch/>
-          </div>}
-        {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
+
+              <Countdown/>
+
+            </Grid>
+            <Grid item xs={3}>
+
+
+              <Stopwatch/>
+
+            </Grid>
+          </Grid>}
+        {exercises && <TableW exercises={exercises} setExercises={setExercises} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
@@ -106,7 +128,22 @@ function Workout (props) {
         <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable}/>
       </div>
     </div>
+    </div>
   )
 }
 
 export default Workout;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "2% 8%"
+
+  },
+  button: {
+
+    '&:hover': {
+      backgroundColor: 'black',
+      color: "white"
+    }
+  }
+}));

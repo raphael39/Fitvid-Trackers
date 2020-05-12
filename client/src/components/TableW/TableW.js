@@ -1,26 +1,53 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import TextField from "@material-ui/core/TextField";
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+
 
 
 const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: "black",
-    color: "white", 
+    color: "white",
     '&:hover': {
-        backgroundColor: 'rgb(80,80,80)',
+      backgroundColor: 'rgb(80,80,80)',
     }
   },
 }));
 
-function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimestamp, clickTimestamp}) {
-  
-  // const [exercises, setExercises] = useState([{name: "", sets: "", reps: "", timestamp: "",done: false}]);
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);
 
-  //TO MODIFY
+const StyledTableRow = withStyles((theme) => ({
+  root: {
+    '&:nth-of-type(odd)': {
+      backgroundColor: theme.palette.action.hover,
+    },
+  },
+}))(TableRow);
+
+function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimestamp, clickTimestamp }) {
+
   const handleChange = (event, index, name) => {
     event.preventDefault();
     console.log(event.target.value, index, name);
@@ -36,7 +63,7 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
     }
     setExercises([...exercises, item])
   }
-  
+
   const handleRemoveExercise = () => {
     setExercises(exercises.slice(0, -1));
   }
@@ -46,7 +73,7 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
   //   // console.log(newRows)
   //   // const newRows = exercises.splice(index, 1);
   //   const newRows = exercises.filter(row => row !== exercises[index]);
-  
+
   //   console.log("new Rows", newRows)
   //   // console.log(newRows)
   //   setExercises(newRows);
@@ -57,7 +84,7 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
   // }
 
   // const logExercises= () => console.log(exercises)
-  
+
   const classes = useStyles();
 
   return (
@@ -69,16 +96,16 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
               className="table table-bordered table-hover"
               id="tab_logic"
             >
-              <thead>
-                <tr>
-                  <th className="text-center"> Name of the exercises </th>
-                  <th className="text-center"> Sets </th>
-                  <th className="text-center"> Reps </th>
-                  <th className="text-center"> Timestamp </th>
-                  {!editable && <th className="text-center"> Check </th>}
-                  <th />
-                </tr>
-              </thead>
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell align="center"> Name of the exercises </StyledTableCell>
+                  <StyledTableCell align="center"> Sets </StyledTableCell>
+                  <StyledTableCell align="center"> Reps </StyledTableCell>
+                  <StyledTableCell align="center"> Timestamp </StyledTableCell>
+                  {!editable && <StyledTableCell align="center"> Done </StyledTableCell>}
+
+                </TableRow>
+              </TableHead>
               <tbody>
                 {editable && exercises.map((item, idx) => (
                   <tr id="addr0" key={idx}>
@@ -87,24 +114,24 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
                         name="name"
                         size="small"
                         defaultValue={exercises[idx].name}
-                        onChange={(event) => {handleChange(event, idx, "name")}}
+                        onChange={(event) => { handleChange(event, idx, "name") }}
                         variant="outlined"
-                        />
+                      />
                     </td>
                     <td>
                       <TextField
-                        inputProps={{style: { textAlign: 'right' }}}
+                        inputProps={{ style: { textAlign: 'right' } }}
                         type="number"
                         name="sets"
                         size="small"
-                        defaultValue={exercises[idx].sets}                        
+                        defaultValue={exercises[idx].sets}
                         onChange={(event) => handleChange(event, idx, "sets")}
                         variant="outlined"
                       />
                     </td>
                     <td>
                       <TextField
-                        inputProps={{style: { textAlign: 'right' }}}
+                        inputProps={{ style: { textAlign: 'right' } }}
                         type="number"
                         name="reps"
                         size="small"
@@ -115,7 +142,7 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
                     </td>
                     <td>
                       <TextField
-                        inputProps={{style: { textAlign: 'right' }}}
+                        inputProps={{ style: { textAlign: 'right' } }}
                         type="text"
                         name="timestamp"
                         size="small"
@@ -145,58 +172,52 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
                   </tr>
                 ))}
                 {!editable && exercises.map((item, idx) => (
-                  <tr id="addr0" key={idx}>
-                    <td>
+                  <StyledTableRow id="addr0" key={idx}>
+                    <StyledTableCell>
                       {exercises[idx].name}
-                    </td>
-                    <td>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
                       {exercises[idx].sets}
 
-                    </td>
-                    <td>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
                       {exercises[idx].reps}
-                    </td>
-                    <td onClick={()=>{setTimeVideo(exercises[idx].timestamp); setClickTimestamp(!clickTimestamp)}}>
+                    </StyledTableCell>
+                    <StyledTableCell align="right" onClick={() => { setTimeVideo(exercises[idx].timestamp); setClickTimestamp(!clickTimestamp) }}>
                       {exercises[idx].timestamp}
-                    </td>
-                    <td>
-                      <input
-                        type="checkbox"
-                        name="done"
-                        // defaultChecked={exercises[idx].done}
-                        // onClick={() => handleCheckbox(idx)}
-                        className="form-control"
-                      />
-                    </td>
-                  </tr>
+                    </StyledTableCell>
+                    <StyledTableCell >
+                      <FormControl style={{marginLeft:"30%"}}>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={<Checkbox size="small" color="default" />}
+                          />
+                        </FormGroup>
+                      </FormControl>
+                    </StyledTableCell>
+                  </StyledTableRow>
                 ))}
               </tbody>
             </table>
             {editable && <div>
               <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<AddIcon/>} 
-              size="small"
-              onClick={handleAddExercise}
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<AddIcon />}
+                size="small"
+                onClick={handleAddExercise}
               >Add Row</Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<HighlightOffIcon/>} 
-              size="small"
-              onClick={handleRemoveExercise}
-              >Delete 
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<HighlightOffIcon />}
+                size="small"
+                onClick={handleRemoveExercise}
+              >Delete
               Last Row</Button>
             </div>}
-            {/* <button
-              onClick={logExercises}
-              className="btn btn-danger float-right"
-            >
-              Log Row
-            </button> */}
           </div>
         </div>
       </div>
@@ -205,4 +226,4 @@ function Table ({exercises, setExercises, editable, setTimeVideo, setClickTimest
 }
 
 
-export default Table; 
+export default TableW; 

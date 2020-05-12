@@ -44,8 +44,8 @@ function DifficultyWorkout ({difficulties, setDifficulties, editable}) {
       }
       {!editable && 
         <div>
-          <h4>Difficulty: </h4>
-          {Object.keys(difficulties).map (difficulty=> (difficulties[difficulty]) && <p>{difficulty}</p> )}
+          <Typography variant='body1' style={{fontWeight: 'bold'}}>Difficulty: </Typography>
+          {Object.keys(difficulties).map (difficulty=> (difficulties[difficulty]) && <Typography variant='body1'>{difficulty.charAt(0).toUpperCase() + difficulty.slice(1)}</Typography> )}
         </div>}
     </div>
   )

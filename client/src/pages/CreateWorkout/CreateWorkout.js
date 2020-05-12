@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import NameWorkout from '../../components/NameWorkout/NameWorkout';
-import Table from '../../components/Table/Table';
+import TableW from '../../components/TableW/TableW';
 import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionWorkout';
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
 import DaysWorkout from '../../components/DaysWorkout/DaysWorkout';
@@ -19,6 +19,8 @@ import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+
 
 
 
@@ -168,12 +170,17 @@ function CreateWorkout() {
               >Change Video</Button>
             </div>
           }
-          <Table exercises={exercises} setExercises={setExercises} editable={true} />
+          <TableW exercises={exercises} setExercises={setExercises} editable={true} />
           <DescriptionWorkout description={description} setDescription={setDescription} editable={true} />
           <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={true} />
-          <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
-          <br />
-          <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
+          <Grid container spacing={3}>
+            <Grid item xs={5}>
+            <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
+            </Grid>
+            <Grid item xs={3}>
+              <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
+            </Grid>  
+          </Grid>
           <br />
           <Tags tags={tags} setTags={setTags} editable={true} />
           <br />
@@ -199,7 +206,7 @@ export default CreateWorkout;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(1),
+    
     padding: "2% 8%"
 
   },

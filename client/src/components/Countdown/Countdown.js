@@ -1,4 +1,13 @@
 import React, { Component } from "react";
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+
+
+
 
 class Countdown extends Component {
 
@@ -86,38 +95,47 @@ class Countdown extends Component {
     let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
 
     return (
-      <div className="Countdown">
-        <div className="Countdown-header">Timer Countdown</div>
-        <div className="Countdown-label">Hours : Minutes : Seconds</div>
+      <div>
+        <Typography variant="h6">Timer Countdown</Typography>
+        <Typography variant="body1">Hours : Minutes : Seconds</Typography>
           <div className="Countdown-display">
-            <button onClick={() => this.adjustTimer("incHours")}>&#8679;</button>
-            <button onClick={() => this.adjustTimer("incMinutes")}>&#8679;</button>
-            <button onMouseUp={() => this.adjustTimer("incSeconds")} onMouseDown={() => {}}>&#8679;</button>
+            {/* <button onClick={() => this.adjustTimer("incHours")}>&#8679;</button> */}
+            <IconButton size="small" onClick={() => this.adjustTimer("incHours")}><KeyboardArrowUpIcon/></IconButton>
+
+            {/* <button onClick={() => this.adjustTimer("incMinutes")}>&#8679;</button> */}
+            <IconButton size="small" onClick={() => this.adjustTimer("incMinutes")}><KeyboardArrowUpIcon/></IconButton>
+            <IconButton size="small" onClick={() => this.adjustTimer("incSeconds")}><KeyboardArrowUpIcon/></IconButton>
+            
+            {/* <button onMouseUp={() => this.adjustTimer("incSeconds")} onMouseDown={() => {}}>&#8679;</button> */}
               <div className="Countdown-time">
-              {hours} : {minutes} : {seconds}
+              <Typography variant="body1" style={{marginLeft: "5px"}}>{hours} : {minutes} : {seconds}</Typography>
               </div>
-          <button onClick={() => this.adjustTimer("decHours")}>&#8681;</button>
+          <IconButton size="small" onClick={() => this.adjustTimer("decHours")}><KeyboardArrowDownIcon/></IconButton>
+          <IconButton size="small" onClick={() => this.adjustTimer("decMinutes")}><KeyboardArrowDownIcon/></IconButton>
+          <IconButton size="small" onClick={() => this.adjustTimer("decSeconds")}><KeyboardArrowDownIcon/></IconButton>
+
+          {/* <button onClick={() => this.adjustTimer("decHours")}>&#8681;</button>
           <button onClick={() => this.adjustTimer("decMinutes")}>&#8681;</button>
-          <button onClick={() => this.adjustTimer("decSeconds")}>&#8681;</button>
+          <button onClick={() => this.adjustTimer("decSeconds")}>&#8681;</button> */}
         </div>
         {timerOn === false &&
           (timerStart === 0 || timerTime === timerStart) && (
-            <button onClick={this.startTimer}>Start</button>
+            <Button onClick={this.startTimer}>Start</Button>
           )}
         {timerOn === true && timerTime >= 1000 && (
-          <button onClick={this.stopTimer}>Stop</button>
+          <Button onClick={this.stopTimer}>Stop</Button>
           )}
         {timerOn === false &&
           (timerStart !== 0 && timerStart !== timerTime && timerTime !== 0) && (
-            <button onClick={this.startTimer}>Resume</button>
+            <Button onClick={this.startTimer}>Resume</Button>
           )}
         {(timerOn === false || timerTime < 1000) &&
           (timerStart !== timerTime && timerStart > 0) && (
-            <button onClick={this.resetTimer}>Reset</button>
+            <Button onClick={this.resetTimer}>Reset</Button>
           )}
           <br/>
-          Set time: <input type="text" onChange={(event) => {console.log(this.convertToMilliseconds(event.target.value)); this.setState({timerTime: (this.convertToMilliseconds(event.target.value))})
-          }}></input>
+          <TextField type="text" label="Set Timer" onChange={(event) => {console.log(this.convertToMilliseconds(event.target.value)); this.setState({timerTime: (this.convertToMilliseconds(event.target.value))})
+          }}></TextField>
 
       </div>
     );

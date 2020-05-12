@@ -85,7 +85,6 @@ function ScheduledForToday () {
   return (
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <div>
           <div className={classes.divSelected}>
             <Typography variant="body1" style={{fontWeight: 'bold'}}>Scheduled for {getScheduledFor()}:</Typography>
             <div className={classes.workoutHome}>
@@ -95,14 +94,13 @@ function ScheduledForToday () {
                 ))
               }
             </div>
-          </div>
             <div className={classes.divSelectDate}>
               <Typography variant="body1" style={{fontWeight: 'bold'}}>Select another day:</Typography>
               <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} style={{paddingTop: '2%'}}/>
             </div>
-      </div>
-    </MuiPickersUtilsProvider>
-  </ThemeProvider>
+        </div>
+      </MuiPickersUtilsProvider>
+    </ThemeProvider>
   )
 }
 

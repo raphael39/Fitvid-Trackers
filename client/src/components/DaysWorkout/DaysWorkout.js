@@ -6,7 +6,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
+function DaysWorkout({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
 
   // const handleDays = (day) => {
   //   const newDays = [...days];
@@ -25,36 +25,36 @@ function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) 
     <div>
       {editable &&
         <div>
-          <Typography variant='body1' style={{fontWeight: 'bold'}}>Repeat every: </Typography>
+          <Typography variant='body1' style={{ fontWeight: 'bold' }}>Repeat every: </Typography>
           <FormControl>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox checked={days[0]} onChange={()=>handleChange(0)} name="monday" size="small" color="default"/>}
+                control={<Checkbox defaultChecked={days[0]} onChange={() => handleChange(0)} name="monday" size="small" color="default" />}
                 label="Monday"
               />
               <FormControlLabel
-              control={<Checkbox checked={days[1]} onChange={()=>handleChange(1)} name="tuesday" size="small" color="default"/>}
-              label="Tuesday"
+                control={<Checkbox defaultChecked={days[1]} onChange={() => handleChange(1)} name="tuesday" size="small" color="default" />}
+                label="Tuesday"
               />
               <FormControlLabel
-              control={<Checkbox checked={days[2]} onChange={()=>handleChange(2)} name="wednesday" size="small" color="default"/>}
-              label="Wednesday"
+                control={<Checkbox defaultChecked={days[2]} onChange={() => handleChange(2)} name="wednesday" size="small" color="default" />}
+                label="Wednesday"
               />
               <FormControlLabel
-              control={<Checkbox checked={days[3]} onChange={()=>handleChange(3)} name="thursday" size="small" color="default"/>}
-              label="Thursday"
+                control={<Checkbox defaultChecked={days[3]} onChange={() => handleChange(3)} name="thursday" size="small" color="default" />}
+                label="Thursday"
               />
               <FormControlLabel
-              control={<Checkbox checked={days[4]} onChange={()=>handleChange(4)} name="friday" size="small" color="default"/>}
-              label="Friday"
+                control={<Checkbox defaultChecked={days[4]} onChange={() => handleChange(4)} name="friday" size="small" color="default" />}
+                label="Friday"
               />
               <FormControlLabel
-              control={<Checkbox checked={days[5]} onChange={()=>handleChange(5)} name="saturday" size="small" color="default"/>}
-              label="Saturday"
+                control={<Checkbox defaultChecked={days[5]} onChange={() => handleChange(5)} name="saturday" size="small" color="default" />}
+                label="Saturday"
               />
               <FormControlLabel
-              control={<Checkbox checked={days[6]} onChange={()=>handleChange(6)} name="sunday" size="small" color="default"/>}
-              label="Sunday"
+                control={<Checkbox defaultChecked={days[6]} onChange={() => handleChange(6)} name="sunday" size="small" color="default" />}
+                label="Sunday"
               />
             </FormGroup>
           </FormControl>
@@ -69,17 +69,17 @@ function DaysWorkout ({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) 
           <br />
           <p>
             <span>for the next</span>
-            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{style: { textAlign: 'right' }}} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
+            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{ style: { textAlign: 'right' } }} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
             <span>weeks</span>
           </p>
         </div>
       }
-      
-      {!editable &&
+
+      {/* {!editable &&
         <div>
-          <h4>Days: </h4>
-          {Object.keys(days).map(day => (days[day]) && <p>{day}</p>)}
-        </div>}
+          <Typography variant='body1' style={{ fontWeight: 'bold' }}>Days: </Typography>
+          {Object.keys(days).map(day => (days[day]) && <Typography variant='body1'>{day.charAt(0).toUpperCase() + day.slice(1)}</Typography>)}
+        </div>} */}
     </div>
 
   )
