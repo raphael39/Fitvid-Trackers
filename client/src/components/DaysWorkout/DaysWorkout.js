@@ -69,8 +69,8 @@ function DaysWorkout({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
           <br />
           <p>
             <span>For the next</span>
-            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{ style: { textAlign: 'right', width: "40px" } }} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
-            <span>weeks</span>
+            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{ style: { textAlign: 'right', width: "40px", marginRight: "5px" } }} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
+            <span> weeks</span>
           </p>
         </div>
       }
