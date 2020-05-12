@@ -134,7 +134,7 @@ class Countdown extends Component {
             <Button onClick={this.resetTimer}>Reset</Button>
           )}
           <br/>
-          Set timer: <TextField type="text" onChange={(event) => {console.log(this.convertToMilliseconds(event.target.value)); this.setState({timerTime: (this.convertToMilliseconds(event.target.value))})
+          <TextField type="text" label="Set Timer" onChange={(event) => {console.log(this.convertToMilliseconds(event.target.value)); this.setState({timerTime: (this.convertToMilliseconds(event.target.value))})
           }}></TextField>
 
       </div>

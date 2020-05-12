@@ -1,5 +1,5 @@
 import React from "react";
-import {  withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
@@ -11,14 +11,19 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+
 
 
 const useStyles = makeStyles((theme) => ({
   button: {
     backgroundColor: "black",
-    color: "white", 
+    color: "white",
     '&:hover': {
-        backgroundColor: 'rgb(80,80,80)',
+      backgroundColor: 'rgb(80,80,80)',
     }
   },
 }));
@@ -41,8 +46,8 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimestamp, clickTimestamp}) {
-  
+function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimestamp, clickTimestamp }) {
+
   const handleChange = (event, index, name) => {
     event.preventDefault();
     console.log(event.target.value, index, name);
@@ -58,7 +63,7 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
     }
     setExercises([...exercises, item])
   }
-  
+
   const handleRemoveExercise = () => {
     setExercises(exercises.slice(0, -1));
   }
@@ -68,7 +73,7 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
   //   // console.log(newRows)
   //   // const newRows = exercises.splice(index, 1);
   //   const newRows = exercises.filter(row => row !== exercises[index]);
-  
+
   //   console.log("new Rows", newRows)
   //   // console.log(newRows)
   //   setExercises(newRows);
@@ -79,7 +84,7 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
   // }
 
   // const logExercises= () => console.log(exercises)
-  
+
   const classes = useStyles();
 
   return (
@@ -93,12 +98,12 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
             >
               <TableHead>
                 <TableRow>
-                  <StyledTableCell > Name of the exercises </StyledTableCell>
-                  <StyledTableCell className="text-center"> Sets </StyledTableCell>
-                  <StyledTableCell className="text-center"> Reps </StyledTableCell>
-                  <StyledTableCell className="text-center"> Timestamp </StyledTableCell>
-                  {!editable && <StyledTableCell className="text-center"> Check </StyledTableCell>}
-                  
+                  <StyledTableCell align="center"> Name of the exercises </StyledTableCell>
+                  <StyledTableCell align="center"> Sets </StyledTableCell>
+                  <StyledTableCell align="center"> Reps </StyledTableCell>
+                  <StyledTableCell align="center"> Timestamp </StyledTableCell>
+                  {!editable && <StyledTableCell align="center"> Done </StyledTableCell>}
+
                 </TableRow>
               </TableHead>
               <tbody>
@@ -109,24 +114,24 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
                         name="name"
                         size="small"
                         defaultValue={exercises[idx].name}
-                        onChange={(event) => {handleChange(event, idx, "name")}}
+                        onChange={(event) => { handleChange(event, idx, "name") }}
                         variant="outlined"
-                        />
+                      />
                     </td>
                     <td>
                       <TextField
-                        inputProps={{style: { textAlign: 'right' }}}
+                        inputProps={{ style: { textAlign: 'right' } }}
                         type="number"
                         name="sets"
                         size="small"
-                        defaultValue={exercises[idx].sets}                        
+                        defaultValue={exercises[idx].sets}
                         onChange={(event) => handleChange(event, idx, "sets")}
                         variant="outlined"
                       />
                     </td>
                     <td>
                       <TextField
-                        inputProps={{style: { textAlign: 'right' }}}
+                        inputProps={{ style: { textAlign: 'right' } }}
                         type="number"
                         name="reps"
                         size="small"
@@ -137,7 +142,7 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
                     </td>
                     <td>
                       <TextField
-                        inputProps={{style: { textAlign: 'right' }}}
+                        inputProps={{ style: { textAlign: 'right' } }}
                         type="text"
                         name="timestamp"
                         size="small"
@@ -178,15 +183,17 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
                     <StyledTableCell align="right">
                       {exercises[idx].reps}
                     </StyledTableCell>
-                    <StyledTableCell align="right" onClick={()=>{setTimeVideo(exercises[idx].timestamp); setClickTimestamp(!clickTimestamp)}}>
+                    <StyledTableCell align="right" onClick={() => { setTimeVideo(exercises[idx].timestamp); setClickTimestamp(!clickTimestamp) }}>
                       {exercises[idx].timestamp}
                     </StyledTableCell>
-                    <StyledTableCell align="center">
-                      <input
-                        type="checkbox"
-                        name="done"
-                        className="form-control"
-                      />
+                    <StyledTableCell >
+                      <FormControl style={{marginLeft:"30%"}}>
+                        <FormGroup>
+                          <FormControlLabel
+                            control={<Checkbox size="small" color="default" />}
+                          />
+                        </FormGroup>
+                      </FormControl>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -194,21 +201,21 @@ function TableW ({exercises, setExercises, editable, setTimeVideo, setClickTimes
             </table>
             {editable && <div>
               <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<AddIcon/>} 
-              size="small"
-              onClick={handleAddExercise}
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<AddIcon />}
+                size="small"
+                onClick={handleAddExercise}
               >Add Row</Button>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              startIcon={<HighlightOffIcon/>} 
-              size="small"
-              onClick={handleRemoveExercise}
-              >Delete 
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<HighlightOffIcon />}
+                size="small"
+                onClick={handleRemoveExercise}
+              >Delete
               Last Row</Button>
             </div>}
           </div>
