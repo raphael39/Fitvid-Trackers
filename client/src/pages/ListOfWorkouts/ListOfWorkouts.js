@@ -9,7 +9,7 @@ import Card from '@material-ui/core/Card';
 import ApiClient from '../../Services/ApiClient';
 import Navigation from './../../components/Navigation/navBar';
 import { Redirect } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -21,120 +21,20 @@ function ListOfWorkouts(props) {
   const { state } = props.location;
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const user = useSelector(state => state.currentUser);
+  const user = useSelector((state) => state.currentUser);
 
   const handleTabChange = (event, newValue) => {
     console.log(newValue);
     setValue(newValue);
   };
 
-  let fakeWorkouts = [ {
-    id: '001',
-    name: 'Chest Workout',
-    description: '10 minutes intense bodyweight chest workout',
-    difficulties: {easy: false, medium: true, hard: false},
-    type: 'strength',
-    youtubeID: 'BkS1-El_WlE',
-    tags: ['chest', 'HIT'],
-    length: 10,
-    created_by: 654684,
-    weekdays: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-  },
-  {
-    id: '002',
-    name: 'Full Body Workout',
-    description: '30 minutes intense bodyweight workout',
-    difficulty: {easy: false, medium: true, hard: false},
-    type: 'strength',
-    youtubeID: 'UBMk30rjy0o',
-    tags: ['chest', 'HIT'],
-    length: 20,
-    created_by: 654684,
-    weekdays: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-  },
-  {
-    id: '003',
-    name: 'Leg Workout',
-    description: '10 minutes intense bodyweight chest workout',
-    difficulty: {easy: false, medium: true, hard: false},
-    type: 'strength',
-    youtubeID: 'aCa8R9II8F0',
-    tags: ['chest', 'HIT'],
-    length: 20,
-    created_by: 654684,
-    weekdays: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-  },
-  {
-    id: '004',
-    name: 'Abs Workout',
-    description: '10 minutes intense bodyweight chest workout',
-    difficulty: {easy: true, medium: false, hard: false},
-    type: 'strength',
-    youtubeID: '8AAmaSOSyIA',
-    tags: ['chest', 'HIT'],
-    length: 10,
-    created_by: 654684,
-    weekdays: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-  },
-  {
-    id: '005',
-    name: 'core Workout',
-    description: '10 minutes intense bodyweight chest workout',
-    difficulty: {easy: false, medium: true, hard: false},
-    type: 'strength',
-    youtubeID: 'dJlFmxiL11s?start=60',
-    tags: ['chest', 'HIT'],
-    length: 10,
-    created_by: 654684,
-    weekdays: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ],
-  },]
-
- 
-
   const [searchValue, setSearchValue] = useState('');
-  const [filteredWorkouts, setfilteredWorkouts] = useState(fakeWorkouts);
   const [myWorkouts, setmyWorkouts] = useState([]);
   const [AllWorkouts, setAllWorkouts] = useState([]);
+  const [currentSelectedTabWorkouts, setcurrentSelectedTabWorkouts] = useState(
+    []
+  );
+  const [filteredWorkouts, setfilteredWorkouts] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
     medium: false,
@@ -142,14 +42,19 @@ function ListOfWorkouts(props) {
   });
 
   useEffect(() => {
-    /* ApiClient.getAllWorkouts().then((workouts) =>
+    ApiClient.getAllWorkouts().then((workouts) => setAllWorkouts(workouts));
+    ApiClient.getAllWorkouts().then((workouts) =>
       setfilteredWorkouts(workouts)
-    ); */
-    ApiClient.getMyWorkouts()
-      .then(workouts => setmyWorkouts(workouts));
+    );
+    ApiClient.getAllWorkouts().then((workouts) =>
+      setcurrentSelectedTabWorkouts(workouts)
+    );
+    ApiClient.getAllWorkouts().then((workouts) =>
+      console.log('fetch getAll Request', workouts)
+    );
+    ApiClient.getMyWorkouts().then((workouts) => setmyWorkouts(workouts));
   }, []);
 
-  console.log('my Workouts -->', myWorkouts);
 
   const handleInputChange = (enteredInput) => {
     setSearchValue(enteredInput);
@@ -157,7 +62,6 @@ function ListOfWorkouts(props) {
   };
 
   const handleCheckBoxChange = (toggleKey) => {
-
     let messengerObjectForBoxStatus = Object.assign(checkBoxStatus);
     if (toggleKey === 'easy') {
       if (checkBoxStatus.easy === false) {
@@ -193,67 +97,74 @@ function ListOfWorkouts(props) {
     checkBoxStatus,
     enteredInput = searchValue
   ) => {
-    console.log('inside filter method -->');
     let filteredArray = [];
+    console.log('inside filter method -->', filteredArray);
 
     if (checkBoxStatus.easy === true) {
-      filteredArray = fakeWorkouts.filter(
-        (Workout) => {
-          return Workout.difficulties.easy;
-        }
-      );
+      filteredArray = currentSelectedTabWorkouts.filter((Workout) => {
+        return Workout.difficulties.easy;
+      });
     }
     if (checkBoxStatus.medium === true) {
       filteredArray = filteredArray.concat(
-        fakeWorkouts.filter((Workout) => Workout.difficulties.medium)
+        currentSelectedTabWorkouts.filter(
+          (Workout) => Workout.difficulties.medium
+        )
       );
     }
     if (checkBoxStatus.hard === true) {
       filteredArray = filteredArray.concat(
-        fakeWorkouts.filter((Workout) => Workout.difficulties.hard)
+        currentSelectedTabWorkouts.filter(
+          (Workout) => Workout.difficulties.hard
+        )
       );
     } else {
     }
 
-    if (filteredArray.length > 0 && checkBoxStatus.easy || checkBoxStatus.medium || checkBoxStatus.hard) {
-      filteredArray = filteredArray.filter((Workout) =>
-        Workout.name.toLowerCase().includes(enteredInput.toLowerCase())
-
-      );
+    if (
+      (filteredArray.length > 0 && checkBoxStatus.easy) ||
+      checkBoxStatus.medium ||
+      checkBoxStatus.hard
+    ) {
+      filteredArray = filteredArray.filter((Workout) => {
+        console.log('inside filter.length > 0 and on e true -->', Workout);
+        return Workout.name.toLowerCase().includes(enteredInput.toLowerCase());
+      });
       console.log(filteredArray);
       setfilteredWorkouts(filteredArray);
     } else {
-      let searchFilteredArray = fakeWorkouts.filter((Workout) =>
-        Workout.name.toLowerCase().includes(enteredInput.toLowerCase())
-      );
+      let searchFilteredArray = currentSelectedTabWorkouts.filter((Workout) => {
+        return Workout.name.toLowerCase().includes(enteredInput.toLowerCase());
+      });
       setfilteredWorkouts(searchFilteredArray);
     }
   };
 
-  return (
-
-    (!user) ? <Redirect to="/" /> :
-
+  return !user ? (
+    <Redirect to="/" />
+  ) : (
     <div>
       <Navigation />
       <div className="header-search-view">
-      <ThemeProvider theme={defaultMaterialTheme}>
-      <Paper className={classes.root}>
-      <Tabs
-        value={value}
-        onChange={handleTabChange}
-        indicatorColor="primary"
-        textColor="primary"
-        centered
-      >
-        <Tab label="Browse Workouts" indicatorColor="primary"
-        textColor="primary"
-        centered/>
-        <Tab label="My saved Workouts" />
-      </Tabs>
-    </Paper>
-    </ThemeProvider>
-        
+        <ThemeProvider theme={defaultMaterialTheme}>
+          <Paper className={classes.root}>
+            <Tabs
+              value={value}
+              onChange={handleTabChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+              <Tab
+                label="Browse Workouts"
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+              />
+              <Tab label="My saved Workouts" />
+            </Tabs>
+          </Paper>
+        </ThemeProvider>
       </div>
       <div className="list-filter-container">
         <WorkoutList
@@ -271,7 +182,6 @@ function ListOfWorkouts(props) {
 }
 
 export default ListOfWorkouts;
-
 
 const useStyles = makeStyles({
   root: {
