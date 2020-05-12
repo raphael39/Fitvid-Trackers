@@ -97,7 +97,7 @@ class Countdown extends Component {
     return (
       <div>
         <Typography variant="h6">Timer Countdown</Typography>
-        <Typography variant="body1">Hours : Minutes : Seconds</Typography>
+        <Typography variant="body1">Hr : Min : Sec</Typography>
           <div className="Countdown-display">
             <IconButton size="small" onClick={() => this.adjustTimer("incHours")}><KeyboardArrowUpIcon/></IconButton>
             <IconButton size="small" onClick={() => this.adjustTimer("incMinutes")}><KeyboardArrowUpIcon/></IconButton>
