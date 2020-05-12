@@ -88,11 +88,11 @@ function ScheduledForToday () {
           <div className={classes.divSelected}>
             <Typography variant="body1" style={{fontWeight: 'bold'}}>Scheduled for {getScheduledFor()}:</Typography>
             <div className={classes.workoutHome}>
-            {todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
-              workoutsOfSelectedDay.map(workout => (
-                <WorkoutOnHome workout={workout} />
-              ))
-            }
+              {todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
+                workoutsOfSelectedDay.map(workout => (
+                  <WorkoutOnHome workout={workout} />
+                ))
+              }
             </div>
             <div className={classes.divSelectDate}>
               <Typography variant="body1" style={{fontWeight: 'bold'}}>Select another day:</Typography>
