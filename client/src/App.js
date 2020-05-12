@@ -42,20 +42,20 @@ function App () {
               component={Workout} />
             <Route exact path="/ListOfWorkouts"
               component={ListOfWorkouts} />
-              <Route exact path="/myListOfWorkouts"
-          component={MyListOfWorkouts} />
-          <Route exact path="/ListOfWorkoutPlans"
-          component={ListOfWorkoutPlans} />
-          <Route exact path="/myListOfWorkoutPlans"
-          component={myListOfWorkoutPlans} />
-          <Route exact path="/WorkoutPlan"
-          component={WorkoutPlan} />
-          <Route exact path="/CreateWorkoutPlan"
-          component={CreateWorkoutPlan} />
-          <Route path="/CreateWorkoutPlan/:id"
-          component={CreateWorkoutPlan} />
-          <Route path="/navbar"
-          component={NavBar} />
+            <Route exact path="/myListOfWorkouts"
+              component={MyListOfWorkouts} />
+            <Route exact path="/ListOfWorkoutPlans"
+              component={ListOfWorkoutPlans} />
+            <Route exact path="/myListOfWorkoutPlans"
+              component={myListOfWorkoutPlans} />
+            <Route exact path="/WorkoutPlan"
+              component={WorkoutPlan} />
+            <Route exact path="/CreateWorkoutPlan"
+              component={CreateWorkoutPlan} />
+            <Route path="/CreateWorkoutPlan/:id"
+              component={CreateWorkoutPlan} />
+            <Route path="/navbar"
+              component={NavBar} />
           </Router>
         </PersistGate>
       </Provider>
