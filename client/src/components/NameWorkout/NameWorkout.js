@@ -1,4 +1,6 @@
 import React from 'react';
+import TextField from '@material-ui/core/TextField';
+
 
 function NameWorkout ({workoutName, setWorkoutName, editable}) {
   
@@ -11,8 +13,9 @@ function NameWorkout ({workoutName, setWorkoutName, editable}) {
     <div>
       {editable && 
         <div>
-        <label for='workout-name'>Name of the workout: </label>
-        <input id='workout-name' type='text' defaultValue={workoutName} onChange={(event)=> handlingWorkoutName(event)}/>     
+        <TextField id="standard-basic" label="Name of the Workout" />
+        {/* <label for='workout-name'>Name of the workout: </label>
+        <input id='workout-name' type='text' defaultValue={workoutName} onChange={(event)=> handlingWorkoutName(event)}/>      */}
         </div>
       }
       {!editable && 

@@ -13,19 +13,13 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import Tags from '../../components/Tags/Tags';
 import WorkoutLength from '../../components/WorkoutLength/WorkoutLength';
+import ApiClient from '../../Services/ApiClient';
 
 
-
-
-//mock data
-const workout = {id:"randomNumber", isPublic:true, name:"AthleanX, fullbody", youtubeId:"vc1E5CfRfos", days: {monday: true, tuesday: false, wednesday: true, thursday: false, friday: false, saturday: false, sunday: false}, description: "Full body, bodyweight exercises with two different plans",difficulties: {easy: false, medium: true, hard: false}, exercises: [{ name: "Pull-ups", sets: 3, reps: 20, timestamp: "15"}, { name: "Abs ", sets: 2, reps: 1, timestamp: "3:00"}]}
-
-function Workout ({
-  //receive the workout:id obj
-}) {
+function Workout (props) {
 
   const [exercises, setExercise] = useState(null);
-
+  const [_id, setId] = useState(null);
   const [workoutName, setWorkoutName] = useState();
   const [description, setDescription] = useState('');
   const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
@@ -38,20 +32,48 @@ function Workout ({
   const [clickTimestamp, setClickTimestamp] = useState(false);
   const [editable, setEditable] = useState(false);
   const [workoutLength, setworkoutLength] = useState(0);
+  const [youtubeId, setYoutubeId] = useState();
 
 
   const user = useSelector(state => state.currentUser);
 
-
   useEffect(()=>{
-    setExercise(workout.exercises);
-    setDescription(workout.description);
-    setDifficulties(workout.difficulties);
-    setDays(workout.days);
-    setWorkoutName(workout.workoutName);
-    setIsPublic(workout.isPublic);
-    setTags(workout.tags);
+    ApiClient.getWorkout(props.match.params.id)
+      .then((workout) => {
+        setId(workout._id);
+        setExercise(workout.exercises);
+        setDescription(workout.description);
+        setDifficulties(workout.difficulties);
+        setWorkoutName(workout.name);
+        setIsPublic(workout.isPublic);
+        setTags(workout.tags);
+        setYoutubeId(workout.youtubeId);
+        setworkoutLength(workout.length);
+      })
   }, [])
+
+  function switchEditable () {
+    if (editable) {
+      const updatedWorkout = {
+        _id: _id,
+        name: workoutName,
+        description: description,
+        difficulties: difficulties,
+        type: "strenght",
+        youtubeId: youtubeId,
+        tags: tags,
+        length: workoutLength,
+        createdBy: user._id,
+        exercises: exercises,
+        isPublic: isPublic
+      };
+      ApiClient.updateWorkout(updatedWorkout)
+        .then(() => { setEditable(!editable) })
+        .catch((err) => { console.log('Error updating workout:', err); });
+    } else {
+      setEditable(!editable);
+    }
+  }
 
   return (
 
@@ -60,10 +82,10 @@ function Workout ({
     <div>
       <Navigation/>
       <br/>
-      <button onClick={()=>{setEditable(!editable)}}>{editable? "Done" : "Edit"}</button>
+      <button onClick={switchEditable}>{editable? "Done" : "Edit"}</button>
       <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
-        <YoutubePlayer url={`https://www.youtube.com/watch?v=${workout.youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
+        <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
         {!editable &&
           <div>
             <Countdown/>
