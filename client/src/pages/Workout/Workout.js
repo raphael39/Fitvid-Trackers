@@ -89,32 +89,24 @@ function Workout(props) {
 
     (!user) ? <Redirect to="/" /> :
 
-      <div>
-        <Navigation />
+    <div>
+      <Navigation />
         <div className={classes.root}>
           <Paper elevation={3} style={{ margin: "3% 0%" }}>
             <Grid container direction="column" justify="center" alignItem="center" spacing={4} style={{ padding: "2% 5%" }}>
-
               <Grid item xs={12} align="center">
                 <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable} />
               </Grid>
               <Grid item xs={12} align="center">
-
                 <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
               </Grid>
-              {!editable &&
-                
+              {!editable &&         
                 <Grid container  spacing={4}>
                   <Grid item xs={3} minWidth="110px" style={{marginLeft:"16px"}}>
-
                     <Countdown />
-
                   </Grid>
                   <Grid item xs={3} style={{marginLeft:"16px"}}>
-
-
                     <Stopwatch />
-
                   </Grid>
                 </Grid>
               }
@@ -123,32 +115,24 @@ function Workout(props) {
                   <TableW exercises={exercises} setExercises={setExercises} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />
                 </Grid>}
               <Grid item xs={12} >
-
                 <DescriptionWorkout description={description} setDescription={setDescription} editable={editable} />
               </Grid>
               <Grid item xs={12} >
-
                 <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
               </Grid>
               <Grid item xs={12} >
-
                 <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable} />
               </Grid>
               <Grid item xs={12} >
-
                 <DaysWorkout days={days} setDays={setDays} editable={editable} />
               </Grid>
               <Grid item xs={12} style={{paddingTop: "0px"}}>
                 <Tags tags={tags} setTags={setTags} editable={editable} />
-
               </Grid>
               <Grid item xs={12} >
                 <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable} />
-
               </Grid>
-
               <Grid item align="right" xs={12}>
-
                 {
                   (user._id === createdBy) ?
                     <Button className={classes.button} onClick={switchEditable}>{editable ? "Done" : "Edit"}</Button>
@@ -158,7 +142,7 @@ function Workout(props) {
             </Grid>
           </Paper>
         </div>
-      </div>
+    </div>
   )
 }
 
