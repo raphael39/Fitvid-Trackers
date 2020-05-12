@@ -47,8 +47,8 @@ function ScheduledForToday () {
   const [workoutsOfSelectedDay, setWorkoutsOfSelectedDay] = useState([]);
 
   useEffect(() => {
-    getWorkoutsOfSelectedDay();
-  }, []);
+    getWorkoutsOfSelectedDay(today);
+  }, [schedule]);
 
   function changeDate (date) {
     const dateFormatted = moment(date).format('YYYY-MM-DD');
