@@ -12,6 +12,7 @@ import {
 import MomentUtils from '@date-io/moment';
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core";
+import ApiClient from '../../Services/ApiClient';
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "black",
     color: "white",
     '&:hover': {
-        backgroundColor: 'rgb(80,80,80)',
+      backgroundColor: 'rgb(80,80,80)',
     }
   },
 }));
@@ -43,15 +44,15 @@ function ScheduledForToday () {
   const [selectedDate, setSelectedDate] = useState(today);
   const [todaysWorkoutIds, setTodaysWorkoutIds] = useState([]);
   const [workoutsOfSelectedDay, setWorkoutsOfSelectedDay] = useState([]);
-  const token = useSelector(state => state.currentUser).token;
 
   useEffect(() => {
     getWorkoutsOfSelectedDay();
   }, []);
 
   function changeDate (date) {
-    setSelectedDate(moment(date).format('YYYY-MM-DD'));
-    getWorkoutsOfSelectedDay();
+    const dateFormatted = moment(date).format('YYYY-MM-DD');
+    setSelectedDate(dateFormatted);
+    getWorkoutsOfSelectedDay(dateFormatted);
   }
 
   function getScheduledFor () {
@@ -65,29 +66,19 @@ function ScheduledForToday () {
     }).split(' at ')[0];
   }
 
-  function getWorkoutsOfSelectedDay () {
+  function getWorkoutsOfSelectedDay (dateFormatted) {
     if (schedule) {
-      console.log(schedule);
-      console.log('selected date', selectedDate)
+      const todaysIds = schedule.map.filter(day => (moment(day.day).format('YYYY-MM-DD') == dateFormatted));
+      setTodaysWorkoutIds(todaysIds);
 
-      setTodaysWorkoutIds(schedule.map.filter(day => (moment(day.day).format('YYYY-MM-DD') == selectedDate)));
-      console.log("getWorkoutsOfSelectedDay -> todaysWorkoutIds", todaysWorkoutIds)
-
-      if (todaysWorkoutIds.length > 0) {
-        const fetchWorkoutUrl = process.env.REACT_APP_SERVER_URL + `/workout/${todaysWorkoutIds[0].workout}`;
-        const workoutObj = fetch(fetchWorkoutUrl, {
-          method: 'get',
-          headers: new Headers({
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/x-www-form-urlencoded'
-          })
-        })
-          .then(response => response.json()
-            .then(data => { setWorkoutsOfSelectedDay([data]) }));
+      if (todaysIds.length > 0) {
+        const promiseArr = [];
+        for (let i = 0; i < todaysIds.length; i++) {
+          promiseArr[i] = ApiClient.getWorkout(todaysIds[i].workout)
+        }
+        Promise.all(promiseArr).then(resolved => { setWorkoutsOfSelectedDay(resolved) });
       }
-    } else {
-      setWorkoutsOfSelectedDay([]);
-    }
+    } else { setWorkoutsOfSelectedDay([]); }
   }
 
   return (
@@ -95,18 +86,18 @@ function ScheduledForToday () {
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <div>
           <div>Scheduled for {getScheduledFor()}:</div>
-          <div>{todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
-            workoutsOfSelectedDay.map(workout => (
-              <WorkoutOnHome workouts={workout} />
-            ))
+          <div>
+            {todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
+              workoutsOfSelectedDay.map(workout => (
+                <WorkoutOnHome workouts={workout} />
+              ))
             }
             <div>Select another day:</div>
-              <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} />
-
+            <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} />
           </div>
-      </div>
-    </MuiPickersUtilsProvider>
-  </ThemeProvider>
+        </div>
+      </MuiPickersUtilsProvider>
+    </ThemeProvider>
   )
 }
 

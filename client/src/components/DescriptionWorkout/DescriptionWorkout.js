@@ -1,7 +1,6 @@
 import React from 'react';
 
 function DescriptionWorkout ({description, setDescription, editable}) {
-  console.log("EDITABLE", editable)
   return (
   <div>
     {editable && 

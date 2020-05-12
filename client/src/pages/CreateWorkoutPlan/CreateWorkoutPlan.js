@@ -7,9 +7,16 @@ import { setWorkoutPlan } from './../../redux/actions/workoutPlanAction';
 import Workout from '../Workout/Workout';
 import NavBar from './../../components/Navigation/navBar';
 import ApiClient from '../../Services/ApiClient';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
 
 function CreateWorkoutPlan(props) {
   const dispatch = useDispatch();
+  const [newWorkoutPlan, setNewWorkoutPlan] = useState({
+    trainingDays: [null, null, null, null, null, null, null],
+  });
+  const user = useSelector(state => state.currentUser);
   const { handle } = props.match.params;
   const { state } = props.location;
   const WorkoutPlanRedux = useSelector((state) => state.workoutPlanCreation)
@@ -47,6 +54,9 @@ function CreateWorkoutPlan(props) {
   console.log('the PlanName ----->', PlanName);
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
       <NavBar />
       <h1>Create your WorkoutPlan</h1>

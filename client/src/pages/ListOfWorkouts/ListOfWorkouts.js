@@ -4,7 +4,10 @@ import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
 import './ListofWorkouts.css';
 import {Link} from 'react-router-dom';
 import ApiClient from '../../Services/ApiClient';
-import Navigation from './../../components/Navigation/navBar'
+import Navigation from './../../components/Navigation/navBar';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
+
 
 function ListOfWorkouts(props) {
 
@@ -13,6 +16,7 @@ function ListOfWorkouts(props) {
 
   
 
+  const user = useSelector(state => state.currentUser);
 
   const fakeWorkouts = [
     {
@@ -174,12 +178,15 @@ function ListOfWorkouts(props) {
   };
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+
     <div>
     <Navigation/>
       <div className="header-search-view">
 
         <div>
-  <Link to='/ListOfWorkouts'><button><h1>Browse Workouts</h1></button></Link>
+      <Link to='/ListOfWorkouts'><button><h1>Browse Workouts</h1></button></Link>
         <Link to='/myListOfWorkouts'><button><h1>My Saved Workouts</h1></button></Link>
         </div>
         <div className="search-workouts">

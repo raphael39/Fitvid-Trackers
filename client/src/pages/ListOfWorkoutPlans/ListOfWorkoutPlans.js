@@ -3,9 +3,14 @@ import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from '../../components/WorkoutList/FilterWorkouts';
 import { Link } from 'react-router-dom';
 import ApiClient from '../../Services/ApiClient';
-import NavBar from './../../components/Navigation/navBar'
+import NavBar from './../../components/Navigation/navBar';
+import { Redirect } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const WorkoutPlans = ({}) => {
+
+  const user = useSelector(state => state.currentUser);
+
   const fakeWorkouts = [
     {
       id: 'P001',
@@ -129,6 +134,9 @@ const WorkoutPlans = ({}) => {
   };
 
   return (
+
+    (!user) ? <Redirect to="/" /> :
+    
     <div>
       <NavBar/>
       
