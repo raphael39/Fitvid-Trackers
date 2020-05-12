@@ -34,14 +34,14 @@ import { setSchedule } from '../../redux/actions/scheduleActions';
 //route
 import { Link } from 'react-router-dom';
 
-function getIdVideoYoutube (url) {
+function getIdVideoYoutube(url) {
   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   var match = url.match(regExp);
   return (match && match[7].length == 11) ? match[7] : false;
 }
 //-------------------------------------------
 
-function CreateWorkout () {
+function CreateWorkout() {
 
   //redux
   const dispatch = useDispatch();
@@ -74,21 +74,21 @@ function CreateWorkout () {
 
 
   const getworkoutLength = (youtubeId) => {
-    fetch (`https://www.googleapis.com/youtube/v3/videos?id=${youtubeId}&part=contentDetails&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
-    .then((response) => response.json() )
-    .then((data) => {
-      setworkoutLength(Math.floor(moment.duration(data.items[0].contentDetails.duration).asMinutes()))
-    })
+    fetch(`https://www.googleapis.com/youtube/v3/videos?id=${youtubeId}&part=contentDetails&key=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setworkoutLength(Math.floor(moment.duration(data.items[0].contentDetails.duration).asMinutes()))
+      })
   }
-  
-    const getSchedule = (workoutId) => {
+
+  const getSchedule = (workoutId) => {
     const arr = [];
 
     for (let i = 0; i < repeatWeeks; i++) {
       for (let j = 0; j < 7; j++) {
         if (days[j]) {
-          const day = nextDay(new Date(), j+1).date;
-          arr.push({day: moment(day).add(7*i, 'days').format('YYYY-MM-DD'), workout: workoutId});
+          const day = nextDay(new Date(), j + 1).date;
+          arr.push({ day: moment(day).add(7 * i, 'days').format('YYYY-MM-DD'), workout: workoutId });
         }
       }
     }
@@ -96,7 +96,7 @@ function CreateWorkout () {
     return arr;
   }
 
-  async function createWorkout () {
+  async function createWorkout() {
     const workout = {
       name: workoutName,
       description: description,
@@ -111,15 +111,15 @@ function CreateWorkout () {
     };
 
     ApiClient.createWorkout(workout)
-    .then((response) => {
-      const workoutId = response;
-      const scheduleArr = getSchedule(workoutId);
-      const newMap = [...schedule.map, ...scheduleArr]
-      const newSchedule = { userId: schedule.userId, map: newMap };
-      ApiClient.updateSchedule(newSchedule).then((response) => {
-        dispatch(setSchedule(response));
+      .then((response) => {
+        const workoutId = response;
+        const scheduleArr = getSchedule(workoutId);
+        const newMap = [...schedule.map, ...scheduleArr]
+        const newSchedule = { userId: schedule.userId, map: newMap };
+        ApiClient.updateSchedule(newSchedule).then((response) => {
+          dispatch(setSchedule(response));
+        });
       });
-    });
 
     return null;
   };
@@ -132,62 +132,63 @@ function CreateWorkout () {
 
     (!user) ? <Redirect to="/" /> :
 
-    <div>
-      <NavBar />
-      <div className={classes.root}>
-        <Typography variant="h6" align="center">Create your daily workout</Typography>
-        <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true} />
-        <p style={{ fontStyle: "italic" }}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
-        {!youtubeId &&
-          <div>
-            <Typography variant='body1' style={{fontWeight: 'bold'}}>Import your Youtube video here: </Typography>
-            <TextField id='youtubeUrl' helperText="Paste it!" style={{width: '75%', marginRight: "5%"}} onChange={(event) => handlingYoutubeUrl(event)} />
-            <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            // endIcon={<Icon>send</Icon>}
-            size="small"
-            onClick={generateYoutubeId}
-            >Import</Button>
-          </div>}
+      <div>
+        <NavBar />
+        <div className={classes.root}>
+        <button onClick={()=>console.log(days)}>days</button>
+          <Typography variant="h6" align="center">Create your daily workout</Typography>
+          <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true} />
+          <p style={{ fontStyle: "italic" }}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
+          {!youtubeId &&
+            <div>
+              <Typography variant='body1' style={{ fontWeight: 'bold' }}>Import your Youtube video here: </Typography>
+              <TextField id='youtubeUrl' helperText="Paste it!" style={{ width: '75%', marginRight: "5%" }} onChange={(event) => handlingYoutubeUrl(event)} />
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                // endIcon={<Icon>send</Icon>}
+                size="small"
+                onClick={generateYoutubeId}
+              >Import</Button>
+            </div>}
           {youtubeId &&
-          <div>
-            <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
-            <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<DeleteIcon />}
-            size="small"
-            onClick={() => setYoutubeId()}
-            >Change Video</Button>
-          </div>
-        }
-        <Table exercises={exercises} setExercises={setExercises} editable={true} />
-        <DescriptionWorkout description={description} setDescription={setDescription} editable={true} />
-        <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={true} />
-        <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
-        <br />
-        <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
-        <br />
-        <Tags tags={tags} setTags={setTags} editable={true} />
-        <br />
-        <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true} />
-        <br />
-        <Button
+            <div>
+              <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<DeleteIcon />}
+                size="small"
+                onClick={() => setYoutubeId()}
+              >Change Video</Button>
+            </div>
+          }
+          <Table exercises={exercises} setExercises={setExercises} editable={true} />
+          <DescriptionWorkout description={description} setDescription={setDescription} editable={true} />
+          <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={true} />
+          <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
+          <br />
+          <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
+          <br />
+          <Tags tags={tags} setTags={setTags} editable={true} />
+          <br />
+          <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true} />
+          <br />
+          <Button
             variant="contained"
             color="primary"
             className={classes.button}
             endIcon={<Icon>send</Icon>}
             size="small"
             onClick={createWorkout}
-            > 
+          >
             <Link to={`/HomePage`} style={{ textDecoration: 'none', color: "white" }} >Create</Link>
           </Button>
-        {/* <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button> */}
+          {/* <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button> */}
+        </div>
       </div>
-    </div>
   )
 }
 
@@ -201,9 +202,9 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     backgroundColor: "black",
-    color: "white", 
+    color: "white",
     '&:hover': {
-        backgroundColor: 'rgb(80,80,80)',
+      backgroundColor: 'rgb(80,80,80)',
     }
   }
 }));
