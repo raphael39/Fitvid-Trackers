@@ -68,8 +68,8 @@ function DaysWorkout({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
           <label><input type="checkbox" name="sunday" defaultChecked={days.sunday} onClick={() => handleDays(6)} />Sunday</label> */}
           <br />
           <p>
-            <span>for the next</span>
-            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{ style: { textAlign: 'right' } }} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
+            <span>For the next</span>
+            <TextField id="numberOfDays" defaultValue={repeatWeeks} inputProps={{ style: { textAlign: 'right', width: "40px" } }} size="small" onChange={(event) => setRepeatWeeks(parseInt(event.target.value))}></TextField>
             <span>weeks</span>
           </p>
         </div>

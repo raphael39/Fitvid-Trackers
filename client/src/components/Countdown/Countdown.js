@@ -99,25 +99,16 @@ class Countdown extends Component {
         <Typography variant="h6">Timer Countdown</Typography>
         <Typography variant="body1">Hours : Minutes : Seconds</Typography>
           <div className="Countdown-display">
-            {/* <button onClick={() => this.adjustTimer("incHours")}>&#8679;</button> */}
             <IconButton size="small" onClick={() => this.adjustTimer("incHours")}><KeyboardArrowUpIcon/></IconButton>
-
-            {/* <button onClick={() => this.adjustTimer("incMinutes")}>&#8679;</button> */}
             <IconButton size="small" onClick={() => this.adjustTimer("incMinutes")}><KeyboardArrowUpIcon/></IconButton>
-            <IconButton size="small" onClick={() => this.adjustTimer("incSeconds")}><KeyboardArrowUpIcon/></IconButton>
-            
-            {/* <button onMouseUp={() => this.adjustTimer("incSeconds")} onMouseDown={() => {}}>&#8679;</button> */}
+            <IconButton size="small" onClick={() => this.adjustTimer("incSeconds")}><KeyboardArrowUpIcon/></IconButton>  
               <div className="Countdown-time">
-              <Typography variant="body1" style={{marginLeft: "5px"}}>{hours} : {minutes} : {seconds}</Typography>
+                <Typography variant="body1" style={{marginLeft: "5px"}}>{hours} : {minutes} : {seconds}</Typography>
               </div>
-          <IconButton size="small" onClick={() => this.adjustTimer("decHours")}><KeyboardArrowDownIcon/></IconButton>
-          <IconButton size="small" onClick={() => this.adjustTimer("decMinutes")}><KeyboardArrowDownIcon/></IconButton>
-          <IconButton size="small" onClick={() => this.adjustTimer("decSeconds")}><KeyboardArrowDownIcon/></IconButton>
-
-          {/* <button onClick={() => this.adjustTimer("decHours")}>&#8681;</button>
-          <button onClick={() => this.adjustTimer("decMinutes")}>&#8681;</button>
-          <button onClick={() => this.adjustTimer("decSeconds")}>&#8681;</button> */}
-        </div>
+            <IconButton size="small" onClick={() => this.adjustTimer("decHours")}><KeyboardArrowDownIcon/></IconButton>
+            <IconButton size="small" onClick={() => this.adjustTimer("decMinutes")}><KeyboardArrowDownIcon/></IconButton>
+            <IconButton size="small" onClick={() => this.adjustTimer("decSeconds")}><KeyboardArrowDownIcon/></IconButton>
+          </div>
         {timerOn === false &&
           (timerStart === 0 || timerTime === timerStart) && (
             <Button onClick={this.startTimer}>Start</Button>
@@ -136,7 +127,6 @@ class Countdown extends Component {
           <br/>
           <TextField type="text" label="Set Timer" onChange={(event) => {console.log(this.convertToMilliseconds(event.target.value)); this.setState({timerTime: (this.convertToMilliseconds(event.target.value))})
           }}></TextField>
-
       </div>
     );
   }
