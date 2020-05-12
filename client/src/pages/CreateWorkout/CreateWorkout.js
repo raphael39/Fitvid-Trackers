@@ -83,12 +83,15 @@ function CreateWorkout() {
 
   const getSchedule = (workoutId) => {
     const arr = [];
+    const today = new Date();
+    console.log("getSchedule -> today", today)
+    today.setDate(today.getDate() - 1);
 
     for (let i = 0; i < repeatWeeks; i++) {
       for (let j = 0; j < 7; j++) {
         if (days[j]) {
-          const day = nextDay(new Date(), j + 1).date;
-          arr.push({ day: moment(day).add(7 * i, 'days').format('YYYY-MM-DD'), workout: workoutId });
+          const day = nextDay(today, j+1).date;
+          arr.push({day: moment(day).add(7*i, 'days').format('YYYY-MM-DD'), workout: workoutId});
         }
       }
     }
