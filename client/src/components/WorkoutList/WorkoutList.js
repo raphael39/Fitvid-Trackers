@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './WorkoutList.css';
+import Card from '@material-ui/core/Card';
 import Workout from '../../pages/Workout/Workout';
 
-const WorkoutList = ({ workouts }) => {
-  console.log(workouts);
+const WorkoutList = ({ workouts, passedIndex }) => {
+  console.log('this is the passedIndex inside List -->', passedIndex);
   return (
+    
     <div className="workout-list-box">
       {workouts.map((workout) => (
         <div className="single-workout-box">
@@ -14,9 +16,9 @@ const WorkoutList = ({ workouts }) => {
               <h2>{workout.name}</h2>
               <p>{workout.description}</p>
 
-              <p>
-                <u>difficulty:</u> {workout.difficulty}
-              </p>
+              {/* <p>
+                <u>difficulty:</u> {'workout.difficulty'}
+              </p> */}
             </div>
 
             <div className="option-buttons">
@@ -28,7 +30,7 @@ const WorkoutList = ({ workouts }) => {
                   <button>View Workout Plan</button>
                 </Link>
               ) : (
-                <Link to={{ pathname: '/CreateWorkoutPlan/' + workout.id, state: { workout: workout } }}>
+                <Link to={{ pathname: '/CreateWorkoutPlan' , state: { workout: workout, passedIndex: passedIndex} }}>
                 <button>Add to Workoutplan</button>
                 </Link>
               )}
@@ -37,7 +39,7 @@ const WorkoutList = ({ workouts }) => {
 
           <div className="video-box">
             <iframe
-              src={`https://www.youtube.com/embed/${workout.youtubeID}`}
+              src={`https://www.youtube.com/embed/${workout.youtubeId}`}
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen

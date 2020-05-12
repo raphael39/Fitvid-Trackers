@@ -18,6 +18,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
+
 
 
 function Workout (props) {
@@ -37,6 +41,8 @@ function Workout (props) {
   const [editable, setEditable] = useState(false);
   const [workoutLength, setworkoutLength] = useState(0);
   const [youtubeId, setYoutubeId] = useState();
+  const [createdBy, setCreatedBy] = useState();
+
 
 
   const user = useSelector(state => state.currentUser);
@@ -53,6 +59,8 @@ function Workout (props) {
         setTags(workout.tags);
         setYoutubeId(workout.youtubeId);
         setworkoutLength(workout.length);
+        setCreatedBy(workout.createdBy);
+
       })
   }, [])
 
@@ -67,7 +75,7 @@ function Workout (props) {
         youtubeId: youtubeId,
         tags: tags,
         length: workoutLength,
-        createdBy: user._id,
+        createdBy: createdBy,
         exercises: exercises,
         isPublic: isPublic
       };
@@ -84,20 +92,33 @@ function Workout (props) {
   return (
 
     (!user) ? <Redirect to="/" /> :
-
+    
     <div>
       <Navigation/>
-      <br/>
       <div className={classes.root}>
-      <Button align="right" className={classes.button}  onClick={switchEditable}>{editable? "Done" : "Edit"}</Button>
 
+        {
+        (user._id === createdBy ) ?
+        <Button className={classes.button}  onClick={switchEditable}>{editable? "Done" : "Edit"}</Button>
+        : null
+      }
+      <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
         <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
         {!editable &&
-          <div>
-            <Countdown/>
-            <Stopwatch/>
-          </div>}
+          <Grid container spacing={3}>
+            <Grid item xs={3}>
+
+              <Countdown/>
+
+            </Grid>
+            <Grid item xs={3}>
+
+
+              <Stopwatch/>
+
+            </Grid>
+          </Grid>}
         {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
@@ -106,6 +127,7 @@ function Workout (props) {
         <Tags tags={tags} setTags={setTags} editable={editable} />
         <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable}/>
       </div>
+    </div>
     </div>
   )
 }

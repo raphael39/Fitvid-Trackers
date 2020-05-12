@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+
 
 class Stopwatch extends Component {
 
@@ -40,19 +43,19 @@ class Stopwatch extends Component {
 
     return (
       <div className="Stopwatch-display">
-        <div>Stopwatch:</div>
-        {hours} : {minutes} : {seconds} : {centiseconds}
+        <Typography variant="h6">Stopwatch:</Typography>
+        <Typography variant="body1">{hours} : {minutes} : {seconds} : {centiseconds}</Typography>
         {this.state.timerOn === false && this.state.timerTime === 0 && (
-          <button onClick={this.startTimer}>Start</button>
+          <Button onClick={this.startTimer}>Start</Button>
         )}
         {this.state.timerOn === true && (
-          <button onClick={this.stopTimer}>Stop</button>
+          <Button onClick={this.stopTimer}>Stop</Button>
         )}
         {this.state.timerOn === false && this.state.timerTime > 0 && (
-          <button onClick={this.startTimer}>Resume</button>
+          <Button onClick={this.startTimer}>Resume</Button>
         )}
         {this.state.timerOn === false && this.state.timerTime > 0 && (
-          <button onClick={this.resetTimer}>Reset</button>
+          <Button onClick={this.resetTimer}>Reset</Button>
         )}
       </div>
     );
