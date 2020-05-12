@@ -1,31 +1,135 @@
 import React from 'react';
-import './FilterWorkout.css';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Checkbox from '@material-ui/core/Checkbox';
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import DirectionsIcon from '@material-ui/icons/Directions';
 
-const FilterWorkouts = ({handleCheckBoxChange}) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    alignSelf: 'right',
+    width: '100%',
+    maxWidth: 360,
+    margin: '2%',
+    backgroundColor: theme.palette.background.paper,
+  },
+  div: {
+    width: '30%',
+    margin: '2%',
+  },
+  difficulty: {
+      textAlign: "left", 
+      marginLeft: '8%',
+  }, 
+  rootSearch: {
+    margin: '2%',
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: 360,
+  },
+  inputSearch: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButtonSearch: {
+    padding: 10,
+  }
+}));
+
+const defaultMaterialTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#212121',
+    },
+  },
+});
+
+export default function FilterWorkouts({handleCheckBoxChange}) {
+  const classes = useStyles();
+  const [checked, setChecked] = React.useState([0]);
+
+  const handleToggle = (value) => () => {
+    handleCheckBoxChange(value);
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
   return (
-    <div className="filter-list-view">
-      <div className="filter-box">
-      <p>Difficulty:</p>
-        <div className="difficulty-filter">
-          <div>
-            <input type="checkbox" name="easy" onChange={(e) => handleCheckBoxChange(e.target.name)}></input>
-            <label for="Easy"> Easy </label>
-            
+    <div className={classes.div} >
+      <Paper component="form" className={classes.rootSearch}>
+            <InputBase
+              className={classes.inputSearch}
+              placeholder="Search Workouts..."
+              inputProps={{ 'aria-label': 'search google maps' }}
+            />
+            <IconButton
+              type="submit"
+              className={classes.iconButtonSearch}
+              aria-label="search"
+            >
+              <SearchIcon />
+            </IconButton>
+          </Paper>
+      <ThemeProvider theme={defaultMaterialTheme}>
+        <Card className={classes.root}>
+          <List>
+              <div className={classes.difficulty}>
+          <p>Difficulty:</p>
           </div>
-          <div>
-            <input type="checkbox" name="medium" onChange={(e) => handleCheckBoxChange(e.target.name)}></input>
-            <label for="Medium"> Medium </label>
-          </div>
+            {['easy', 'medium', 'hard'].map((value) => {
+              const labelId = `checkbox-list-label-${value}`;
 
-          <div>
-            <input type="checkbox" name="hard" onChange={(e) => handleCheckBoxChange(e.target.name)}></input>
-            <label for="Hard"> Hard </label>
-          </div>
-
-        </div>
-      </div>
+              return (
+                <ListItem
+                  key={value}
+                  role={undefined}
+                  dense
+                  button
+                  onClick={handleToggle(value)}
+                 
+                >
+                  <ListItemIcon
+                  >
+                    <Checkbox
+                      edge="start"
+                      checked={checked.indexOf(value) !== -1}
+                      tabIndex={-1}
+                      disableRipple
+                      color={'primary'}
+                      labelStyle={{ color: 'green' }}
+                      iconStyle={{ fill: 'black' }}
+                      inputProps={{ 'aria-labelledby': labelId }}
+                    />
+                  </ListItemIcon>
+                  <ListItemText id={labelId} primary={`${value}`} />
+                </ListItem>
+              );
+            })}
+          </List>
+        </Card>
+      </ThemeProvider>
     </div>
   );
-};
-
-export default FilterWorkouts;
+}

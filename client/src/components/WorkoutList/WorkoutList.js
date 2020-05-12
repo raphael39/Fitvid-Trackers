@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './WorkoutList.css';
+import Card from '@material-ui/core/Card';
 import Workout from '../../pages/Workout/Workout';
 
 const WorkoutList = ({ workouts, passedIndex }) => {
   console.log('this is the passedIndex inside List -->', passedIndex);
   return (
+    
     <div className="workout-list-box">
       {workouts.map((workout) => (
         <div className="single-workout-box">
@@ -14,9 +16,9 @@ const WorkoutList = ({ workouts, passedIndex }) => {
               <h2>{workout.name}</h2>
               <p>{workout.description}</p>
 
-              <p>
-                <u>difficulty:</u> {workout.difficulty}
-              </p>
+              {/* <p>
+                <u>difficulty:</u> {'workout.difficulty'}
+              </p> */}
             </div>
 
             <div className="option-buttons">
