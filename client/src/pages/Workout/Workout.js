@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NameWorkout from '../../components/NameWorkout/NameWorkout';
-import Table from '../../components/Table/Table';
+import TableW from '../../components/TableW/TableW';
 import YoutubePlayer from '../../components/YoutubePLayer/YoutubePlayer'
 import DescriptionWorkout from '../../components/DescriptionWorkout/DescriptionWorkout';
 import DifficultyWorkout from '../../components/DifficultyWorkout/DifficultyWorkout';
@@ -26,7 +26,7 @@ import Paper from '@material-ui/core/Paper';
 
 function Workout (props) {
 
-  const [exercises, setExercise] = useState(null);
+  const [exercises, setExercises] = useState(null);
   const [_id, setId] = useState(null);
   const [workoutName, setWorkoutName] = useState();
   const [description, setDescription] = useState('');
@@ -51,7 +51,7 @@ function Workout (props) {
     ApiClient.getWorkout(props.match.params.id)
       .then((workout) => {
         setId(workout._id);
-        setExercise(workout.exercises);
+        setExercises(workout.exercises);
         setDescription(workout.description);
         setDifficulties(workout.difficulties);
         setWorkoutName(workout.name);
@@ -119,7 +119,7 @@ function Workout (props) {
 
             </Grid>
           </Grid>}
-        {exercises && <Table exercises={exercises} setExercise={setExercise} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
+        {exercises && <TableW exercises={exercises} setExercises={setExercises} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
         <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
         <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
         <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
