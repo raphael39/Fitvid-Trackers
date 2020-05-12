@@ -33,6 +33,7 @@ function Workout (props) {
   const [editable, setEditable] = useState(false);
   const [workoutLength, setworkoutLength] = useState(0);
   const [youtubeId, setYoutubeId] = useState();
+  const [createdBy, setCreatedBy] = useState();
 
 
   const user = useSelector(state => state.currentUser);
@@ -49,6 +50,7 @@ function Workout (props) {
         setTags(workout.tags);
         setYoutubeId(workout.youtubeId);
         setworkoutLength(workout.length);
+        setCreatedBy(workout.createdBy);
       })
   }, [])
 
@@ -63,7 +65,7 @@ function Workout (props) {
         youtubeId: youtubeId,
         tags: tags,
         length: workoutLength,
-        createdBy: user._id,
+        createdBy: createdBy,
         exercises: exercises,
         isPublic: isPublic
       };
@@ -82,7 +84,11 @@ function Workout (props) {
     <div>
       <Navigation/>
       <br/>
-      <button onClick={switchEditable}>{editable? "Done" : "Edit"}</button>
+      {
+        (user._id === createdBy ) ?
+        <button onClick={switchEditable}>{editable? "Done" : "Edit"}</button>
+        : null
+      }
       <div className='div-Workout'>
         <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
         <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
