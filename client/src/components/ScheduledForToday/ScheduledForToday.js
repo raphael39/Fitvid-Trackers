@@ -86,6 +86,7 @@ function ScheduledForToday () {
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <div>
+<<<<<<< HEAD
           <div className={classes.divSelected}>
             <Typography variant="body1" style={{fontWeight: 'bold'}}>Scheduled for {getScheduledFor()}:</Typography>
             <div className={classes.workoutHome}>
@@ -95,6 +96,17 @@ function ScheduledForToday () {
                 ))
               }
             </div>
+=======
+          <div>Scheduled for {getScheduledFor()}:</div>
+          <div>
+            {todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
+              workoutsOfSelectedDay.map(workout => (
+                <WorkoutOnHome workout={workout} />
+              ))
+            }
+            <div>Select another day:</div>
+            <DatePicker id="datePicker" format='YYYY-MM-DD' value={selectedDate} onChange={changeDate} />
+>>>>>>> 34a122790fdb3632dca93e9e68f8d1be874bde0a
           </div>
             <div className={classes.divSelectDate}>
               <Typography variant="body1" style={{fontWeight: 'bold'}}>Select another day:</Typography>
