@@ -89,7 +89,7 @@ function ScheduledForToday () {
           <div>
             {todaysWorkoutIds.length < 1 ? 'nothing scheduled' :
               workoutsOfSelectedDay.map(workout => (
-                <WorkoutOnHome workouts={workout} />
+                <WorkoutOnHome workout={workout} />
               ))
             }
             <div>Select another day:</div>
