@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './WorkoutOnHome.css';
 import Workout from '../../pages/Workout/Workout';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Card from '@material-ui/core/Card';
 
       
@@ -11,10 +12,12 @@ import Card from '@material-ui/core/Card';
 import { useHistory } from 'react-router-dom';
 >>>>>>> 34a122790fdb3632dca93e9e68f8d1be874bde0a
 
+=======
+import Card from '@material-ui/core/Card';
+import { useHistory } from 'react-router-dom';
+>>>>>>> 9b240d7928fa01ab97857d5784eb8f9bea680c16
 
 const WorkoutOnHome = (props) => {
-console.log("WorkoutOnHome -> props", props)
-
 
   const history = useHistory();
 
