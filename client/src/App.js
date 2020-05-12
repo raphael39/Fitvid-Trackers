@@ -38,7 +38,7 @@ function App () {
               component={HomePage} />
             <Route exact path="/createWorkout"
               component={CreateWorkout} />
-            <Route exact path="/workout"
+            <Route exact path="/workout/:id"
               component={Workout} />
             <Route exact path="/ListOfWorkouts"
               component={ListOfWorkouts} />
