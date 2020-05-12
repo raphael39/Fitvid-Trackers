@@ -75,11 +75,11 @@ function DaysWorkout({ days, setDays, repeatWeeks, setRepeatWeeks, editable }) {
         </div>
       }
 
-      {!editable &&
+      {/* {!editable &&
         <div>
           <Typography variant='body1' style={{ fontWeight: 'bold' }}>Days: </Typography>
           {Object.keys(days).map(day => (days[day]) && <Typography variant='body1'>{day.charAt(0).toUpperCase() + day.slice(1)}</Typography>)}
-        </div>}
+        </div>} */}
     </div>
 
   )
