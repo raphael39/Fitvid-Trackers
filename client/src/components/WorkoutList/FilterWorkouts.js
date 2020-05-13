@@ -58,7 +58,7 @@ const defaultMaterialTheme = createMuiTheme({
   },
 });
 
-export default function FilterWorkouts({handleCheckBoxChange}) {
+export default function FilterWorkouts({handleCheckBoxChange,handleInputChange}) {
   const classes = useStyles();
   const [checked, setChecked] = React.useState([0]);
 
@@ -83,6 +83,7 @@ export default function FilterWorkouts({handleCheckBoxChange}) {
               className={classes.inputSearch}
               placeholder="Search Workouts..."
               inputProps={{ 'aria-label': 'search google maps' }}
+              onChange={(e) => handleInputChange(e.target.value)}
             />
             <IconButton
               type="submit"

@@ -6,10 +6,28 @@ import ApiClient from '../../Services/ApiClient';
 import NavBar from './../../components/Navigation/navBar';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { ThemeProvider } from '@material-ui/styles';
+import { createMuiTheme } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 
 const WorkoutPlans = ({}) => {
 
+  const classes = useStyles();
   const user = useSelector(state => state.currentUser);
+  const [value, setValue] = React.useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    console.log(newValue);
+    setValue(newValue);
+    if (newValue === 1) {
+      setFilteredWorkoutPlans(myWorkoutPlans);
+    } else {
+      setFilteredWorkoutPlans(AllWorkoutPlans);
+    }
+  };
 
   const fakeWorkouts = [
     {
@@ -39,8 +57,11 @@ const WorkoutPlans = ({}) => {
       created_by: 654684,
     },
   ];
-  const [filteredWorkoutPlans, setFilteredWorkoutPlans] = useState([]);
+
   const [searchValue, setSearchValue] = useState('');
+  const [myWorkoutPlans, setmyWorkoutPlans] = useState([]);
+  const [AllWorkoutPlans, setAllWorkoutPlans] = useState([]);
+  const [filteredWorkoutPlans, setFilteredWorkoutPlans] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
     medium: false,
@@ -50,6 +71,10 @@ const WorkoutPlans = ({}) => {
   useEffect (() => {
     ApiClient.getAllWorkoutPlans()
       .then(plans => setFilteredWorkoutPlans(plans));
+    ApiClient.getAllWorkoutPlans()
+      .then(plans => setAllWorkoutPlans(plans));
+    ApiClient.getMyWorkoutPlans()
+      .then(plans => setmyWorkoutPlans(plans));
   }, []);
 
   const handleInputChange = (enteredInput) => {
@@ -141,27 +166,25 @@ const WorkoutPlans = ({}) => {
       <NavBar/>
 
       <div className="header-search-view">
-        <div>
-          <Link to="/ListOfWorkoutPlans">
-            <button>
-              <h1>Browse Workout Plans</h1>
-            </button>
-          </Link>
-          <Link to="/myListOfWorkoutPlans">
-            <button>
-              <h1>My saved Workout Plans</h1>
-            </button>
-          </Link>
-        </div>
-        <div className="search-workouts">
-          <input
-            type="text"
-            className="search-input"
-            onChange={(e) => handleInputChange(e.target.value)}
-            placeholder="    Search .."
-            title="Type in a name"
-          ></input>
-        </div>
+      <ThemeProvider theme={defaultMaterialTheme}>
+          <Paper className={classes.root}>
+            <Tabs
+              value={value}
+              onChange={handleTabChange}
+              indicatorColor="primary"
+              textColor="primary"
+              centered
+            >
+              <Tab
+                label="Browse Workouts"
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+              />
+              <Tab label="My saved Workouts" />
+            </Tabs>
+          </Paper>
+        </ThemeProvider>
       </div>
       <div className="list-filter-container">
         <WorkoutPlanList plans={filteredWorkoutPlans}></WorkoutPlanList>
@@ -174,3 +197,18 @@ const WorkoutPlans = ({}) => {
 };
 
 export default WorkoutPlans;
+
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+  },
+});
+
+const defaultMaterialTheme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#212121',
+    },
+  },
+});
