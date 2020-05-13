@@ -15,6 +15,9 @@ const WorkoutList = ({ workouts, passedIndex }) => {
             <div className="description-box">
               <h2>{workout.name}</h2>
               <p>{workout.description}</p>
+              <p>difficulty: </p>{(workout.difficulties.easy ? <p>easy</p> : '')}
+              {(workout.difficulties.medium ? <p>medium</p> : '')}
+              {(workout.difficulties.hard ? <p>hard</p> : '')}
 
               {/* <p>
                 <u>difficulty:</u> {'workout.difficulty'}

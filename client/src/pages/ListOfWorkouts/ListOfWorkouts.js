@@ -27,9 +27,7 @@ function ListOfWorkouts(props) {
     console.log(newValue);
     setValue(newValue);
     if (newValue === 1) {
-      setfilteredWorkouts(myWorkouts)
-        
-        
+      setfilteredWorkouts(myWorkouts);
     } else {
       setfilteredWorkouts(AllWorkouts);
     }
@@ -38,7 +36,7 @@ function ListOfWorkouts(props) {
   const [searchValue, setSearchValue] = useState('');
   const [myWorkouts, setmyWorkouts] = useState([]);
   const [AllWorkouts, setAllWorkouts] = useState([]);
-  
+
   const [filteredWorkouts, setfilteredWorkouts] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
@@ -53,7 +51,6 @@ function ListOfWorkouts(props) {
     );
     ApiClient.getMyWorkouts().then((workouts) => setmyWorkouts(workouts));
   }, []);
-
 
   const handleInputChange = (enteredInput) => {
     setSearchValue(enteredInput);
@@ -89,39 +86,50 @@ function ListOfWorkouts(props) {
         messengerObjectForBoxStatus.hard = false;
       }
     }
-    filterWorkoutsDifficultyAndSearch(messengerObjectForBoxStatus);
+
+    value === 1
+      ? filterWorkoutsDifficultyAndSearch(
+          messengerObjectForBoxStatus,
+          searchValue,
+          myWorkouts
+        )
+      : filterWorkoutsDifficultyAndSearch(
+          messengerObjectForBoxStatus,
+          searchValue,
+          AllWorkouts
+        );
   };
 
   const filterWorkoutsDifficultyAndSearch = (
     checkBoxStatus,
-    enteredInput = searchValue, selectedListAll = AllWorkouts
+    enteredInput = searchValue,
+    selectedListAll = AllWorkouts
   ) => {
     let filteredArray = [];
-    console.log('inside filter method -->', filteredArray);
+    console.log('inside filter method {0}-->', filteredArray);
+    console.log('inside filter method {1}-->', checkBoxStatus);
+    console.log('inside filter method {2}-->', selectedListAll);
 
     if (checkBoxStatus.easy === true) {
       filteredArray = selectedListAll.filter((Workout) => {
+        console.log('inside easy checked workout -->', Workout.difficulties.easy);
         return Workout.difficulties.easy;
       });
+      console.log('the filteredArray should be empty', filteredArray);
     }
     if (checkBoxStatus.medium === true) {
       filteredArray = filteredArray.concat(
-        selectedListAll.filter(
-          (Workout) => Workout.difficulties.medium
-        )
+        selectedListAll.filter((Workout) => Workout.difficulties.medium)
       );
     }
     if (checkBoxStatus.hard === true) {
       filteredArray = filteredArray.concat(
-        selectedListAll.filter(
-          (Workout) => Workout.difficulties.hard
-        )
+        selectedListAll.filter((Workout) => Workout.difficulties.hard)
       );
-    } else {
-    }
+    } 
 
     if (
-      (filteredArray.length > 0 && checkBoxStatus.easy) ||
+      (checkBoxStatus.easy) ||
       checkBoxStatus.medium ||
       checkBoxStatus.hard
     ) {
@@ -174,6 +182,7 @@ function ListOfWorkouts(props) {
         ></WorkoutList>
         <FilterWorkouts
           handleCheckBoxChange={handleCheckBoxChange}
+          handleInputChange={handleInputChange}
         ></FilterWorkouts>
       </div>
     </div>
@@ -195,7 +204,6 @@ const defaultMaterialTheme = createMuiTheme({
     },
   },
 });
-
 
 // prot Object Workout
 
