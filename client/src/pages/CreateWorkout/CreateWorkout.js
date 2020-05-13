@@ -104,31 +104,37 @@ function CreateWorkout() {
   }
 
   async function createWorkout() {
-    const workout = {
-      name: workoutName,
-      description: description,
-      difficulties: difficulties,
-      type: "strenght",
-      youtubeId: youtubeId,
-      tags: tags,
-      length: workoutLength,
-      createdBy: user._id,
-      exercises: exercises,
-      isPublic: isPublic
-    };
 
-    ApiClient.createWorkout(workout)
-      .then((response) => {
-        const workoutId = response;
-        const scheduleArr = getSchedule(workoutId);
-        const newMap = [...schedule.map, ...scheduleArr]
-        const newSchedule = { userId: schedule.userId, map: newMap };
-        ApiClient.updateSchedule(newSchedule).then((response) => {
-          dispatch(setSchedule(response));
+    if (!youtubeId) {
+      alert("Video required. \n Please import one.");
+    return;
+    } else {
+      const workout = {
+        name: workoutName,
+        description: description,
+        difficulties: difficulties,
+        type: "strenght",
+        youtubeId: youtubeId,
+        tags: tags,
+        length: workoutLength,
+        createdBy: user._id,
+        exercises: exercises,
+        isPublic: isPublic
+      };
+  
+      ApiClient.createWorkout(workout)
+        .then((response) => {
+          const workoutId = response;
+          const scheduleArr = getSchedule(workoutId);
+          const newMap = [...schedule.map, ...scheduleArr]
+          const newSchedule = { userId: schedule.userId, map: newMap };
+          ApiClient.updateSchedule(newSchedule).then((response) => {
+            dispatch(setSchedule(response));
+          });
         });
-      });
-
-    return null;
+  
+      return null;
+    }
   };
 
 
@@ -153,7 +159,7 @@ function CreateWorkout() {
               {!youtubeId &&
                 <Grid item xs={12} align="center">
                   <Typography variant='body1' style={{ fontWeight: 'bold' }}>Import your Youtube video here: </Typography>
-                  <TextField id='youtubeUrl' helperText="Paste it!" style={{ width: '75%', marginRight: "5%" }} onChange={(event) => handlingYoutubeUrl(event)} />
+                  <TextField id='youtubeUrl' required={true} label="Required" style={{ width: '75%', marginRight: "5%" }} onChange={(event) => handlingYoutubeUrl(event)} />
                   <Button
                     variant="contained"
                     color="primary"
@@ -210,7 +216,11 @@ function CreateWorkout() {
                   size="small"
                   onClick={createWorkout}
                 >
-                  <Link to={`/HomePage`} style={{ textDecoration: 'none', color: "white" }} >Create</Link>
+                  {youtubeId && <Link to={`/HomePage`} style={{ textDecoration: 'none', color: "white" }} >
+                    Create
+                  </Link>}
+                  {!youtubeId && "Create"
+                  }
                 </Button>
               </Grid>
             </Grid>
