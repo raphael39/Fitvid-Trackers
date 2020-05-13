@@ -1,14 +1,15 @@
 .current-rest-day {
   display: flex;
-  justify-content: space-around;
   width: 100%;
-  height: 80px;
   margin-top: 3vh;
 }
 
 .current-training-day {
   display: flex;
-  justify-content: space-around;
+  width: 100%;
+  margin-top: 3vh;
+
+
 }
 
 .day-caption-box {
@@ -18,36 +19,5 @@
   justify-content: center;
 }
 
-.adding-box {
-  width: 60%;
-  border-top: 3px;
-  border: solid;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 8vw;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-}
 
-.button-box button {
-  width: 100%;
-  height: 50%;
 
-  background-color: rgb(233, 233, 233);
-}
-
-.button-box {
-  width: 40%;
-  background-color: whitesmoke;
-}
-
-.rest-box {
-    background-color: rgb(255, 231, 227);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70%;
-    
-}
-
-h1 {margin-top: 0;}
