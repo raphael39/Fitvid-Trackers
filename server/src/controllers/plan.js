@@ -1,31 +1,81 @@
 const { Plan } = require('../models/plan');
+const { isValidObjectId } = require('../helpers/mongoose-helpers');
 
 const getPlan = async (ctx, next) => {
   const id = ctx.params.id;
-  ctx.body = await Plan.findOne({ _id: id }).populate('workoutList.Workout');
+  let plan;
+  if (isValidObjectId(id)) {
+    plan = await Plan.findOne({ _id: id }).populate('workoutList.Workout');
+  }
+  if (plan) {
+    if (plan.createdBy.equals(ctx.user._id) || plan.isPublic == true) {
+      ctx.body = plan;
+    } else {
+      ctx.status = 403;
+    }
+  } else {
+    ctx.status = 404;
+  }
 };
 
 const getAllPlans = async (ctx, next) => {
-  ctx.body = await Plan.find();
+  let plans = await Plan.find().or([{ createdBy: ctx.user._id }, { isPublic: true }]);
+  ctx.body = plans;
 };
 
 const getMyPlans = async (ctx, next) => {
-  ctx.body = await Plan.find({ createdBy: ctx.user._id });
+  let plans = await Plan.find({ createdBy: ctx.user._id });
+  ctx.body = plans;
 };
 
 const createPlan = async (ctx, next) => {
-  await Plan.create(ctx.request.body);
+  await Plan.create({...ctx.request.body, createdBy: ctx.user._id});
+  ctx.status = 201;
 };
 
 const updatePlan = async (ctx, next) => {
   const id = ctx.params.id;
-  await Plan.findOneAndUpdate({ _id: id }, ctx.request.body);
+  let plan;
+  if (isValidObjectId(id)) {
+    plan = Plan.findOne({ _id: id });
+  } else {
+    ctx.status = 404;
+  }
+
+  if (plan) {
+    if (plan.createdBy.equals(ctx.user._id)) {
+      await plan.update(ctx.request.body);
+      ctx.status = 200;
+    } else {
+      ctx.status = 403;
+    }
+  }
 };
+
+const deletePlan = async (ctx, next) => {
+  const id = ctx.params.id;
+  let plan;
+  if (isValidObjectId(id)) {
+    plan = Plan.findOne({ _id: id });
+  } else {
+    ctx.status = 404;
+  }
+
+  if (plan) {
+    if (plan.createdBy.equals(ctx.user._id)) {
+      await plan.remove({ _id: id });
+      ctx.status = 204;
+    } else {
+      ctx.status = 403;
+    }
+  }
+}
 
 module.exports = {
   getPlan,
   getAllPlans,
   createPlan,
   updatePlan,
-  getMyPlans
+  getMyPlans,
+  deletePlan
 };
