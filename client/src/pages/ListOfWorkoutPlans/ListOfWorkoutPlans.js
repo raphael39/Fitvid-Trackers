@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import WorkoutList from '../../components/WorkoutList/WorkoutList';
+import WorkoutPlanList from '../../components/WorkoutPlanList/WorkoutPlanList';
 import FilterWorkouts from '../../components/WorkoutList/FilterWorkouts';
 import { Link } from 'react-router-dom';
 import ApiClient from '../../Services/ApiClient';
@@ -136,10 +136,10 @@ const WorkoutPlans = ({}) => {
   return (
 
     (!user) ? <Redirect to="/" /> :
-    
+
     <div>
       <NavBar/>
-      
+
       <div className="header-search-view">
         <div>
           <Link to="/ListOfWorkoutPlans">
@@ -164,7 +164,7 @@ const WorkoutPlans = ({}) => {
         </div>
       </div>
       <div className="list-filter-container">
-        <WorkoutList workouts={filteredWorkoutPlans}></WorkoutList>
+        <WorkoutPlanList plans={filteredWorkoutPlans}></WorkoutPlanList>
         <FilterWorkouts
           handleCheckBoxChange={handleCheckBoxChange}
         ></FilterWorkouts>
