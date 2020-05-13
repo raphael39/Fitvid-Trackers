@@ -176,12 +176,12 @@ const WorkoutPlans = ({}) => {
               centered
             >
               <Tab
-                label="Browse Workouts"
+                label="Browse Workout Plans"
                 indicatorColor="primary"
                 textColor="primary"
                 centered
               />
-              <Tab label="My saved Workouts" />
+              <Tab label="My saved Workout Plans" />
             </Tabs>
           </Paper>
         </ThemeProvider>
