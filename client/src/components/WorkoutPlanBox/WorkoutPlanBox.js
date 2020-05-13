@@ -1,8 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './WorkoutPlanBox.css';
-import Card from '@material-ui/core/Card';
-import Workout from '../../pages/Workout/Workout';
 import {
   DatePicker,
   MuiPickersUtilsProvider,
@@ -30,9 +28,9 @@ const WorkoutPlanBox = ({ plan }) => {
   const schedule = useSelector(state => state.schedule);
   const dispatch = useDispatch();
 
-
   function addToSchedule (startDate) {
     const newScheduleItems = [];
+
     for (let i = 0; i < plan.workoutList.length; i++) {
       if (plan.workoutList[i]) {
         newScheduleItems.push({
@@ -49,12 +47,12 @@ const WorkoutPlanBox = ({ plan }) => {
   }
 
   function changeDate (date) {
-    console.log("changeDate -> date", date)
     addToSchedule(date)
     setPickerOpen(false);
   }
 
-  function openDatePicker () { setPickerOpen(true) };
+  function closePicker () { setPickerOpen(false) };
+  function openPicker () { setPickerOpen(true) };
 
   return (
     <ThemeProvider theme={defaultMaterialTheme}>
@@ -71,9 +69,8 @@ const WorkoutPlanBox = ({ plan }) => {
             </div>
 
             <div className="option-buttons">
-              <button onClick={openDatePicker}>Add to schedule</button>
-              <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} style={{ display: 'none' }}></DatePicker>
-
+              <button onClick={openPicker}>Add to schedule</button>
+              <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} onClose={closePicker} style={{ display: 'none' }}></DatePicker>
 
               {plan.trainingDays ? (
                 <Link
