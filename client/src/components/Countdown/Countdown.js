@@ -5,9 +5,11 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import UIfx from 'uifx'
+import Bell from '../../Asset/Temple Bell-SoundBible.com-756181215.mp3'
 
 
-
+const alarmSound = new UIfx(Bell);
 
 class Countdown extends Component {
 
@@ -32,7 +34,8 @@ class Countdown extends Component {
       } else {
         clearInterval(this.timer);
         this.setState({ timerOn: false });
-        alert("Countdown ended");
+        // alert("Countdown ended"); it'll not play the sound until you close the alert, so for now commented out 
+        alarmSound.play();
       }
     }, 10);
   };
