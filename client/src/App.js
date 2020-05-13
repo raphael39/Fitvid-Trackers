@@ -48,7 +48,7 @@ function App () {
               component={ListOfWorkoutPlans} />
             <Route exact path="/myListOfWorkoutPlans"
               component={myListOfWorkoutPlans} />
-            <Route exact path="/WorkoutPlan"
+            <Route exact path="/WorkoutPlan/:id"
               component={WorkoutPlan} />
             <Route exact path="/CreateWorkoutPlan"
               component={CreateWorkoutPlan} />

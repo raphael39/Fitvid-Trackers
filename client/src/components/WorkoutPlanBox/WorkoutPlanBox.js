@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './WorkoutPlanBox.css';
 import {
   DatePicker,
@@ -12,7 +12,6 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSchedule } from '../../redux/actions/scheduleActions';
 import ApiClient from '../../Services/ApiClient';
-
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -27,6 +26,7 @@ const WorkoutPlanBox = ({ plan }) => {
   const [pickerOpen, setPickerOpen] = useState(false);
   const schedule = useSelector(state => state.schedule);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function addToSchedule (startDate) {
     const newScheduleItems = [];
@@ -54,12 +54,17 @@ const WorkoutPlanBox = ({ plan }) => {
   function closePicker () { setPickerOpen(false) };
   function openPicker () { setPickerOpen(true) };
 
+  function redirectToWorkoutPlan () {
+    const planPath = `/WorkoutPlan/${plan._id}`;
+    history.push(planPath);
+  }
+
   return (
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
         <div className="single-workout-box">
           <div className="description-and-middle-box">
-            <div className="description-box">
+            <div className="description-box" onClick={redirectToWorkoutPlan}>
               <h2>{plan.name}</h2>
               <p>{plan.description}</p>
 
