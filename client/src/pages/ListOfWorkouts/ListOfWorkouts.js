@@ -26,14 +26,19 @@ function ListOfWorkouts(props) {
   const handleTabChange = (event, newValue) => {
     console.log(newValue);
     setValue(newValue);
+    if (newValue === 1) {
+      setfilteredWorkouts(myWorkouts)
+        
+        
+    } else {
+      setfilteredWorkouts(AllWorkouts);
+    }
   };
 
   const [searchValue, setSearchValue] = useState('');
   const [myWorkouts, setmyWorkouts] = useState([]);
   const [AllWorkouts, setAllWorkouts] = useState([]);
-  const [currentSelectedTabWorkouts, setcurrentSelectedTabWorkouts] = useState(
-    []
-  );
+  
   const [filteredWorkouts, setfilteredWorkouts] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
@@ -45,12 +50,6 @@ function ListOfWorkouts(props) {
     ApiClient.getAllWorkouts().then((workouts) => setAllWorkouts(workouts));
     ApiClient.getAllWorkouts().then((workouts) =>
       setfilteredWorkouts(workouts)
-    );
-    ApiClient.getAllWorkouts().then((workouts) =>
-      setcurrentSelectedTabWorkouts(workouts)
-    );
-    ApiClient.getAllWorkouts().then((workouts) =>
-      console.log('fetch getAll Request', workouts)
     );
     ApiClient.getMyWorkouts().then((workouts) => setmyWorkouts(workouts));
   }, []);
@@ -95,26 +94,26 @@ function ListOfWorkouts(props) {
 
   const filterWorkoutsDifficultyAndSearch = (
     checkBoxStatus,
-    enteredInput = searchValue
+    enteredInput = searchValue, selectedListAll = AllWorkouts
   ) => {
     let filteredArray = [];
     console.log('inside filter method -->', filteredArray);
 
     if (checkBoxStatus.easy === true) {
-      filteredArray = currentSelectedTabWorkouts.filter((Workout) => {
+      filteredArray = selectedListAll.filter((Workout) => {
         return Workout.difficulties.easy;
       });
     }
     if (checkBoxStatus.medium === true) {
       filteredArray = filteredArray.concat(
-        currentSelectedTabWorkouts.filter(
+        selectedListAll.filter(
           (Workout) => Workout.difficulties.medium
         )
       );
     }
     if (checkBoxStatus.hard === true) {
       filteredArray = filteredArray.concat(
-        currentSelectedTabWorkouts.filter(
+        selectedListAll.filter(
           (Workout) => Workout.difficulties.hard
         )
       );
@@ -133,7 +132,7 @@ function ListOfWorkouts(props) {
       console.log(filteredArray);
       setfilteredWorkouts(filteredArray);
     } else {
-      let searchFilteredArray = currentSelectedTabWorkouts.filter((Workout) => {
+      let searchFilteredArray = selectedListAll.filter((Workout) => {
         return Workout.name.toLowerCase().includes(enteredInput.toLowerCase());
       });
       setfilteredWorkouts(searchFilteredArray);
@@ -196,3 +195,20 @@ const defaultMaterialTheme = createMuiTheme({
     },
   },
 });
+
+
+// prot Object Workout
+
+/* [{
+  createdBy: "5ebbaece0ee0fc2200784344",
+  description: "home round",
+  difficulties: {easy: false, medium: true, hard: false},
+  isPublic: true,
+  length: 4,
+  name: "homezz",
+  tags: ["home"],
+  type: "strenght",
+  youtubeId: "vc1E5CfRfos",
+  __v: 0,
+  _id: "5ebbaf090ee0fc2200784345",
+}] */
