@@ -4,8 +4,6 @@ import { createMuiTheme } from '@material-ui/core';
 import WorkoutList from '../../components/WorkoutList/WorkoutList';
 import FilterWorkouts from './../../components/WorkoutList/FilterWorkouts';
 import './ListofWorkouts.css';
-import { Link } from 'react-router-dom';
-import Card from '@material-ui/core/Card';
 import ApiClient from '../../Services/ApiClient';
 import Navigation from './../../components/Navigation/navBar';
 import { Redirect } from 'react-router-dom';
@@ -36,7 +34,6 @@ function ListOfWorkouts(props) {
   const [searchValue, setSearchValue] = useState('');
   const [myWorkouts, setmyWorkouts] = useState([]);
   const [AllWorkouts, setAllWorkouts] = useState([]);
-
   const [filteredWorkouts, setfilteredWorkouts] = useState([]);
   const [checkBoxStatus, setcheckBoxStatus] = useState({
     easy: false,
