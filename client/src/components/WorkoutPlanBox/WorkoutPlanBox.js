@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import './WorkoutPlanBox.css';
 import {
@@ -24,9 +24,15 @@ const defaultMaterialTheme = createMuiTheme({
 
 const WorkoutPlanBox = ({ plan }) => {
   const [pickerOpen, setPickerOpen] = useState(false);
+  const [firstYoutubeId, setFirstYouTubeId] = useState(null);
+
   const schedule = useSelector(state => state.schedule);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  useEffect(() => {
+    ApiClient.getWorkout(plan.workoutList[0]).then(workout => setFirstYouTubeId(workout.youtubeId))
+  }, [])
 
   function addToSchedule (startDate) {
     const newScheduleItems = [];
@@ -93,7 +99,7 @@ const WorkoutPlanBox = ({ plan }) => {
 
           <div className="video-box">
             <iframe
-              src={`https://www.youtube.com/embed/${plan.youtubeId}`}
+              src={`https://www.youtube.com/embed/${firstYoutubeId}`}
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
