@@ -124,7 +124,7 @@ function Workout(props) {
                 <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable} />
               </Grid>
               <Grid item xs={12} >
-                <DaysWorkout days={days} setDays={setDays} editable={editable} />
+                <DaysWorkout days={days} setDays={setDays} editable={editable} workoutId={_id}/>
               </Grid>
               <Grid item xs={12} style={{paddingTop: "0px"}}>
                 <Tags tags={tags} setTags={setTags} editable={editable} />
