@@ -44,7 +44,7 @@ const updatePlan = async (ctx, next) => {
 
   if (plan) {
     if (plan.createdBy.equals(ctx.user._id)) {
-      await plan.update(ctx.request.body);
+      await plan.updateOne(ctx.request.body);
       ctx.status = 200;
     } else {
       ctx.status = 403;
