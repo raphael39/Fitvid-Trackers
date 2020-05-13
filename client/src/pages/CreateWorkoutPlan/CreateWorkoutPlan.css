@@ -20,12 +20,10 @@
 
 .adding-box {
   width: 60%;
-  border-top: 3px;
-  border: solid;
+
   display: flex;
   justify-content: flex-end;
   margin-right: 8vw;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
 }
 
@@ -33,7 +31,6 @@
   width: 100%;
   height: 50%;
 
-  background-color: rgb(233, 233, 233);
 }
 
 .button-box {
@@ -42,7 +39,6 @@
 }
 
 .rest-box {
-    background-color: rgb(255, 231, 227);
     display: flex;
     justify-content: center;
     align-items: center;

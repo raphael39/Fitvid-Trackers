@@ -8,9 +8,36 @@ import Workout from '../Workout/Workout';
 import NavBar from './../../components/Navigation/navBar';
 import ApiClient from '../../Services/ApiClient';
 import { Redirect } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import AddIcon from '@material-ui/icons/Add';
 
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: theme.spacing(1),
+  },
+  button: {
+    backgroundColor: "white",
+    
+    '&:hover': {
+      backgroundColor: 'black',
+      color: "white"
+    }
+  }
+}));
 
 function CreateWorkoutPlan(props) {
+
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const [newWorkoutPlan, setNewWorkoutPlan] = useState({
     trainingDays: [null, null, null, null, null, null, null],
@@ -58,13 +85,14 @@ function CreateWorkoutPlan(props) {
 
     <div>
       <NavBar />
-      <h1>Create your WorkoutPlan</h1>
-      <input
+      <div className={classes.root} style={{padding: "2% 8%"}}>
+      <Typography align="center" variant="h6">Create your WorkoutPlan</Typography>
+      <TextField
             type="text"
             onChange={(e) => setPlanName(e.target.value)}
             placeholder="    Workoutplan name..."
             title="Type in a name"
-          ></input>
+          ></TextField>
 
       {state && state.workout ? (
         <div>
@@ -78,26 +106,26 @@ function CreateWorkoutPlan(props) {
       {WorkoutPlanRedux.map((workout, index) =>
         workout ? (
           <div>
-            {index / 7 === 0 ? <h1>Week 1</h1> : ''}
-            <div className="current-training-day">
+            {index / 7 === 0 ? <Typography variant="h6">Week 1</Typography> : ''}
+            <Paper className="current-training-day">
               Day {index + 1} Training WorkoutID: {workout._id}
               
-            </div>
+            </Paper>
           </div>
         ) : (
           <div>
-            {index / 7 === 0 ? <h1>Week 1</h1> : ''}
+            {index / 7 === 0 ? <Typography variant="h6">Week 1</Typography> : ''}
             <div className="current-rest-day">
               <div className="day-caption-box">
-                <h1>Day {index + 1}</h1>
+                <Typography variant="h6">Day {index + 1}</Typography>
               </div>
-              <div className="adding-box">
+              <Paper className="adding-box">
                 <div className="rest-box">
-                  <h1>Rest day</h1>{' '}
+                  <Typography variant="h6">Rest day</Typography>{' '}
                   {state && state.workout ? (
-                    <button onClick={() => handleAddingSelected(index)}>
+                    <Button className={classes.button} onClick={() => handleAddingSelected(index)}>
                       schedule selected workout here
-                    </button>
+                    </Button>
                   ) : (
                     ''
                   )}
@@ -108,30 +136,37 @@ function CreateWorkoutPlan(props) {
                       pathname: '/createWorkout',
                       state: { passedIndex: index },
                     }}
+                    style={{ textDecoration: 'none', color: "white" }}
                   >
-                    <button>
-                      <h3>+ Create a Workout</h3>
-                    </button>
+                    <Button className={classes.button} startIcon={<AddIcon/>}>
+                      Create Workout
+                    </Button>
                   </Link>
                   <Link
                     to={{
                       pathname: '/ListOfWorkouts',
                       state: { passedIndex: index },
                     }}
+                    style={{ textDecoration: 'none', color: "white" }}
                   >
-                    <button>
+                    <Button className={classes.button} startIcon={<AddIcon/>}>
                       <div>
-                        <h3>+ Add a workout</h3>
+                        Add workout
                       </div>
-                    </button>
+                    </Button>
                   </Link>
                 </div>
-              </div>
+              </Paper>
             </div>
           </div>
         )
       )}
-      <button onClick={sendWorkoutPlan}>Save Workout Plan</button>
+        <Grid container direction="column" >
+          <Grid item align="right" style={{marginTop: "20px"}}>
+            <Button className={classes.button} onClick={sendWorkoutPlan}>Save Workout Plan</Button>
+          </Grid>              
+        </Grid>
+      </div>
     </div>
   );
 }
