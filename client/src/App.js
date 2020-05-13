@@ -9,18 +9,15 @@ import Workout from './pages/Workout/Workout';
 import SetCredentials from './pages/SetCredentials/SetCredentials';
 import CreateWorkout from './pages/CreateWorkout/CreateWorkout';
 import ListOfWorkouts from './pages/ListOfWorkouts/ListOfWorkouts';
-import myListOfWorkouts from './pages/ListOfWorkouts/myListOfWorkouts';
 import HomePage from './pages/HomePage/HomePage';
+import MyListOfWorkouts from './pages/ListOfWorkouts/myListOfWorkouts';
 import ListOfWorkoutPlans from './pages/ListOfWorkoutPlans/ListOfWorkoutPlans';
 import myListOfWorkoutPlans from './pages/ListOfWorkoutPlans/MyListOfWorkoutPlans'
 import WorkoutPlan from './pages/WorkoutPlan/WorkoutPlan';
 import CreateWorkoutPlan from './pages/CreateWorkoutPlan/CreateWorkoutPlan'
 import NavBar from './components/Navigation/navBar';
 
-
 import './App.css';
-import MyListOfWorkouts from './pages/ListOfWorkouts/myListOfWorkouts';
-
 
 
 function App () {
@@ -48,7 +45,7 @@ function App () {
               component={ListOfWorkoutPlans} />
             <Route exact path="/myListOfWorkoutPlans"
               component={myListOfWorkoutPlans} />
-            <Route exact path="/WorkoutPlan"
+            <Route exact path="/WorkoutPlan/:id"
               component={WorkoutPlan} />
             <Route exact path="/CreateWorkoutPlan"
               component={CreateWorkoutPlan} />

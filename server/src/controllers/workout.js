@@ -49,7 +49,7 @@ const updateWorkout = async (ctx, next) => {
 
   if (wo) {
     if (wo.createdBy.equals(ctx.user._id)) {
-      await wo.update(ctx.request.body);
+      await wo.updateOne(ctx.request.body);
     }
     else {
       ctx.status = 403;

@@ -76,6 +76,7 @@ npm install
   - SERVER_HOST - host name on which the server is running (e.g. *localhost*)
   - SERVER_PORT - port on which the server is running (e.g. *3001*)
   - MONGODB_URI - connection URI for MongoDB (e.g. *mongodb://localhost:27017/devfitvid*)
+  - SERVER_JWT_SECRET - secure secret for JWT signing
 
 5. Specify the following environment variables either in the client environment, or in a *.env* file inside the *client* directory:
 
