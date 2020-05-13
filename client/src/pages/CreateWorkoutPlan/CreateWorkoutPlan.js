@@ -15,9 +15,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import AddIcon from '@material-ui/icons/Add';
-
-
-
+import Card from '@material-ui/core/Card';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     backgroundColor: "white",
-    
+
     '&:hover': {
       backgroundColor: 'black',
       color: "white"
@@ -67,11 +65,11 @@ function CreateWorkoutPlan(props) {
 
   const sendWorkoutPlan = async () => {
     const newWorkoutPlan = {
-      name: PlanName, 
-      workoutList: WorkoutPlanRedux, 
+      name: PlanName,
+      workoutList: WorkoutPlanRedux,
     }
     console.log(newWorkoutPlan);
-    const response = await ApiClient.createPlan(newWorkoutPlan); 
+    const response = await ApiClient.createPlan(newWorkoutPlan);
     console.log('the respones in sendPlan -->', response)
   };
 
@@ -83,91 +81,120 @@ function CreateWorkoutPlan(props) {
 
     (!user) ? <Redirect to="/" /> :
 
-    <div>
-      <NavBar />
-      <div className={classes.root} style={{padding: "2% 8%"}}>
-      <Typography align="center" variant="h6">Create your WorkoutPlan</Typography>
-      <TextField
-            type="text"
-            onChange={(e) => setPlanName(e.target.value)}
-            placeholder="    Workoutplan name..."
-            title="Type in a name"
-          ></TextField>
-
-      {state && state.workout ? (
-        <div>
-          <div>{state.workout.name}</div>
-          <div>{state.passedIndex}</div>
-        </div>
-      ) : (
-        ''
-      )}
-
-      {WorkoutPlanRedux.map((workout, index) =>
-        workout ? (
-          <div>
-            {index / 7 === 0 ? <Typography variant="h6">Week 1</Typography> : ''}
-            <Paper className="current-training-day">
-              Day {index + 1} Training WorkoutID: {workout._id}
-              
-            </Paper>
-          </div>
-        ) : (
-          <div>
-            {index / 7 === 0 ? <Typography variant="h6">Week 1</Typography> : ''}
-            <div className="current-rest-day">
-              <div className="day-caption-box">
-                <Typography variant="h6">Day {index + 1}</Typography>
+      <div>
+        <NavBar />
+          <div className={classes.root} style={{ padding: "2% 8%" }}>
+            <Typography align="center" variant="h6">Create your WorkoutPlan</Typography>
+            <TextField
+              type="text"
+              onChange={(e) => setPlanName(e.target.value)}
+              placeholder="    Workoutplan name..."
+              title="Type in a name"
+            ></TextField>
+            {state && state.workout ? (
+              <div>
+                <div>{state.workout.name}</div>
+                <div>{state.passedIndex}</div>
               </div>
-              <Paper className="adding-box">
-                <div className="rest-box">
-                  <Typography variant="h6">Rest day</Typography>{' '}
-                  {state && state.workout ? (
-                    <Button className={classes.button} onClick={() => handleAddingSelected(index)}>
-                      schedule selected workout here
-                    </Button>
-                  ) : (
-                    ''
-                  )}
+            ) : (
+                ''
+              )}
+            {WorkoutPlanRedux.map((workout, index) =>
+            workout ? (
+              <div>
+                {index / 7 === 0 ? <Typography variant="h6">Week 1</Typography> : ''}
+                <div className="current-rest-day">
+                  <div className="day-caption-box">
+                    <Typography variant="h6">Day {index + 1}</Typography>
+                  </div>
+                  <Paper style={{ width: "60vw" }} >
+                    <Grid container alignItems="center" direction="row" style={{ padding: "2% 5%" }}>
+                      <Grid item xs={3}>
+                        {workout.name && <Typography variant="h6" align="left">{workout.name}</Typography>}
+                      </Grid>
+                      <Grid item xs={2}>
+                        {workout.description && <Typography variant="body1">{workout.description}</Typography>}
+                      </Grid>
+                      <Grid item xs={2}>
+                        {workout.difficulties && <Typography variant="body1">
+                          <u>difficulty:</u><span> </span>
+                          {workout.difficulties.easy ? 'easy ' : null}
+                          {workout.difficulties.medium ? 'medium ' : null}
+                          {workout.difficulties.hard ? 'hard' : null}
+                        </Typography>}
+                      </Grid>
+                      <Grid item xs={5}>
+                        {workout.youtubeId && <iframe
+                          src={`https://www.youtube.com/embed/${workout.youtubeId}`}
+                          frameborder="0"
+                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                          allowfullscreen
+                        ></iframe>}
+                      </Grid>
+                    </Grid>
+                  </Paper>
                 </div>
-                <div className="button-box">
-                  <Link
-                    to={{
-                      pathname: '/createWorkout',
-                      state: { passedIndex: index },
-                    }}
-                    style={{ textDecoration: 'none', color: "white" }}
-                  >
-                    <Button className={classes.button} startIcon={<AddIcon/>}>
-                      Create Workout
-                    </Button>
-                  </Link>
-                  <Link
-                    to={{
-                      pathname: '/ListOfWorkouts',
-                      state: { passedIndex: index },
-                    }}
-                    style={{ textDecoration: 'none', color: "white" }}
-                  >
-                    <Button className={classes.button} startIcon={<AddIcon/>}>
-                      <div>
-                        Add workout
-                      </div>
-                    </Button>
-                  </Link>
+              </div>
+            ) : (
+                <div>
+                  {index / 7 === 0 ? <Typography variant="h6">Week 1</Typography> : ''}
+                  <div className="current-rest-day">
+                    <div className="day-caption-box">
+                      <Typography variant="h6">Day {index + 1}</Typography>
+                    </div>
+                    <Paper style={{ width: "60vw" }}>
+                      <Grid container alignItems="center" direction="row" style={{ padding: "2% 5%" }}>
+                        <Grid item xs={3}>
+                          <Typography variant="h6">Rest day</Typography>{' '}
+                        </Grid>
+                        <Grid item xs={6}>
+                          {state && state.workout ? (
+                            <Button className={classes.button} onClick={() => handleAddingSelected(index)}>
+                              schedule selected workout here
+                            </Button>
+                          ) : (
+                              ''
+                            )}
+                        </Grid>
+                        <Grid item xs={3}>
+                          <Link
+                            to={{
+                              pathname: '/createWorkout',
+                              state: { passedIndex: index },
+                            }}
+                            style={{ textDecoration: 'none', color: "white" }}
+                          >
+                            <Button className={classes.button} startIcon={<AddIcon />}>
+                              Create Workout
+                            </Button>
+                          </Link>
+                          <Link
+                            to={{
+                              pathname: '/ListOfWorkouts',
+                              state: { passedIndex: index },
+                            }}
+                            style={{ textDecoration: 'none', color: "white" }}
+                            >
+                            <Button className={classes.button} startIcon={<AddIcon />}>
+                              <div>
+                                Add workout
+                              </div>
+                            </Button>
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    </Paper>
+                  </div>
                 </div>
-              </Paper>
-            </div>
-          </div>
-        )
-      )}
-        <Grid container direction="column" >
-          <Grid item align="right" style={{marginTop: "20px"}}>
-            <Button className={classes.button} onClick={sendWorkoutPlan}>Save Workout Plan</Button>
-          </Grid>              
-        </Grid>
+              )
+          )}
+          <Grid container direction="column" >
+            <Grid item align="right" style={{ marginTop: "20px" }}>
+              <Button className={classes.button} onClick={sendWorkoutPlan}>Save Workout Plan</Button>
+            </Grid>
+          </Grid>
+        </div>
       </div>
-    </div>
   );
 }
 
