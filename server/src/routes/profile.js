@@ -2,10 +2,16 @@ const Router = require('@koa/router');
 
 const { getProfile, updateProfile } = require('../controllers/profile');
 const auth = require('../middlewares/auth-middleware');
-const router = new Router({ prefix: '/profile' });
+const jwtMiddleware = require('../middlewares/jwt');
+
+const router = new Router();
 
 router
-  .get('/', auth, getProfile)
-  .post('/', auth, updateProfile);
+  .use(jwtMiddleware)
+  .use(auth);
+
+router
+  .get('/', getProfile)
+  .post('/', updateProfile);
 
 module.exports = router;

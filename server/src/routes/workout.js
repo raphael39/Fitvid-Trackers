@@ -6,16 +6,21 @@ const { getWorkout,
         getAllWorkouts,
         getMyWorkouts,
         deleteWorkout } = require('../controllers/workout');
-
 const auth = require('../middlewares/auth-middleware');
-const router = new Router({ prefix: '/workout' });
+const jwtMiddleware = require('../middlewares/jwt');
+
+const router = new Router();
 
 router
-  .get('/all', auth, getAllWorkouts)
-  .get('/my', auth, getMyWorkouts)
-  .get('/:id', auth, getWorkout)
-  .post('/:id', auth, updateWorkout)
-  .post('/', auth, createWorkout)
-  .delete('/:id', auth, deleteWorkout);
+  .use(jwtMiddleware)
+  .use(auth);
+
+router
+  .get('/all', getAllWorkouts)
+  .get('/my', getMyWorkouts)
+  .get('/:id', getWorkout)
+  .post('/:id', updateWorkout)
+  .post('/', createWorkout)
+  .delete('/:id', deleteWorkout);
 
 module.exports = router;
