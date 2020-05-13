@@ -39,9 +39,8 @@ function Workout(props) {
   const [youtubeId, setYoutubeId] = useState();
   const [createdBy, setCreatedBy] = useState();
 
-
-
   const user = useSelector(state => state.currentUser);
+  const classes = useStyles();
 
   useEffect(() => {
     ApiClient.getWorkout(props.match.params.id)
@@ -83,7 +82,7 @@ function Workout(props) {
     }
   }
 
-  const classes = useStyles();
+
 
   return (
 
@@ -100,7 +99,7 @@ function Workout(props) {
               <Grid item xs={12} align="center">
                 <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
               </Grid>
-              {!editable &&         
+              {!editable &&
                 <Grid container  spacing={4}>
                   <Grid item xs={3} minWidth="110px" style={{marginLeft:"16px"}}>
                     <Countdown />

@@ -1,0 +1,11 @@
+.workout-plan-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
+
+.day-in-workout-plan-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+}
