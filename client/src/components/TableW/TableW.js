@@ -95,6 +95,7 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
             <table
               className="table table-bordered table-hover"
               id="tab_logic"
+              style={{width:"100%"}}
             >
               <TableHead>
                 <TableRow>

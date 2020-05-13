@@ -33,7 +33,7 @@ function YoutubePlayer ({url, timeVideo, clickTimestamp}) {
   
   return (
     <div className="Youtube">
-      <ReactPlayer ref={player} url={url} controls={true} playing/>
+      <ReactPlayer ref={player} width="100%" url={url} controls={true}/>
       {/* <button onClick={() => { player.current.seekTo(15, 'seconds')}}>test 15 seconds</button>
       <button onClick={() => { player.current.seekTo(180, "seconds")}}>test 180 seconds</button> */}
     </div>

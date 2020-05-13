@@ -17,21 +17,17 @@ import ApiClient from '../../Services/ApiClient';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 
-
-
-
-function Workout (props) {
+function Workout(props) {
 
   const [exercises, setExercises] = useState(null);
   const [_id, setId] = useState(null);
   const [workoutName, setWorkoutName] = useState();
   const [description, setDescription] = useState('');
-  const [difficulties, setDifficulties] = useState({easy:false, medium:false, hard:false});
-  const [days, setDays] = useState({monday:false, tuesday:false, wednesday:false, thursday:false, friday:false, saturday:false, sunday:false});
+  const [difficulties, setDifficulties] = useState({ easy: false, medium: false, hard: false });
+  const [days, setDays] = useState({ monday: false, tuesday: false, wednesday: false, thursday: false, friday: false, saturday: false, sunday: false });
   const [isPublic, setIsPublic] = useState(false);
   const [tags, setTags] = useState([]);
 
@@ -47,7 +43,7 @@ function Workout (props) {
 
   const user = useSelector(state => state.currentUser);
 
-  useEffect(()=>{
+  useEffect(() => {
     ApiClient.getWorkout(props.match.params.id)
       .then((workout) => {
         setId(workout._id);
@@ -64,7 +60,7 @@ function Workout (props) {
       })
   }, [])
 
-  function switchEditable () {
+  function switchEditable() {
     if (editable) {
       const updatedWorkout = {
         _id: _id,
@@ -94,40 +90,58 @@ function Workout (props) {
     (!user) ? <Redirect to="/" /> :
 
     <div>
-      <Navigation/>
-      <div className={classes.root}>
-
-        {
-        (user._id === createdBy ) ?
-        <Button className={classes.button}  onClick={switchEditable}>{editable? "Done" : "Edit"}</Button>
-        : null
-      }
-      <div className='div-Workout'>
-        <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable}/>
-        <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
-        {!editable &&
-          <Grid container spacing={3}>
-            <Grid item xs={3}>
-
-              <Countdown/>
-
+      <Navigation />
+        <div className={classes.root}>
+          <Paper elevation={3} style={{ margin: "3% 0%" }}>
+            <Grid container direction="column" justify="center" alignItem="center" spacing={4} style={{ padding: "2% 5%" }}>
+              <Grid item xs={12} align="center">
+                <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={editable} />
+              </Grid>
+              <Grid item xs={12} align="center">
+                <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} timeVideo={timeVideo} clickTimestamp={clickTimestamp} />
+              </Grid>
+              {!editable &&         
+                <Grid container  spacing={4}>
+                  <Grid item xs={3} minWidth="110px" style={{marginLeft:"16px"}}>
+                    <Countdown />
+                  </Grid>
+                  <Grid item xs={3} style={{marginLeft:"16px"}}>
+                    <Stopwatch />
+                  </Grid>
+                </Grid>
+              }
+              {exercises &&
+                <Grid item xs={12} >
+                  <TableW exercises={exercises} setExercises={setExercises} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />
+                </Grid>}
+              <Grid item xs={12} >
+                <DescriptionWorkout description={description} setDescription={setDescription} editable={editable} />
+              </Grid>
+              <Grid item xs={12} >
+                <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
+              </Grid>
+              <Grid item xs={12} >
+                <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable} />
+              </Grid>
+              <Grid item xs={12} >
+                <DaysWorkout days={days} setDays={setDays} editable={editable} workoutId={_id}/>
+              </Grid>
+              <Grid item xs={12} style={{paddingTop: "0px"}}>
+                <Tags tags={tags} setTags={setTags} editable={editable} />
+              </Grid>
+              <Grid item xs={12} >
+                <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable} />
+              </Grid>
+              <Grid item align="right" xs={12}>
+                {
+                  (user._id === createdBy) ?
+                    <Button className={classes.button} onClick={switchEditable}>{editable ? "Done" : "Edit"}</Button>
+                    : null
+                }
+              </Grid>
             </Grid>
-            <Grid item xs={3}>
-
-
-              <Stopwatch/>
-
-            </Grid>
-          </Grid>}
-        {exercises && <TableW exercises={exercises} setExercises={setExercises} editable={editable} setTimeVideo={setTimeVideo} setClickTimestamp={setClickTimestamp} clickTimestamp={clickTimestamp} />}
-        <DescriptionWorkout description={description} setDescription={setDescription} editable={editable}/>
-        <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={editable} />
-        <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={editable}/>
-        <DaysWorkout days={days} setDays={setDays} editable={editable} workoutId={_id} />
-        <Tags tags={tags} setTags={setTags} editable={editable} />
-        <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={editable}/>
-      </div>
-    </div>
+          </Paper>
+        </div>
     </div>
   )
 }

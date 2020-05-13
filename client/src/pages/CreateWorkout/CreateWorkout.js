@@ -20,6 +20,8 @@ import Icon from '@material-ui/core/Icon';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+
 
 
 
@@ -140,63 +142,79 @@ function CreateWorkout() {
       <div>
         <NavBar />
         <div className={classes.root}>
-        <button onClick={()=>console.log(days)}>days</button>
-          <Typography variant="h6" align="center">Create your daily workout</Typography>
-          <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true} />
-          <p style={{ fontStyle: "italic" }}>Test Url: https://www.youtube.com/watch?v=vc1E5CfRfos&t=563s (you can try others too)</p>
-          {!youtubeId &&
-            <div>
-              <Typography variant='body1' style={{ fontWeight: 'bold' }}>Import your Youtube video here: </Typography>
-              <TextField id='youtubeUrl' helperText="Paste it!" style={{ width: '75%', marginRight: "5%" }} onChange={(event) => handlingYoutubeUrl(event)} />
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                // endIcon={<Icon>send</Icon>}
-                size="small"
-                onClick={generateYoutubeId}
-              >Import</Button>
-            </div>}
-          {youtubeId &&
-            <div>
-              <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                startIcon={<DeleteIcon />}
-                size="small"
-                onClick={() => setYoutubeId()}
-              >Change Video</Button>
-            </div>
-          }
-          <TableW exercises={exercises} setExercises={setExercises} editable={true} />
-          <DescriptionWorkout description={description} setDescription={setDescription} editable={true} />
-          <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={true} />
-          <Grid container spacing={3}>
-            <Grid item xs={5}>
-            <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
+          <Paper elevation={3} style={{margin: "3% 0%"}}>
+            <Grid container direction="column" justify="center" alignItem="center" spacing={4} style={{padding: "2% 5%"}}>
+              <Grid item xs={12}>
+                <Typography variant="h6" align="center">Create your daily workout</Typography>
+              </Grid>
+              <Grid item xs={12}  align="center">
+                <NameWorkout workoutName={workoutName} setWorkoutName={setWorkoutName} editable={true} />
+              </Grid>
+              {!youtubeId &&
+                <Grid item xs={12} align="center">
+                  <Typography variant='body1' style={{ fontWeight: 'bold' }}>Import your Youtube video here: </Typography>
+                  <TextField id='youtubeUrl' helperText="Paste it!" style={{ width: '75%', marginRight: "5%" }} onChange={(event) => handlingYoutubeUrl(event)} />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    // endIcon={<Icon>send</Icon>}
+                    size="small"
+                    onClick={generateYoutubeId}
+                  >Import</Button>
+                </Grid>}
+              {youtubeId &&
+              <div>           
+                <Grid item xs={12} align="center">
+                  <YoutubePlayer url={`https://www.youtube.com/watch?v=${youtubeId}`} />
+                </Grid>
+                <Grid item xs={12} align="right">                
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    startIcon={<DeleteIcon />}
+                    size="small"
+                    onClick={() => setYoutubeId()}
+                  >Change Video</Button>
+                </Grid>    
+              </div>        
+              }
+              <Grid item xs={12} >                
+                <TableW exercises={exercises} setExercises={setExercises} editable={true} />
+              </Grid>
+              <Grid item xs={12} >                
+                <DescriptionWorkout description={description} setDescription={setDescription} editable={true} />
+              </Grid>
+              <Grid item xs={12} >                
+                <WorkoutLength length={workoutLength} setLength={setworkoutLength} editable={true} />
+              </Grid>
+              <Grid item xs={12}>
+                <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
+              </Grid>
+              <Grid item xs={12}>
+                <DaysWorkout days={days} setDays={setDays} repeatWeeks={repeatWeeks} setRepeatWeeks={setRepeatWeeks} editable={true} />
+              </Grid>
+              <Grid item xs={12} style={{paddingTop: "0px"}}> 
+                <Tags tags={tags} setTags={setTags} editable={true} />
+              </Grid>
+              <Grid item xs={12}>
+                <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true} />
+              </Grid>
+              <Grid item xs={12} align="right">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  endIcon={<Icon>send</Icon>}
+                  size="small"
+                  onClick={createWorkout}
+                >
+                  <Link to={`/HomePage`} style={{ textDecoration: 'none', color: "white" }} >Create</Link>
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item xs={3}>
-              <DifficultyWorkout difficulties={difficulties} setDifficulties={setDifficulties} editable={true} />
-            </Grid>  
-          </Grid>
-          <br />
-          <Tags tags={tags} setTags={setTags} editable={true} />
-          <br />
-          <PublicWorkout isPublic={isPublic} setIsPublic={setIsPublic} editable={true} />
-          <br />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            endIcon={<Icon>send</Icon>}
-            size="small"
-            onClick={createWorkout}
-          >
-            <Link to={`/HomePage`} style={{ textDecoration: 'none', color: "white" }} >Create</Link>
-          </Button>
-          {/* <button onClick={createWorkout}><Link to={`/HomePage`} >Create</Link></button> */}
+          </Paper>
         </div>
       </div>
   )
