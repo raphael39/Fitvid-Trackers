@@ -12,6 +12,19 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSchedule } from '../../redux/actions/scheduleActions';
 import ApiClient from '../../Services/ApiClient';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: 'white',
+
+    '&:hover': {
+      backgroundColor: 'black',
+      color: 'white',
+    },
+  },
+}));
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -39,6 +52,8 @@ const WorkoutBox = ({ workout, passedIndex }) => {
     });
   }
 
+  const classes = useStyles(); 
+
   function changeDate (date) {
     addToSchedule(date)
     setPickerOpen(false);
@@ -62,17 +77,17 @@ const WorkoutBox = ({ workout, passedIndex }) => {
               <p>{workout.description}</p>
             </div>
             <div className="option-buttons">
-            <button onClick={openPicker}>Add to schedule</button>
+            <Button className={classes.button} onClick={openPicker}>Add to schedule</Button>
             <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} onClose={closePicker} style={{ display: 'none' }}></DatePicker>
               {workout.trainingDays ? (
                 <Link
                   to={{ pathname: '/WorkoutPlan', state: { workout: workout } }}
                 >
-                  <button>View Workout Plan</button>
+                  <Button className={classes.button}>View Workout Plan</Button>
                 </Link>
               ) : (
-                  <Link to={{ pathname: '/CreateWorkoutPlan', state: { workout: workout, passedIndex: passedIndex } }}>
-                    <button>Add to Workoutplan</button>
+                  <Link style={{ textDecoration: 'none'}} to={{ pathname: '/CreateWorkoutPlan', state: { workout: workout, passedIndex: passedIndex } }}>
+                    <Button className={classes.button}>Add to Workoutplan</Button>
                   </Link>
                 )}
             </div>

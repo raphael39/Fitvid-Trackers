@@ -12,6 +12,8 @@ import moment from 'moment';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSchedule } from '../../redux/actions/scheduleActions';
 import ApiClient from '../../Services/ApiClient';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 
 const defaultMaterialTheme = createMuiTheme({
   palette: {
@@ -20,6 +22,17 @@ const defaultMaterialTheme = createMuiTheme({
     },
   },
 });
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    backgroundColor: 'white',
+
+    '&:hover': {
+      backgroundColor: 'black',
+      color: 'white',
+    },
+  },
+}));
 
 
 const WorkoutPlanBox = ({ plan }) => {
@@ -45,6 +58,8 @@ const WorkoutPlanBox = ({ plan }) => {
       dispatch(setSchedule(response));
     });
   }
+
+  const classes = useStyles(); 
 
   function changeDate (date) {
     addToSchedule(date)
@@ -74,18 +89,19 @@ const WorkoutPlanBox = ({ plan }) => {
             </div>
 
             <div className="option-buttons">
-              <button onClick={openPicker}>Add to schedule</button>
+              <Button className={classes.button} onClick={openPicker}>Add to schedule</Button>
               <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} onClose={closePicker} style={{ display: 'none' }}></DatePicker>
 
               {plan.trainingDays ? (
                 <Link
+                  style={{ textDecoration: 'none'}}
                   to={{ pathname: '/WorkoutPlan', state: { workout: plan } }}
                 >
-                  <button>View Workout Plan</button>
+                  <Button className={classes.button}>View Workout Plan</Button>
                 </Link>
               ) : (
-                  <Link to={{ pathname: '/CreateWorkoutPlan', state: { workout: plan } }}>
-                    <button>Add to Workoutplan</button>
+                  <Link style={{ textDecoration: 'none'}} to={{ pathname: '/CreateWorkoutPlan', state: { workout: plan } }}>
+                    <Button className={classes.button}>Add to Workoutplan</Button>
                   </Link>
                 )}
             </div>
