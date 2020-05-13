@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import './WorkoutPlanBox.css';
+import './WorkoutBox.css';
 import {
   DatePicker,
   MuiPickersUtilsProvider,
@@ -21,26 +21,19 @@ const defaultMaterialTheme = createMuiTheme({
   },
 });
 
-
-const WorkoutPlanBox = ({ plan }) => {
+const WorkoutBox = ({ workout, passedIndex }) => {
   const [pickerOpen, setPickerOpen] = useState(false);
   const schedule = useSelector(state => state.schedule);
   const dispatch = useDispatch();
   const history = useHistory();
 
   function addToSchedule (startDate) {
-    const newScheduleItems = [];
+    const newScheduleItem = {
+          day: moment(startDate).format('YYYY-MM-DD'),
+          workout: workout._id
+        }
 
-    for (let i = 0; i < plan.workoutList.length; i++) {
-      if (plan.workoutList[i]) {
-        newScheduleItems.push({
-          day: moment(startDate).add(i, 'days').format('YYYY-MM-DD'),
-          workout: plan.workoutList[i]
-        })
-      }
-    }
-
-    const newSchedule = { userId: schedule.userId, map: [...schedule.map, ...newScheduleItems] };
+    const newSchedule = { userId: schedule.userId, map: [...schedule.map, newScheduleItem] };
     ApiClient.updateSchedule(newSchedule).then((response) => {
       dispatch(setSchedule(response));
     });
@@ -54,37 +47,31 @@ const WorkoutPlanBox = ({ plan }) => {
   function closePicker () { setPickerOpen(false) };
   function openPicker () { setPickerOpen(true) };
 
-  function redirectToWorkoutPlan () {
-    const planPath = `/WorkoutPlan/${plan._id}`;
-    history.push(planPath);
+  function redirectToWorkout () {
+    const workoutPath = `/workout/${workout._id}`;
+    history.push(workoutPath);
   }
 
   return (
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <div className="single-workout-box">
+        <div className="single-workout-box" >
           <div className="description-and-middle-box">
-            <div className="description-box" onClick={redirectToWorkoutPlan}>
-              <h2>{plan.name}</h2>
-              <p>{plan.description}</p>
-
-              {/* <p>
-                <u>difficulty:</u> {'workout.difficulty'}
-              </p> */}
+            <div className="description-box" onClick={redirectToWorkout}>
+              <h2>{workout.name}</h2>
+              <p>{workout.description}</p>
             </div>
-
             <div className="option-buttons">
-              <button onClick={openPicker}>Add to schedule</button>
-              <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} onClose={closePicker} style={{ display: 'none' }}></DatePicker>
-
-              {plan.trainingDays ? (
+            <button onClick={openPicker}>Add to schedule</button>
+            <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} onClose={closePicker} style={{ display: 'none' }}></DatePicker>
+              {workout.trainingDays ? (
                 <Link
-                  to={{ pathname: '/WorkoutPlan', state: { workout: plan } }}
+                  to={{ pathname: '/WorkoutPlan', state: { workout: workout } }}
                 >
                   <button>View Workout Plan</button>
                 </Link>
               ) : (
-                  <Link to={{ pathname: '/CreateWorkoutPlan', state: { workout: plan } }}>
+                  <Link to={{ pathname: '/CreateWorkoutPlan', state: { workout: workout, passedIndex: passedIndex } }}>
                     <button>Add to Workoutplan</button>
                   </Link>
                 )}
@@ -93,7 +80,7 @@ const WorkoutPlanBox = ({ plan }) => {
 
           <div className="video-box">
             <iframe
-              src={`https://www.youtube.com/embed/${plan.youtubeId}`}
+              src={`https://www.youtube.com/embed/${workout.youtubeId}`}
               frameborder="0"
               allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
@@ -105,4 +92,4 @@ const WorkoutPlanBox = ({ plan }) => {
   );
 };
 
-export default WorkoutPlanBox;
+export default WorkoutBox;
