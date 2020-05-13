@@ -1,4 +1,6 @@
 const jwtDecode = require('jwt-decode');
+const jwt = require('jsonwebtoken');
+
 const { Profile } = require('../models/profile');
 
 function authHeaderErr (ctx, message) {
@@ -7,20 +9,10 @@ function authHeaderErr (ctx, message) {
 };
 
 const authorize = async (ctx, next) => {
-
-  if (!ctx.headers.authorization) authHeaderErr(ctx, 'Missing authentication token');
-
-  const token = ctx.headers.authorization;
-  let decodedToken;
-
-  try {
-    decodedToken = jwtDecode(token);
-  } catch (error) {
-    authHeaderErr(ctx, 'Invalid token provided');
-  }
+  const decodedToken = ctx.state.jwtdata;
 
   const profileObj = await Profile
-    .findOne({googleId: decodedToken.sub})
+    .findOne({googleId: decodedToken.googleId})
     .select('-token -__v -googleId'); // removes unneeded model details from response
   if (profileObj) {
     ctx.user = profileObj;

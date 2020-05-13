@@ -2,7 +2,7 @@ const Router = require('@koa/router');
 
 const { sendToGoogle, processGoogleCb } = require('../controllers/login');
 
-const router = new Router({ prefix: '/login' });
+const router = new Router();
 
 router
   .get('/google', sendToGoogle)
