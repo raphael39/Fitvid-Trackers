@@ -8,7 +8,13 @@ const router = require('./routes/router.js');
 
 const app = new Koa();
 
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true}, (error) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('connnected to db');
+  }
+} );
 
 
 app
