@@ -14,26 +14,28 @@ function SetCredentials () {
   const params = new URLSearchParams(search);
   const _id = params.get('_id');
   const token = params.get('token');
-  const decodedToken = jwtDecode(token);
 
-  const userObj = {
-    _id: _id,
-    googleId: decodedToken.sub,
-    firstName: decodedToken.given_name,
-    lastName: decodedToken.family_name,
-    email: decodedToken.email,
-    token: token
-  }
+  dispatch(setUser({ _id: _id, token: token }));
 
-  dispatch(setUser(userObj));
+  ApiClient.getProfile().then(data => {
+    const userObj = {
+      _id: _id,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      token: token
+    }
+
+    dispatch(setUser(userObj));
+  });
 
   const fetchSecheduleUrl = process.env.REACT_APP_SERVER_URL + '/schedule/';
 
   ApiClient.getSchedule()
-  .then(data => { dispatch(setSchedule(data)) });
+    .then(data => { dispatch(setSchedule(data)) });
 
-  return ( <Redirect to="/HomePage" /> );
+  return (<Redirect to="/HomePage" />);
 
-  }
+}
 
 export default SetCredentials;

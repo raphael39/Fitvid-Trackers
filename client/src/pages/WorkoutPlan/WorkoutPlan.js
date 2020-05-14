@@ -4,6 +4,8 @@ import WorkoutPlanDetail from '../../components/WorkoutPlan/WorkoutPlanDetail';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import ApiClient from '../../Services/ApiClient';
+import Navigation from './../../components/Navigation/navBar';
+
 
 
 function WorkoutPlan(props) {
@@ -21,9 +23,9 @@ function WorkoutPlan(props) {
 
   return (
     (!user) ? <Redirect to="/" /> :
-
     <div>
-      <h1>Workout Plan</h1>
+      <Navigation />
+      <h1>{ (plan) ? plan.name : 'Workout Plan' }</h1>
       { (plan) ? <WorkoutPlanDetail plan={plan}/> : null }
     </div>
   );
