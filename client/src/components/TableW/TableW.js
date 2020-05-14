@@ -117,6 +117,7 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
                         defaultValue={exercises[idx].name}
                         onChange={(event) => { handleChange(event, idx, "name") }}
                         variant="outlined"
+                        fullWidth
                       />
                     </td>
                     <td>
@@ -128,6 +129,7 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
                         defaultValue={exercises[idx].sets}
                         onChange={(event) => handleChange(event, idx, "sets")}
                         variant="outlined"
+                        fullWidth
                       />
                     </td>
                     <td>
@@ -139,6 +141,7 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
                         defaultValue={exercises[idx].reps}
                         onChange={(event) => handleChange(event, idx, "reps")}
                         variant="outlined"
+                        fullWidth
                       />
                     </td>
                     <td>
@@ -150,6 +153,7 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
                         defaultValue={exercises[idx].timestamp}
                         onChange={(event) => handleChange(event, idx, "timestamp")}
                         variant="outlined"
+                        fullWidth
                       />
                     </td>
                     {/* <td>

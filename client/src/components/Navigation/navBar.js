@@ -77,7 +77,7 @@ export default function NavBar() {
           <Grid item align="center" xs={2}>
             <Link className={classes.title} to='/CreateWorkoutPlan'>
               <Typography variant="h6" className={classes.title}>
-                Create WorkoutPlans
+                Create Workout Plans
                 </Typography>
             </Link>
           </Grid>
@@ -85,7 +85,7 @@ export default function NavBar() {
           <Grid item align="center" xs={2}>
             <Link className={classes.title} to='/listOfworkoutplans'>
               <Typography variant="h6" className={classes.title}>
-                Browse WorkoutPlans
+                Browse Workout Plans
                 </Typography>
             </Link>
           </Grid>
