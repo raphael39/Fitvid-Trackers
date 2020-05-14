@@ -162,7 +162,6 @@ function CreateWorkout() {
                   <TextField id='youtubeUrl' required={true} label="Required" style={{ width: '75%', marginRight: "5%" }} onChange={(event) => handlingYoutubeUrl(event)} />
                   <Button
                     variant="contained"
-                    color="primary"
                     className={classes.button}
                     // endIcon={<Icon>send</Icon>}
                     size="small"
@@ -177,7 +176,6 @@ function CreateWorkout() {
                 <Grid item xs={12} align="right">                
                   <Button
                     variant="contained"
-                    color="primary"
                     className={classes.button}
                     startIcon={<DeleteIcon />}
                     size="small"
@@ -210,7 +208,6 @@ function CreateWorkout() {
               <Grid item xs={12} align="right">
                 <Button
                   variant="contained"
-                  color="primary"
                   className={classes.button}
                   endIcon={<Icon>send</Icon>}
                   size="small"
@@ -239,10 +236,10 @@ const useStyles = makeStyles((theme) => ({
 
   },
   button: {
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: 'white',
     '&:hover': {
-      backgroundColor: 'rgb(80,80,80)',
-    }
-  }
+      backgroundColor: 'black',
+      color: 'white',
+    },
+  },
 }));

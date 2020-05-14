@@ -20,11 +20,11 @@ import FormGroup from '@material-ui/core/FormGroup';
 
 const useStyles = makeStyles((theme) => ({
   button: {
-    backgroundColor: "black",
-    color: "white",
+    backgroundColor: 'white',
     '&:hover': {
-      backgroundColor: 'rgb(80,80,80)',
-    }
+      backgroundColor: 'black',
+      color: 'white',
+    },
   },
 }));
 
@@ -207,7 +207,6 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
             {editable && <div>
               <Button
                 variant="contained"
-                color="primary"
                 className={classes.button}
                 startIcon={<AddIcon />}
                 size="small"
@@ -215,7 +214,6 @@ function TableW({ exercises, setExercises, editable, setTimeVideo, setClickTimes
               >Add Row</Button>
               <Button
                 variant="contained"
-                color="primary"
                 className={classes.button}
                 startIcon={<HighlightOffIcon />}
                 size="small"

@@ -5,8 +5,9 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import UIfx from 'uifx'
-import Bell from '../../Asset/Temple Bell-SoundBible.com-756181215.mp3'
+import UIfx from 'uifx';
+import Bell from '../../Asset/Temple Bell-SoundBible.com-756181215.mp3';
+
 
 
 const alarmSound = new UIfx(Bell);

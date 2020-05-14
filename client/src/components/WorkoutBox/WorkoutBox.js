@@ -94,7 +94,7 @@ const WorkoutBox = ({ workout, passedIndex }) => {
                 </Link>
               ) : (
                   <Link style={{ textDecoration: 'none'}} to={{ pathname: '/CreateWorkoutPlan', state: { workout: workout, passedIndex: passedIndex } }}>
-                    <Button className={classes.button}>Add to Workoutplan</Button>
+                    <Button className={classes.button}>Add to Workout Plan</Button>
                   </Link>
                 )}
             </div>
