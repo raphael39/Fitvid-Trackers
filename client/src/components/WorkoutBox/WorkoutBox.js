@@ -70,24 +70,31 @@ const WorkoutBox = ({ workout, passedIndex }) => {
   return (
     <ThemeProvider theme={defaultMaterialTheme}>
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <div className="single-workout-box" >
+        <div className="single-workout-box" style={{height: "220px"}}>
           <div className="description-and-middle-box">
             <div className="description-box" onClick={redirectToWorkout}>
               <h2>{workout.name}</h2>
               <p>{workout.description}</p>
+              {Object.values(workout.difficulties).includes(true) && <p > 
+              <u>difficulty:</u><span> </span>
+              {workout.difficulties.easy ? 'easy ' : null}
+              {workout.difficulties.medium ? 'medium ' : null}
+              {workout.difficulties.hard ? 'hard' : null}
+              </p>  }          
             </div>
             <div className="option-buttons">
             <Button className={classes.button} onClick={openPicker}>Add to schedule</Button>
             <DatePicker open={pickerOpen} id="datePicker" format='YYYY-MM-DD' onChange={changeDate} onClose={closePicker} style={{ display: 'none' }}></DatePicker>
               {workout.trainingDays ? (
-                <Link
+                <Link 
+                  style={{ textDecoration: 'none'}}
                   to={{ pathname: '/WorkoutPlan', state: { workout: workout } }}
                 >
                   <Button className={classes.button}>View Workout Plan</Button>
                 </Link>
               ) : (
                   <Link style={{ textDecoration: 'none'}} to={{ pathname: '/CreateWorkoutPlan', state: { workout: workout, passedIndex: passedIndex } }}>
-                    <Button className={classes.button}>Add to Workoutplan</Button>
+                    <Button className={classes.button}>Add to Workout Plan</Button>
                   </Link>
                 )}
             </div>

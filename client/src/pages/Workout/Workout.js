@@ -134,7 +134,7 @@ function Workout(props) {
               <Grid item align="right" xs={12}>
                 {
                   (user._id === createdBy) ?
-                    <Button className={classes.button} onClick={switchEditable}>{editable ? "Done" : "Edit"}</Button>
+                    <Button variant="contained" className={classes.button} onClick={switchEditable}>{editable ? "Done" : "Edit"}</Button>
                     : null
                 }
               </Grid>
@@ -153,10 +153,10 @@ const useStyles = makeStyles((theme) => ({
 
   },
   button: {
-
+    backgroundColor: 'white',
     '&:hover': {
       backgroundColor: 'black',
-      color: "white"
-    }
-  }
+      color: 'white',
+    },
+  },
 }));
