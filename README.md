@@ -3,7 +3,7 @@
 
 Web app that helps users organize personal workout plans based on YouTube videos. Users can import workout videos from YouTube, store them in the system with custom metadata, create workout plans out of them, share with other users, and schedule in their personal workout calendar.
 
-![Home page of the Fitvid Tracker app](docs/fitvid_home.PNG)
+![Home page of the Fitvid Tracker app](./docs/fitvid_home.png)
 
 ## Usage
 
