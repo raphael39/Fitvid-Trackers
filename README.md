@@ -1,122 +1,69 @@
-<!-- TABLE OF CONTENTS -->
-## Table of Contents
 
-- [Table of Contents](#table-of-contents)
-- [About The Project](#about-the-project)
-  - [Built With](#built-with)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
+# Fitvid Tracker
 
+Web app that helps users organize personal workout plans based on YouTube videos. Users can import workout videos from YouTube, store them in the system with custom metadata, create workout plans out of them, share with other users, and schedule in their personal workout calendar.
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+![Home page of the Fitvid Tracker app](docs/fitvid_home.PNG)
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+## Usage
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need.
+1. Users log in using their Google account and the app automatically creates their user account.
+2. The Home page welcomes the user, initially with no workouts scheduled.
+3. To get started, the user can click Create Workout from the navigation menu and define a new workout based on a YouTube video of their choice. Creation of the workout comes with the option to schedule the workout for a specific day of the week, repeated for a specified number of weeks.
+4. Users can also create workout plans, which are essentially sequences of days with workouts assigned to individual dates.
+5. Once a user has some workouts scheduled, they get displayed on the Home page on the specific date. It is also possible to display workouts scheduled for any other day using the Select another day control.
+6. After clicking the scheduled workout on the home page, a detail of the workout is displayed to the user and the user can start exercising. He can use the provided timer and stopwatch, and skip to specific exercises in the workout video by clicking the Timestamp in the list of exercises.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
+## Data Model
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue.
+The application's data model consists of the following object types:
 
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
+- **Workout** - individual workout session based on a single YouTube video, with a list of exercises timestamped to their position in the video
+- **Workout Plan** - a succession of days with workouts mapped to them; can be added to a user's schedule starting from an arbitrary date selected by the user
+- **Schedule** - mapping of workouts to calendar days, where multiple workouts can be mapped to a single day
+- **Profile** - user of the application, with user details obtained from the Google account used on login
 
-### Built With
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+![UML Diagram of the App's Data Model](docs/uml_docs.PNG)
+
+## Installation
+
+1. Register your app and obtain OAuth 2.0 client keys at [Google APIs](https://console.developers.google.com/).
+2. Subscribe you app to the YouTube v3 API and obtain an API key for the API.
+3. Clone the repository.
+4. Run `npm install` in both the *client* and the *server* directory.
+5. Specify the following environment variables directly in the server environment or in a *.env* file inside the *server* directory:
+
+  - `GOOGLE_CLIENT_ID` - client ID obtained from Google
+  - `GOOGLE_CLIENT_SECRET` - client secret key obtained from Google
+  - `GOOGLE_REDIRECT_URI` - callback URL specified in Google APIs (e.g. *http://localhost:3001/login/google-cb*)
+  - `CLIENT_URL` - URL of the client part of the application, including port number (e.g. *http://localhost:3000*)
+  - `SERVER_HOST` - host name on which the server is running (e.g. *localhost*)
+  - `SERVER_PORT` - port on which the server is running (e.g. *3001*)
+  - `MONGODB_URI` - connection URI for MongoDB (e.g. *mongodb://localhost:27017/devfitvid*)
+  - `SERVER_JWT_SECRET` - secure secret for JWT signing
+
+5. Specify the following environment variables directly in the client environment or in a *.env* file inside the *client* directory:
+
+- `REACT_APP_SERVER_URL` - URL of the server part of the application, including port number (e.g. *http://localhost:3000*)
+- `REACT_APP_GOOGLE_API_KEY` - API key for YouTube v3 API obtained from [Google APIs](https://console.developers.google.com/)
+
+6. Start up your database.
+7. Start up the server by running the `node src/index.js` command inside the *server* directory.
+7. Start up the client by running the `npm start` command inside the *client* directory.
+
+## Tech Stack
+The app has been developed using the following technologies:
 
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
 * [Node.js](https://nodejs.org/)
 * [Koa](https://koajs.com/)
+* [MongoDB](https://www.mongodb.com/)
+* [Mongoose](https://mongoosejs.com/)
 * [Material UI](https://material-ui.com/)
 
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-```sh
-npm install npm@latest -g
-```
-
-### Installation
-
-1. Register your app and obtain OAuth 2.0 client keys at [Google APIs](https://console.developers.google.com/).
-
-2. Subscribe you app to the YouTube v3 API and obtain an API key for the API.
-3. Clone the repo
-```sh
-git clone https://github.com/your_username_/Project-Name.git
-```
-3. Install NPM packages for both client and server, by running the following command separately in the *client* and the *server* directory
-```sh
-npm install
-```
-4. Specify the following environment variables either in the server environment, or in a *.env* file inside the *server* directory:
-
-  - GOOGLE_CLIENT_ID - client ID obtained from Google
-  - GOOGLE_CLIENT_SECRET - client secret key obtained from Google
-  - GOOGLE_REDIRECT_URI - callback URL specified in Google APIs (e.g. *http://localhost:3001/login/google-cb*)
-  - CLIENT_URL - URL of the client part of the application, including port number (e.g. *http://localhost:3000*)
-  - SERVER_HOST - host name on which the server is running (e.g. *localhost*)
-  - SERVER_PORT - port on which the server is running (e.g. *3001*)
-  - MONGODB_URI - connection URI for MongoDB (e.g. *mongodb://localhost:27017/devfitvid*)
-  - SERVER_JWT_SECRET - secure secret for JWT signing
-
-5. Specify the following environment variables either in the client environment, or in a *.env* file inside the *client* directory:
-
-- REACT_APP_SERVER_URL - URL of the server part of the application, including port number (e.g. *http://localhost:3000*)
-- REACT_APP_GOOGLE_API_KEY - API key for YouTube v3 API obtained from [Google APIs](https://console.developers.google.com/)
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-
-
-<!-- LICENSE -->
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
-
-<!-- CONTACT -->
-## Contact
-
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
+## Contributors
+- [Petr Penicka](https://github.com/ppenicka)
+- [Pier Andrea Delise](https://github.com/pierandread)
+- [Raphael Sutter](https://github.com/raphael39)
+- [Ishi Agozino](https://github.com/Slug-Man)
